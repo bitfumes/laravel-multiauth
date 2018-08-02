@@ -4,6 +4,8 @@
 -   **Author**: Bitfumes
 -   **Author Homepage**: http://bitfumes.com
 
+[![Build Status](https://travis-ci.org/s-sarthak/laravel-multiauth.svg?branch=master)](https://travis-ci.org/s-sarthak/laravel-multiauth)
+
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
 
 On top of that, you can use multiple authentication types, simultaneously, so you can be logged
