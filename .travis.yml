@@ -10,7 +10,7 @@ before_script:
   # CD into the new laravel app
   - cd test-app
   # Include Multiauth Package
-  - composer require bitfumes/laravel-multiauth dev-master
+  - composer require bitfumes/laravel-multiauth
 
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
   - rm phpunit.xml
