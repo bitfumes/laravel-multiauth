@@ -1,0 +1,29 @@
+{
+    "name": "bitfumes/multiauth",
+    "description": "Laravel Multiauth package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "s-sarthak",
+        "email": "sarthak@bitfumes.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Bitfumes\\Multiauth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bitfumes\\Multiauth\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bitfumes\\Multiauth\\MultiauthServiceProvider"
+            ]
+        }
+    }
+}
