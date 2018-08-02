@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+
+before_script:
+   # Create a New Laravel App
+  - composer create-project --prefer-dist laravel/laravel test-app
+  # CD into the new laravel app
+  - cd test-app
+  # Include Multiauth Package
+  - composer require bitfumes/laravel-multiauth dev-master
+
+  # Remove the default phpunit.xml and replace it with chatter phpunit.xml
+  - rm phpunit.xml
+  - cp vendor/bitfumes/laravel-multiauth/phpunit.xml phpunit.xml
+
+script:
+  - vendor/bin/phpunit
