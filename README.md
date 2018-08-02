@@ -5,6 +5,8 @@
 -   **Author Homepage**: http://bitfumes.com
 
 [![Build Status](https://travis-ci.org/s-sarthak/laravel-multiauth.svg?branch=master)](https://travis-ci.org/s-sarthak/laravel-multiauth)
+[![GitHub license](https://img.shields.io/github/license/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/blob/master/LICENSE.md)
+[![GitHub stars](https://img.shields.io/github/stars/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/stargazers)
 
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
 
