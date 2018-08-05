@@ -7,6 +7,9 @@
         "name": "s-sarthak",
         "email": "sarthak@bitfumes.com"
     }],
+    "config": {
+        "preferred-install": "source"
+    },
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
