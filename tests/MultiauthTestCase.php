@@ -17,7 +17,7 @@ abstract class MultiauthTestCase extends BaseTestCase
         $this->withoutExceptionHandling();
         $this->app->singleton(Factory::class, function ($app) {
             $faker = $app->make(Faker::class);
-            return Factory::construct($faker, __DIR__ . ('/../vendor/bitfumes/multiauth/src/database/factories'));
+            return Factory::construct($faker, __DIR__ . ('/../vendor/bitfumes/laravel-multiauth/src/database/factories'));
         });
     }
 
