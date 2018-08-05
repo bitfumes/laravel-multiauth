@@ -73,6 +73,9 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/views' => resource_path('views/bitfumes/multiauth'),
         ], 'multiauth:views');
+        $this->publishes([
+            __DIR__ . '/Database/factories' => database_path('factories'),
+        ], 'multiauth:factory');
     }
 
     protected function loadCommands()
