@@ -33,6 +33,10 @@ You can publish Views files to overrise with yours:
 php artisan vendor:publish --tag="multiauth:views"
 ```
 
+### Caveat
+Please remember that you need to run php artisan make:auth for having some routes like login or register for normal users, otherwise there may be some error that register route not found.
+There is no relation with admin side for make:auth, its just for removing error.
+
 ### License
 
 This package inherits the licensing of its parent framework, Laravel, and as such is open-sourced
