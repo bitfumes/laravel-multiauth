@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Model\Admin;
 use Tests\MultiauthTestCase;
+use App\User;
 
 class LoginTest extends MultiauthTestCase
 {
@@ -23,7 +23,7 @@ class LoginTest extends MultiauthTestCase
     */
     public function a_user_can_login_and_redirected_to_admin_home()
     {
-        $user = factory(Admin::class)->create();
+        $user = factory(User::class)->create();
         $this->post('/admin', ['email' => $user->email, 'password' => 'secret'])
         ->assertRedirect('/admin/home');
     }
