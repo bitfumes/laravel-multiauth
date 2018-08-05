@@ -10,6 +10,7 @@ before_script:
   - cd test-app
   # Include Multiauth Package
   - composer require bitfumes/laravel-multiauth
+  - php artisan make:auth
 
   # Remove the default phpunit.xml and replace it with chatter phpunit.xml
   - rm phpunit.xml
