@@ -3,9 +3,9 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Database\Eloquent\Factory;
 use Faker\Generator as Faker;
+use App\User;
 
 abstract class MultiauthTestCase extends BaseTestCase
 {
@@ -23,7 +23,7 @@ abstract class MultiauthTestCase extends BaseTestCase
 
     public function logInAdmin($args = [])
     {
-        $admin = factory(Admin::class)->create($args);
+        $admin = factory(User::class)->create($args);
         $this->actingAs($admin, 'admin');
     }
 }
