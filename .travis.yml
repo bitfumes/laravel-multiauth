@@ -12,11 +12,12 @@ before_script:
   - composer require bitfumes/laravel-multiauth
   - php artisan make:auth
 
-  # Remove the default phpunit.xml and replace it with chatter phpunit.xml
+  # Remove the default phpunit.xml and replace it with ultiauth phpunit.xml
   - rm phpunit.xml
   - rm -R tests
   - cp vendor/bitfumes/laravel-multiauth/phpunit.xml phpunit.xml
   - cp -R vendor/bitfumes/laravel-multiauth/tests tests
 
 script:
+  - composer dump-autoload
   - vendor/bin/phpunit
