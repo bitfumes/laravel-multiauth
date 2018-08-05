@@ -15,7 +15,7 @@ before_script:
   # Remove the default phpunit.xml and replace it with ultiauth phpunit.xml
   - rm phpunit.xml
   - rm -R tests
-  - cp vendor/bitfumes/laravel-multiauth/phpunit.xml phpunit.xml
+  - cp vendor/bitfumes/laravel-multiauth/testUnit.xml phpunit.xml
   - cp -R vendor/bitfumes/laravel-multiauth/tests tests
 
 script:

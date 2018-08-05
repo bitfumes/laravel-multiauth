@@ -14,11 +14,6 @@
             "Bitfumes\\Multiauth\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Bitfumes\\Multiauth\\Tests\\": "tests/"
-        }
-    },
     "extra": {
         "laravel": {
             "providers": [

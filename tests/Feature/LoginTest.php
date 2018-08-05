@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Model\Admin;
-use Tests\TestCase;
+use Bitfumes\Multiauth\Tests\MultiauthTestCase;
 
-class LoginTest extends TestCase
+class LoginTest extends MultiauthTestCase
 {
     use DatabaseMigrations;
 

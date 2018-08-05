@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
+use Bitfumes\Multiauth\Tests\MultiauthTestCase;
 
-class RegisterTest extends TestCase
+class RegisterTest extends MultiauthTestCase
 {
     use DatabaseMigrations;
 
