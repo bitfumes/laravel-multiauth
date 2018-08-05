@@ -3,9 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Database\Eloquent\Factory;
-use Faker\Generator as Faker;
-use App\User;
+use Bitfumes\Multiauth\Model\Admin as AdminModel;
 
 abstract class MultiauthTestCase extends BaseTestCase
 {
@@ -15,15 +13,30 @@ abstract class MultiauthTestCase extends BaseTestCase
     {
         parent::setUp();
         $this->withoutExceptionHandling();
-        $this->app->singleton(Factory::class, function ($app) {
-            $faker = $app->make(Faker::class);
-            return Factory::construct($faker, __DIR__ . ('/../vendor/bitfumes/laravel-multiauth/src/database/factories'));
-        });
     }
 
     public function logInAdmin($args = [])
     {
-        $admin = factory(User::class)->create($args);
+        $admin = $this->createAdmin();
         $this->actingAs($admin, 'admin');
+    }
+
+    public function createAdmin()
+    {
+        (new Admin)->create();
+        return AdminModel::first();
+    }
+}
+
+class Admin extends AdminModel
+{
+    public function create($args = [])
+    {
+        $this->name = 'Sarthak';
+        $this->email = 'sarthak@bitfumes.com';
+        $this->password = bcrypt('secret');
+        $this->remember_token = 'asdfasdfasd';
+        $this->save();
+        return $this;
     }
 }

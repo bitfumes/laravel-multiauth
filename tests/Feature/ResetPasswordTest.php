@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 use Illuminate\Support\Facades\DB;
 use Tests\MultiauthTestCase;
-use App\User;
+use Bitfumes\Multiauth\Model\Admin;
 
 class ResetPasswordTest extends MultiauthTestCase
 {
@@ -27,7 +27,7 @@ class ResetPasswordTest extends MultiauthTestCase
     public function a_password_reset_link_email_can_be_sent()
     {
         Notification::fake();
-        $admin = factory(User::class)->create();
+        $admin = $this->createAdmin();
         $this->post('admin-password/email', ['email' => $admin->email]);
         Notification::assertSentTo([$admin], AdminResetPasswordNotification::class);
     }
