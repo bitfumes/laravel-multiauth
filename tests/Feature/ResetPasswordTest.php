@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 use Illuminate\Support\Facades\DB;
-use Bitfumes\Multiauth\Tests\MultiauthTestCase;
+use Tests\MultiauthTestCase;
 
 class ResetPasswordTest extends MultiauthTestCase
 {
