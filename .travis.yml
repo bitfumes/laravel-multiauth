@@ -15,7 +15,7 @@ before_script:
   - rm phpunit.xml
   - rm -R tests
   - cp vendor/bitfumes/laravel-multiauth/phpunit.xml phpunit.xml
-  - cp vendor/bitfumes/laravel-multiauth/tests tests
+  - cp -R vendor/bitfumes/laravel-multiauth/tests tests
 
 script:
   - vendor/bin/phpunit
