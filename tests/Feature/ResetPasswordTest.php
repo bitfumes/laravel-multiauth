@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Tests\MultiauthTestCase;
 use Illuminate\Support\Facades\Notification;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
-class ResetPasswordTest extends MultiauthTestCase
+class ResetPasswordTest extends TestCase
 {
     use DatabaseMigrations;
 

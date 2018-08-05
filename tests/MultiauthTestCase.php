@@ -16,9 +16,9 @@ abstract class MultiauthTestCase extends BaseTestCase
         $this->withoutExceptionHandling();
     }
 
-    // public function logInAdmin($args = [])
-    // {
-    //     $admin = factory(Admin::class)->create($args);
-    //     $this->actingAs($admin, 'admin');
-    // }
+    public function logInAdmin($args = [])
+    {
+        $admin = factory(Admin::class)->create($args);
+        $this->actingAs($admin, 'admin');
+    }
 }
