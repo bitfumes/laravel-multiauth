@@ -1,6 +1,4 @@
-image: php:latest
-php:
-  - 7.1
+
 
 before_script:
    # Create a New Laravel App
