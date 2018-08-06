@@ -1,6 +1,13 @@
 
 
 before_script:
+  # Update packages 
+  - apt-get update -yqq
+
+  # Install Composer and project dependencies.
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install 
+  
    # Create a New Laravel App
   - composer create-project --prefer-dist laravel/laravel test-app
   # CD into the new laravel app
