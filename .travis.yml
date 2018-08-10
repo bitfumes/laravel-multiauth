@@ -4,6 +4,7 @@ php:
   - 7.1
 
 before_script:
+  - composer clear-cache
   - composer install
 
 script:
