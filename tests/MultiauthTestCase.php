@@ -1,14 +1,12 @@
 <?php
 
-namespace Tests;
+namespace Bitfumes\Multiauth\Tests;
 
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\TestCase;
 
-abstract class MultiauthTestCase extends BaseTestCase
+class MultiauthTestCase extends TestCase
 {
-    use CreatesApplication;
-
     public function setup()
     {
         parent::setUp();

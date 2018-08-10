@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Bitfumes\Multiauth\Model\Admin;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\MultiauthTestCase;
+use Bitfumes\Multiauth\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class LoginTest extends MultiauthTestCase
+class LoginTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test

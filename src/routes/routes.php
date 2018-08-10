@@ -1,10 +1,13 @@
 <?php
 
 Route::group([
-    'namespace'  => 'Bitfumes\Multiauth\Http\Controllers',
+    'namespace' => 'Bitfumes\Multiauth\Http\Controllers',
     'middleware' => 'web',
 ], function () {
     Route::GET('admin/home', 'AdminController@index');
+    Route::GET('/login', function () {
+        return 'for test only';
+    })->name('login');
 
     Route::GET('/admin', 'LoginController@showLoginForm')->name('admin.login');
     Route::POST('admin', 'LoginController@login');

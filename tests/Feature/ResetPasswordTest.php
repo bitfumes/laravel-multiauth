@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Tests\MultiauthTestCase;
+use Bitfumes\Multiauth\Tests\TestCase;
 
-class ResetPasswordTest extends MultiauthTestCase
+class ResetPasswordTest extends TestCase
 {
     use DatabaseMigrations;
 

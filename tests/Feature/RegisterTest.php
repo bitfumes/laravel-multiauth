@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\MultiauthTestCase;
+use Bitfumes\Multiauth\Tests\TestCase;
 
-class RegisterTest extends MultiauthTestCase
+class RegisterTest extends TestCase
 {
     use DatabaseMigrations;
 

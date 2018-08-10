@@ -4,19 +4,7 @@ php:
   - 7.1
 
 before_script:
-   # Create a New Laravel App
-  - composer create-project --prefer-dist laravel/laravel test-app
-  # CD into the new laravel app
-  - cd test-app
-  # Include Multiauth Package
-  - composer require bitfumes/laravel-multiauth
-  - php artisan make:auth
-
-  # Remove the default phpunit.xml and replace it with ultiauth phpunit.xml
-  - rm phpunit.xml
-  - rm -R tests
-  - cp vendor/bitfumes/laravel-multiauth/testUnit.xml phpunit.xml
-  - cp -R vendor/bitfumes/laravel-multiauth/tests tests
+  - composer install
 
 script:
   - vendor/bin/phpunit

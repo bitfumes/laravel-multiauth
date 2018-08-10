@@ -2,7 +2,7 @@
 
 namespace Bitfumes\Multiauth\Exception;
 
-use App\Exceptions\Handler as AppHandler;
+use Illuminate\Foundation\Exceptions\Handler as AppHandler;
 use Illuminate\Auth\AuthenticationException;
 
 class MultiAuthHandler extends AppHandler
@@ -17,11 +17,11 @@ class MultiAuthHandler extends AppHandler
 
         switch ($guard) {
             case 'admin':
-                return redirect()->guest(route('admin.login'));
+                return redirect()->guest('/admin');
                 break;
 
             default:
-                return redirect()->guest(route('login'));
+                return redirect()->guest('/login');
                 break;
         }
     }

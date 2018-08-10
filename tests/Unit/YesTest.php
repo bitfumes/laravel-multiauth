@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Tests\TestCase;
+use Bitfumes\Multiauth\Tests\TestCase;
 
 class YesTest extends TestCase
 {
