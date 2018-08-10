@@ -2,7 +2,6 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Illuminate\Database\Capsule\Manager as DB;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -33,18 +32,6 @@ class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [MultiauthServiceProvider::class];
-    }
-
-    public function loadMigration()
-    {
-        DB::schema()->create('admins', function () {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
     }
 
     public function logInAdmin($args = [])
