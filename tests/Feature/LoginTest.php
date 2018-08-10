@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends TestCase
 {
-    // use DatabaseMigrations;
+    use DatabaseMigrations;
 
     /**
      * @test
