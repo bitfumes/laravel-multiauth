@@ -21,8 +21,8 @@ class TestCase extends BaseTestCase
         $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
+            'driver' => 'mysql',
+            'database' => 'testing:',
             'prefix' => '',
         ]);
     }
