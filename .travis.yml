@@ -2,15 +2,6 @@ language: php
 
 php:
   - 7.1
-services:
-  - mysql
-
-cache:
-  directories:
-    - $HOME/.composer/cache
-
-before_install:
-  - mysql -e 'CREATE DATABASE testing;'
 
 before_script:
   - composer install

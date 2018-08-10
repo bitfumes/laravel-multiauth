@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class RegisterTest extends TestCase
 {
-    // use DatabaseMigrations;
+    use DatabaseMigrations;
 
     /**
      * @test
