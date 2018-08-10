@@ -11,7 +11,7 @@ use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class ResetPasswordTest extends TestCase
 {
-    // use DatabaseMigrations;
+    use DatabaseMigrations;
 
     /**
      * @test

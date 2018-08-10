@@ -17,7 +17,7 @@ class TestCase extends BaseTestCase
         parent::setUp();
         $this->withoutExceptionHandling();
         $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->withFactories(__DIR__.'/../src/Database/factories');
+        $this->withFactories(__DIR__ . '/../src/Database/factories');
 
         // $this->loadMigration();
     }
