@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends BaseTestCase
 {
-    // use DatabaseMigrations;
+    use DatabaseMigrations;
 
     public function setup()
     {
