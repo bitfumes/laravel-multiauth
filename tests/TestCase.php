@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
+use Carbon\Carbon;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends BaseTestCase
