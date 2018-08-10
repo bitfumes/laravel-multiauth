@@ -10,14 +10,14 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends BaseTestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
 
     public function setup()
     {
         parent::setUp();
         $this->withoutExceptionHandling();
         $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->withFactories(__DIR__.'/../src/Database/factories');
+        $this->withFactories(__DIR__ . '/../src/Database/factories');
 
         // $this->loadMigration();
     }
