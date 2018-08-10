@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Illuminate\Foundation\Testing\TestCase;
+use Bitfumes\Multiauth\Model\Admin as AdminModel;
 
 class MultiauthTestCase extends TestCase
 {

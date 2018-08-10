@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {

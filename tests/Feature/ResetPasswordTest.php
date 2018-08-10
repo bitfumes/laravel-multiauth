@@ -2,12 +2,12 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class ResetPasswordTest extends TestCase
 {
