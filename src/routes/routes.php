@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'namespace' => 'Bitfumes\Multiauth\Http\Controllers',
+    'namespace'  => 'Bitfumes\Multiauth\Http\Controllers',
     'middleware' => 'web',
 ], function () {
     Route::GET('admin/home', 'AdminController@index');

@@ -10,8 +10,8 @@ class RegisterTest extends MultiauthTestCase
     use DatabaseMigrations;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_create_new_admin()
     {
         $this->logInAdmin();
