@@ -5,12 +5,14 @@ php:
 services:
   - mysql
 
-  
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_install:
   - mysql -e 'CREATE DATABASE testing;'
 
 before_script:
-  - composer clear-cache
   - composer install
 
 script:
