@@ -2,21 +2,21 @@
 
 namespace Bitfumes\Multiauth;
 
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Console\Commands\Authname;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
-use Illuminate\Database\Eloquent\Factory;
-use Illuminate\Support\ServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'bitfumes');
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
+        $this->loadViewsFrom(__DIR__.'/views', 'bitfumes');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
         $this->publisheThings();
-        $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');
+        $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
         $this->loadCommands();
     }
 
@@ -29,7 +29,7 @@ class MultiauthServiceProvider extends ServiceProvider
 
     protected function loadFactories()
     {
-        $factoryPath = __DIR__ . '/database/factories/';
+        $factoryPath = __DIR__.'/database/factories/';
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
@@ -69,13 +69,13 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function publisheThings()
     {
         $this->publishes([
-            __DIR__ . '/Database/migrations/' => database_path('migrations'),
+            __DIR__.'/Database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
-            __DIR__ . '/views' => resource_path('views/bitfumes/multiauth'),
+            __DIR__.'/views' => resource_path('views/bitfumes/multiauth'),
         ], 'multiauth:views');
         $this->publishes([
-            __DIR__ . '/Database/factories' => database_path('factories'),
+            __DIR__.'/Database/factories' => database_path('factories'),
         ], 'multiauth:factory');
     }
 

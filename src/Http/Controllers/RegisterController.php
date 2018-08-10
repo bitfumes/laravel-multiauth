@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {

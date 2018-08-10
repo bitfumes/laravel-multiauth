@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class RegisterTest extends TestCase
 {
