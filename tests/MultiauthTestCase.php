@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class MultiauthTestCase extends BaseTestCase
 {
@@ -23,7 +23,8 @@ abstract class MultiauthTestCase extends BaseTestCase
 
     public function createAdmin()
     {
-        (new Admin)->create();
+        (new Admin())->create();
+
         return AdminModel::first();
     }
 }
@@ -37,6 +38,7 @@ class Admin extends AdminModel
         $this->password = bcrypt('secret');
         $this->remember_token = 'asdfasdfasd';
         $this->save();
+
         return $this;
     }
 }

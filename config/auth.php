@@ -4,7 +4,7 @@
 return [
     'guards' => [
         'admin' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'admins',
         ],
     ],
@@ -12,15 +12,15 @@ return [
     'providers' => [
         'admins' => [
             'driver' => 'eloquent',
-            'model' => Bitfumes\Multiauth\Model\Admin::class,
+            'model'  => Bitfumes\Multiauth\Model\Admin::class,
         ],
     ],
 
     'passwords' => [
         'admins' => [
             'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
         ],
     ],
 ];

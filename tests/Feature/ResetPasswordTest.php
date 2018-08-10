@@ -2,28 +2,28 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Notification;
-use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
-use Illuminate\Support\Facades\DB;
-use Tests\MultiauthTestCase;
 use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Tests\MultiauthTestCase;
 
 class ResetPasswordTest extends MultiauthTestCase
 {
     use DatabaseMigrations;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_admin_can_see_forgot_password_form()
     {
         $this->get('admin-password/reset')->assertStatus(200);
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_password_reset_link_email_can_be_sent()
     {
         Notification::fake();
@@ -33,14 +33,14 @@ class ResetPasswordTest extends MultiauthTestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function an_admin_can_see_reset_password_form()
     {
         $this->get('admin-password/reset/anytoken')->assertStatus(200);
     }
 
-    /**
+    /*
     * @test
     */
     // public function an_admin_can_enter_email_to_change_his_password()

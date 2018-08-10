@@ -38,7 +38,7 @@ class Authname extends Command
      */
     public function handle()
     {
-        $guardName = __DIR__ . '/../../../config/guardName.php';
+        $guardName = __DIR__.'/../../../config/guardName.php';
         // File::append($guardName, ['guards' => 'name']);
         dd(require $guardName);
     }
