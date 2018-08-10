@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
     /**
      * @test
