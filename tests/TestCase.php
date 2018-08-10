@@ -6,11 +6,11 @@ use Carbon\Carbon;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TestCase extends BaseTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function setup()
     {

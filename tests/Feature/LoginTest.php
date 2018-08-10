@@ -4,11 +4,11 @@ namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test
