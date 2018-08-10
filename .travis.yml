@@ -2,6 +2,11 @@ language: php
 
 php:
   - 7.1
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE testing;'
 
 before_script:
   - composer clear-cache
