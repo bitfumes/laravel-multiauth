@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
-use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Illuminate\Database\Capsule\Manager as DB;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
+use Bitfumes\Multiauth\Model\Admin as AdminModel;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Exception;
 
-use Illuminate\Foundation\Exceptions\Handler as AppHandler;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as AppHandler;
 
 class MultiAuthHandler extends AppHandler
 {
