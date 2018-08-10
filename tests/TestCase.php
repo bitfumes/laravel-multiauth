@@ -41,6 +41,22 @@ class TestCase extends BaseTestCase
 
     public function createAdmin()
     {
-        return factory(AdminModel::class)->create();
+        (new Admin())->create();
+
+        return AdminModel::first();
+    }
+}
+
+class Admin extends AdminModel
+{
+    public function create($args = [])
+    {
+        $this->name = 'Sarthak';
+        $this->email = 'sarthak@bitfumes.com';
+        $this->password = bcrypt('secret');
+        $this->remember_token = 'asdfasdfasd';
+        $this->save();
+
+        return $this;
     }
 }
