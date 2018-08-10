@@ -2,16 +2,12 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Carbon\Carbon;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Bitfumes\Multiauth\Model\Admin as AdminModel;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends BaseTestCase
 {
-    use DatabaseMigrations;
-
     public function setup()
     {
         parent::setUp();
@@ -45,21 +41,5 @@ class TestCase extends BaseTestCase
     public function createAdmin()
     {
         return factory(AdminModel::class)->create();
-    }
-
-    /** @test */
-    public function it_runs_the_migrations()
-    {
-        $now = Carbon::now();
-        \DB::table('admins')->insert([
-            'name' => 'Orchestra',
-            'email' => 'hello@orchestraplatform.com',
-            'password' => \Hash::make('456'),
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-        $users = \DB::table('admins')->where('id', '=', 1)->first();
-        $this->assertEquals('hello@orchestraplatform.com', $users->email);
-        $this->assertTrue(\Hash::check('456', $users->password));
     }
 }
