@@ -26,4 +26,16 @@ Route::group([
 
     // Admin Lists
     Route::get('/admin/show-all', 'AdminController@show');
+
+    // Admin Roles
+    Route::post('/admin/{admin}/role/{role}', 'AdminRoleController@attach');
+    Route::delete('/admin/{admin}/role/{role}', 'AdminRoleController@detach');
+
+    // Roles
+    Route::get('/admin/role/index', 'RoleController@index');
+    Route::get('/admin/role/create', 'RoleController@create');
+    Route::post('/admin/role/store', 'RoleController@store');
+    Route::delete('/admin/role/{role}', 'RoleController@destroy');
+    Route::get('/admin/role/{role}/edit', 'RoleController@edit');
+    Route::patch('/admin/role/{role}', 'RoleController@update');
 });

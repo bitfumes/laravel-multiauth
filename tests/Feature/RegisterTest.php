@@ -15,18 +15,18 @@ class RegisterTest extends TestCase
      */
     public function a_super_admin_can_see_admin_register_page()
     {
-        $this->logInAdmin();
+        $this->loginSuperAdmin();
         $this->get('/admin/register')->assertStatus(200)->assertSee('Register New Admin');
     }
 
     /**
     * @test
     */
-    // public function a_non_super_admin_can_not_see_admin_register_page()
-    // {
-    //     $this->logInAdmin();
-    //     $this->get('/admin/register')->assertStatus(302)->assertRedirect('/admin/home');
-    // }
+    public function a_non_super_admin_can_not_see_admin_register_page()
+    {
+        $this->logInAdmin();
+        $this->get('/admin/register')->assertStatus(302)->assertRedirect('/admin/home');
+    }
 
     /**
     * @test
@@ -41,7 +41,22 @@ class RegisterTest extends TestCase
             'password' => 'secret',
             'password_confirmation' => 'secret'
         ]);
-        $response->assertStatus(302)->assertRedirect('/admin/register');
+        $response->assertStatus(302)->assertRedirect('/admin/home');
+    }
+
+    /**
+    * @test
+    */
+    public function a_non_super_admin_can_not_create_new_admin()
+    {
+        $this->logInAdmin();
+        $response = $this->post('/admin/register', [
+            'name' => 'sarthak',
+            'email' => 'sarthak@gmail.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+        $response->assertStatus(302)->assertRedirect('/admin/home');
     }
 
     /**

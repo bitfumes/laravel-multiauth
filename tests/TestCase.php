@@ -5,6 +5,7 @@ namespace Bitfumes\Multiauth\Tests;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Bitfumes\Multiauth\Model\Admin;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Bitfumes\Multiauth\Model\Role;
 
 class TestCase extends BaseTestCase
 {
@@ -35,62 +36,23 @@ class TestCase extends BaseTestCase
 
     public function logInAdmin($args = [])
     {
-        $admin = $this->createAdmin();
+        $admin = $this->createAdmin($args);
         $this->actingAs($admin, 'admin');
         return $admin;
     }
 
-    public function createAdmin()
+    public function createAdmin($args = [])
     {
-        return factory(Admin::class)->create();
-        // return AdminFactory::create();
+        return factory(Admin::class)->create($args);
     }
 
-    public function makeAdmin()
+    public function loginSuperAdmin($args = [])
     {
-        return AdminFactory::make();
-    }
-}
+        $super = factory(Admin::class)->create($args);
+        $role = factory(Role::class)->create();
+        $super->roles()->attach($role);
+        $this->actingAs($super, 'admin');
 
-class AdminFactory
-{
-    public static function make()
-    {
-        $faker = \Faker\Factory::create();
-        return [
-            'name' => $faker->name,
-            'email' => $faker->unique()->safeEmail,
-            'password' => bcrypt('secret'),
-            'remember_token' => str_random(10)
-        ];
-    }
-
-    public static function create()
-    {
-        return Admin::create(self::make());
-    }
-}
-
-class RoleFactory
-{
-    public function makeSuper()
-    {
-        $faker = \Faker\Factory::create();
-        return [
-            'name' => 'super'
-        ];
-    }
-
-    public function makeEditor()
-    {
-        $faker = \Faker\Factory::create();
-        return [
-            'name' => 'super'
-        ];
-    }
-
-    public function create(Type $var = null)
-    {
-        // code...
+        return $super;
     }
 }

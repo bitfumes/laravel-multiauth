@@ -10,9 +10,9 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_admins');
+        return $this->belongsToMany(Role::class);
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Console\Commands\Authname;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,7 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadMiddleware()
     {
         app('router')->aliasMiddleware('admin', redirectIfUnauthenticatedAdmin::class);
+        app('router')->aliasMiddleware('super', redirectIfNotSuperAdmin::class);
     }
 
     protected function registerExceptionHandler()
