@@ -30,7 +30,9 @@ class RoleTest extends TestCase
     public function a_super_admin_can_only_store_new_role()
     {
         $role = ['name' => 'editor'];
-        $this->post('/admin/role/store', $role)->assertStatus(302);
+        $this->post('/admin/role/store', $role)
+            ->assertStatus(302)
+            ->assertSessionHas('message');
         $this->assertDatabaseHas('roles', $role);
     }
 
@@ -40,7 +42,8 @@ class RoleTest extends TestCase
     public function a_super_admin_can_only_see_edit_page_for_role()
     {
         $role = factory(Role::class)->create(['name' => 'editr']);
-        $this->get("/admin/role/{$role->id}/edit")->assertStatus(200);
+        $this->get("/admin/role/{$role->id}/edit")
+            ->assertStatus(200);
     }
 
     /**
@@ -50,7 +53,9 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create(['name' => 'editr']);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
-        $this->patch("admin/role/{$role->id}", ['name' => 'editor'])->assertStatus(302);
+        $this->patch("admin/role/{$role->id}", ['name' => 'editor'])
+            ->assertStatus(302)
+            ->assertSessionHas('message');
         $this->assertDatabaseHas('roles', ['name' => 'editor']);
     }
 
