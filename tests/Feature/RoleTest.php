@@ -39,7 +39,8 @@ class RoleTest extends TestCase
     */
     public function a_super_admin_can_only_see_edit_page_for_role()
     {
-        $this->get('/admin/role/edit')->assertStatus(200);
+        $role = factory(Role::class)->create(['name' => 'editr']);
+        $this->get("/admin/role/{$role->id}/edit")->assertStatus(200);
     }
 
     /**
