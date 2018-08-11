@@ -3,9 +3,9 @@
 namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Bitfumes\Multiauth\Model\Admin;
 
 class RegisterController extends Controller
 {
@@ -83,6 +83,7 @@ class RegisterController extends Controller
         }
 
         $admin->save();
+
         return $admin;
     }
 

@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Bitfumes\Multiauth\MultiauthServiceProvider;
-use Bitfumes\Multiauth\Model\Admin;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Bitfumes\Multiauth\Model\Role;
+use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\MultiauthServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
@@ -38,6 +38,7 @@ class TestCase extends BaseTestCase
     {
         $admin = $this->createAdmin($args);
         $this->actingAs($admin, 'admin');
+
         return $admin;
     }
 

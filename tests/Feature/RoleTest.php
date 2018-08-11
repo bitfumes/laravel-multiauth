@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
+use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Model\Role;
 
 class RoleTest extends TestCase
 {
@@ -17,16 +17,16 @@ class RoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_user_can_see_create_role_page()
     {
         $this->get('/admin/role/create')->assertStatus(200);
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_store_new_role()
     {
         $role = ['name' => 'editor'];
@@ -35,8 +35,8 @@ class RoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_see_edit_page_for_role()
     {
         $role = factory(Role::class)->create(['name' => 'editr']);
@@ -44,8 +44,8 @@ class RoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_update_a_role()
     {
         $role = factory(Role::class)->create(['name' => 'editr']);
@@ -55,8 +55,8 @@ class RoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_delete_a_role()
     {
         $role = factory(Role::class)->create(['name' => 'editor']);

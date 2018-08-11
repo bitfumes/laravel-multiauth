@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class AdminTest extends TestCase
 {
     /**
-    * @test
-    */
+     * @test
+     */
     public function an_admin_can_have_many_role()
     {
         $admin = $this->createAdmin();
