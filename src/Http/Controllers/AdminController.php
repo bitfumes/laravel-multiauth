@@ -25,6 +25,7 @@ class AdminController extends Controller
     public function show()
     {
         $admins = Admin::all();
+
         return view('multiauth::admin.show', compact('admins'));
     }
 }

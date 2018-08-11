@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Model\Admin;
 
 class RegisterTest extends TestCase
 {
@@ -20,8 +20,8 @@ class RegisterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_non_super_admin_can_not_see_admin_register_page()
     {
         $this->logInAdmin();
@@ -29,8 +29,8 @@ class RegisterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_only_create_new_admin()
     {
         $this->logInAdmin();
@@ -39,14 +39,14 @@ class RegisterTest extends TestCase
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
         ]);
         $response->assertStatus(302)->assertRedirect('/admin/home');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_non_super_admin_can_not_create_new_admin()
     {
         $this->logInAdmin();
@@ -54,14 +54,14 @@ class RegisterTest extends TestCase
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
         ]);
         $response->assertStatus(302)->assertRedirect('/admin/home');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_see_all_other_admins()
     {
         $this->logInAdmin();

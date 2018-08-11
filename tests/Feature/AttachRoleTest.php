@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
+use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Model\Role;
 
 class AttachRoleTest extends TestCase
 {
@@ -20,8 +20,8 @@ class AttachRoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_attach_roles_to_admin()
     {
         $admin = $this->createAdmin();
@@ -31,8 +31,8 @@ class AttachRoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_non_super_admin_can_not_attach__roles_to_admin()
     {
         $this->logInAdmin();
@@ -43,8 +43,8 @@ class AttachRoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_user_can_detach_role_for_an_admin()
     {
         $admin = $this->createAdmin();

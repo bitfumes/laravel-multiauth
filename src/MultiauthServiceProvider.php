@@ -6,8 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Console\Commands\Authname;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {

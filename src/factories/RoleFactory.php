@@ -18,6 +18,6 @@ $factory->define(Role::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => 'super'
+        'name' => 'super',
     ];
 });
