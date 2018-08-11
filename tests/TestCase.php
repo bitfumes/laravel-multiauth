@@ -14,7 +14,7 @@ class TestCase extends BaseTestCase
         $this->withoutExceptionHandling();
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations(['--database' => 'testing']);
-        $this->withFactories(__DIR__.'/../src/database/factories');
+        $this->withFactories(__DIR__.'/factories');
     }
 
     protected function getEnvironmentSetUp($app)
@@ -42,7 +42,8 @@ class TestCase extends BaseTestCase
 
     public function createAdmin()
     {
-        return AdminFactory::create();
+        return factory(Admin::class)->create();
+        // return AdminFactory::create();
     }
 
     public function makeAdmin()
@@ -67,5 +68,29 @@ class AdminFactory
     public static function create()
     {
         return Admin::create(self::make());
+    }
+}
+
+class RoleFactory
+{
+    public function makeSuper()
+    {
+        $faker = \Faker\Factory::create();
+        return [
+            'name' => 'super'
+        ];
+    }
+
+    public function makeEditor()
+    {
+        $faker = \Faker\Factory::create();
+        return [
+            'name' => 'super'
+        ];
+    }
+
+    public function create(Type $var = null)
+    {
+        // code...
     }
 }

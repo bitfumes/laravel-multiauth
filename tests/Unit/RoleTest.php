@@ -1,14 +1,14 @@
 <?php
 
-namespace Bitfumes\Multiauth\Tests\Feature;
+namespace Bitfumes\Multiauth\Tests\Unit;
 
 use Bitfumes\Multiauth\Tests\TestCase;
 
-class RegistrationTest extends TestCase
+class RoleTest extends TestCase
 {
     /**
-     * @test
-     */
+    * @test
+    */
     public function name()
     {
         $this->assertTrue(true);

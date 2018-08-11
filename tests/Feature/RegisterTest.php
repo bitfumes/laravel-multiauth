@@ -13,11 +13,20 @@ class RegisterTest extends TestCase
     /**
      * @test
      */
-    public function a_super_admin_can_see_admin_page()
+    public function a_super_admin_can_see_admin_register_page()
     {
         $this->logInAdmin();
         $this->get('/admin/register')->assertStatus(200)->assertSee('Register New Admin');
     }
+
+    /**
+    * @test
+    */
+    // public function a_non_super_admin_can_not_see_admin_register_page()
+    // {
+    //     $this->logInAdmin();
+    //     $this->get('/admin/register')->assertStatus(302)->assertRedirect('/admin/home');
+    // }
 
     /**
     * @test
