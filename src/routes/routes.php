@@ -9,12 +9,21 @@ Route::group([
         return 'for test only';
     })->name('login');
 
+    // Login and Logout
     Route::GET('/admin', 'LoginController@showLoginForm')->name('admin.login');
     Route::POST('admin', 'LoginController@login');
     Route::POST('admin/logout', 'LoginController@logout')->name('admin.logout');
 
+    // Password Resets
     Route::POST('admin-password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::GET('admin-password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::POST('admin-password/reset', 'ResetPasswordController@reset');
     Route::GET('admin-password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');
+
+    // Register Users
+    Route::get('/admin/register', 'RegisterController@showRegistrationForm');
+    Route::post('/admin/register', 'RegisterController@register');
+
+    // Admin Lists
+    Route::get('/admin/show-all', 'AdminController@show');
 });

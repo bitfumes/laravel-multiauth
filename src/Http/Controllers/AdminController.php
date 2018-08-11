@@ -3,6 +3,7 @@
 namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Model\Admin;
 
 class AdminController extends Controller
 {
@@ -18,6 +19,12 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('bitfumes::admin.home');
+        return view('multiauth::admin.home');
+    }
+
+    public function show()
+    {
+        $admins = Admin::all();
+        return view('multiauth::admin.show', compact('admins'));
     }
 }

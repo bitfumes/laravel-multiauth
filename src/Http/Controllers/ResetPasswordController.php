@@ -52,7 +52,7 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('bitfumes::admin.passwords.reset')->with(
+        return view('multiauth::admin.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }

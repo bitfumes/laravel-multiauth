@@ -12,11 +12,12 @@ class MultiauthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/views', 'bitfumes');
+        $this->loadViewsFrom(__DIR__.'/views', 'multiauth');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
         $this->publisheThings();
         $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
+        $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
         $this->loadCommands();
     }
 
@@ -77,6 +78,9 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Database/factories' => database_path('factories'),
         ], 'multiauth:factory');
+        $this->publishes([
+            __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
+        ]);
     }
 
     protected function loadCommands()

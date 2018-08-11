@@ -3,7 +3,7 @@
 namespace Bitfumes\Multiauth\Tests;
 
 use Bitfumes\Multiauth\MultiauthServiceProvider;
-use Bitfumes\Multiauth\Model\Admin as AdminModel;
+use Bitfumes\Multiauth\Model\Admin;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -37,26 +37,35 @@ class TestCase extends BaseTestCase
     {
         $admin = $this->createAdmin();
         $this->actingAs($admin, 'admin');
+        return $admin;
     }
 
     public function createAdmin()
     {
-        (new Admin())->create();
+        return AdminFactory::create();
+    }
 
-        return AdminModel::first();
+    public function makeAdmin()
+    {
+        return AdminFactory::make();
     }
 }
 
-class Admin extends AdminModel
+class AdminFactory
 {
-    public function create($args = [])
+    public static function make()
     {
-        $this->name = 'Sarthak';
-        $this->email = 'sarthak@bitfumes.com';
-        $this->password = bcrypt('secret');
-        $this->remember_token = 'asdfasdfasd';
-        $this->save();
+        $faker = \Faker\Factory::create();
+        return [
+            'name' => $faker->name,
+            'email' => $faker->unique()->safeEmail,
+            'password' => bcrypt('secret'),
+            'remember_token' => str_random(10)
+        ];
+    }
 
-        return $this;
+    public static function create()
+    {
+        return Admin::create(self::make());
     }
 }

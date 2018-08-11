@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use App\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Bitfumes\Multiauth\Model\Admin;
 
 class RegisterController extends Controller
 {
@@ -27,7 +27,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'admin/home';
+    public function redirectTo()
+    {
+        return $this->redirectTo = '/admin/register';
+    }
 
     /**
      * Create a new controller instance.
@@ -36,7 +39,12 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin');
+        $this->middleware('auth:admin');
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('multiauth::admin.register');
     }
 
     /**
@@ -48,12 +56,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'lastname' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        // dd(config('multiauth'));
+        return Validator::make($data, config('multiauth.validations'));
     }
 
     /**
@@ -61,15 +65,28 @@ class RegisterController extends Controller
      *
      * @param array $data
      *
-     * @return User
+     * @return Admin
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $admin = new Admin;
+
+        $data['password'] = bcrypt($data['password']);
+
+        $fields = $this->tableFields();
+
+        foreach ($fields as $field) {
+            if (isset($data[$field])) {
+                $admin->$field = $data[$field];
+            }
+        }
+
+        $admin->save();
+        return $admin;
+    }
+
+    protected function tableFields()
+    {
+        return \Schema::getColumnListing('admins');
     }
 }

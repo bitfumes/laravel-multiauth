@@ -56,7 +56,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('bitfumes::admin.login');
+        return view('multiauth::admin.login');
     }
 
     public function logout(Request $request)

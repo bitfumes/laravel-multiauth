@@ -39,7 +39,7 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm()
     {
-        return view('bitfumes::admin.passwords.email');
+        return view('multiauth::admin.passwords.email');
     }
 
     public function broker()
