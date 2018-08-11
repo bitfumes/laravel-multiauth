@@ -23,16 +23,33 @@ Install via composer.
 composer require bitfumes/multiauth
 ```
 
-You can publish [the migration](https://github.com/s-sarthak/laravel-multiauth/database/migrations/create_permission_tables.php) with:
-
+Publish Migrations
 ```bash
 php artisan vendor:publish --tag="multiauth:migrations"
 ```
+
+Run the Migration to have tables in your database
+```bash
+php artisan migrate
+```
+
+## Publishes
+You can publish [the migration](https://github.com/s-sarthak/laravel-multiauth/database/migrations/create_permission_tables.php) with:
+
+
 
 You can publish Views files to overrise with yours:
 
 ```bash
 php artisan vendor:publish --tag="multiauth:views"
+```
+
+```bash
+php artisan vendor:publish --tag="multiauth:factories"
+```
+
+```bash
+php artisan vendor:publish --tag="multiauth:config"
 ```
 
 ### Caveat

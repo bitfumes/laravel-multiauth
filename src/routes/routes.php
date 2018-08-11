@@ -32,7 +32,7 @@ Route::group([
     Route::delete('/admin/{admin}/role/{role}', 'AdminRoleController@detach');
 
     // Roles
-    Route::get('/admin/role', 'RoleController@index');
+    Route::get('/admin/roles', 'RoleController@index');
     Route::get('/admin/role/create', 'RoleController@create');
     Route::post('/admin/role/store', 'RoleController@store');
     Route::delete('/admin/role/{role}', 'RoleController@destroy');

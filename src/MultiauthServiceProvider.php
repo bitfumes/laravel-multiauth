@@ -4,10 +4,12 @@ namespace Bitfumes\Multiauth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Bitfumes\Multiauth\Console\Commands\Authname;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
+use Bitfumes\Multiauth\Console\Commands\Multiauth;
+use Bitfumes\Multiauth\Console\Commands\RoleCmd;
+use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -31,7 +33,7 @@ class MultiauthServiceProvider extends ServiceProvider
 
     protected function loadFactories()
     {
-        $factoryPath = __DIR__.'/database/factories/';
+        $factoryPath = __DIR__.'/factories';
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
@@ -89,7 +91,8 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Authname::class,
+                RoleCmd::class,
+                SeedCmd::class
             ]);
         }
     }

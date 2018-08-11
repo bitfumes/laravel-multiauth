@@ -17,7 +17,7 @@ class redirectIfNotSuperAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $roles = auth()->user()->roles()->pluck('name');
+        $roles = auth($guard)->user()->roles()->pluck('name');
         if (! in_array('super', $roles->toArray())) {
             return redirect('/admin/home');
         }

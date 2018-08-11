@@ -3,23 +3,25 @@
 namespace Bitfumes\Multiauth\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
+use Bitfumes\Multiauth\Model\Role;
+use Illuminate\Database\QueryException;
 
-class Authname extends Command
+class RoleCmd extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'multiauth:name';
+    protected $signature = 'multiauth:role {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Name for multiauth, like if choosed admin then https://localhost:8000/admin';
+    protected $description = 'Create a new role in your database
+                            {name : The name of the Role}';
 
     /**
      * Create a new command instance.
@@ -38,8 +40,11 @@ class Authname extends Command
      */
     public function handle()
     {
-        $guardName = __DIR__.'/../../../config/guardName.php';
-        // File::append($guardName, ['guards' => 'name']);
-        dd(require $guardName);
+        $role = $this->argument('name');
+        try {
+            factory(Role::class)->create(['name' => $role]);
+        } catch (QueryException $e) {
+            $this->error("Role name '{$role}' is already exist, choose another name");
+        }
     }
 }
