@@ -1,5 +1,5 @@
 {
-    "name": "bitfumes/laravel-multiauth",
+    "name": "bitfumes/laravel-multiauth-local",
     "description": "Laravel Multiauth package",
     "type": "library",
     "license": "MIT",
