@@ -5,7 +5,7 @@ namespace Bitfumes\Multiauth\Http\Middleware;
 use Auth;
 use Closure;
 
-class redirectIfUnauthenticatedAdmin
+class redirectIfAuthenticatedAdmin
 {
     /**
      * Handle an incoming request.

@@ -6,7 +6,7 @@ Route::group([
 ], function () {
     Route::GET('admin/home', 'AdminController@index');
     Route::GET('/login', function () {
-        return 'for test only';
+        return 'please run php artisan make:auth command';
     })->name('login');
 
     // Login and Logout
@@ -25,7 +25,7 @@ Route::group([
     Route::post('/admin/register', 'RegisterController@register');
 
     // Admin Lists
-    Route::get('/admin/show-all', 'AdminController@show');
+    Route::get('/admin/show', 'AdminController@show');
 
     // Admin Roles
     Route::post('/admin/{admin}/role/{role}', 'AdminRoleController@attach');

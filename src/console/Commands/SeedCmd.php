@@ -44,7 +44,7 @@ class SeedCmd extends Command
         $role = Role::whereName($rolename)->first();
 
         $admin = factory(Admin::class)
-                        ->create();
+            ->create(['email' => 'admin@gmail.com', 'name' => 'Super Admin']);
         $admin->each(function ($admin) use ($role,$rolename) {
             if (!$role) {
                 $role = factory(Role::class)->create(['name' => $rolename]);

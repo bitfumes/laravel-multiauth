@@ -6,10 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfUnauthenticatedAdmin;
-use Bitfumes\Multiauth\Console\Commands\Multiauth;
-use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
+use Bitfumes\Multiauth\Console\Commands\RoleCmd;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -39,7 +38,7 @@ class MultiauthServiceProvider extends ServiceProvider
 
     protected function loadMiddleware()
     {
-        app('router')->aliasMiddleware('admin', redirectIfUnauthenticatedAdmin::class);
+        app('router')->aliasMiddleware('admin', redirectIfAuthenticatedAdmin::class);
         app('router')->aliasMiddleware('super', redirectIfNotSuperAdmin::class);
     }
 
@@ -91,8 +90,8 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                RoleCmd::class,
-                SeedCmd::class
+                SeedCmd::class,
+                RoleCmd::class
             ]);
         }
     }

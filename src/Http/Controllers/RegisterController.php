@@ -6,6 +6,8 @@ use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      */
     public function redirectTo()
     {
-        return $this->redirectTo = '/admin/register';
+        return $this->redirectTo = '/admin/show';
     }
 
     /**
@@ -48,6 +50,15 @@ class RegisterController extends Controller
         return view('multiauth::admin.register');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return redirect($this->redirectPath());
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -57,7 +68,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // dd(config('multiauth'));
         return Validator::make($data, config('multiauth.validations'));
     }
 
