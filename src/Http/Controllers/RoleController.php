@@ -18,6 +18,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
+
         return view('multiauth::roles.index', compact('roles'));
     }
 
