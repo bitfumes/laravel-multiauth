@@ -4,11 +4,11 @@ namespace Bitfumes\Multiauth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Bitfumes\Multiauth\Console\Commands\RoleCmd;
+use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
-use Bitfumes\Multiauth\Console\Commands\SeedCmd;
-use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -91,7 +91,7 @@ class MultiauthServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 SeedCmd::class,
-                RoleCmd::class
+                RoleCmd::class,
             ]);
         }
     }

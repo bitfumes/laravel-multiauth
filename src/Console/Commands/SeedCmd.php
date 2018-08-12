@@ -3,8 +3,8 @@
 namespace Bitfumes\Multiauth\Console\Commands;
 
 use Illuminate\Console\Command;
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
+use Bitfumes\Multiauth\Model\Admin;
 
 class SeedCmd extends Command
 {
@@ -42,14 +42,14 @@ class SeedCmd extends Command
     {
         $rolename = $this->option('role');
         $role = Role::whereName($rolename)->first();
-        if (!$rolename) {
+        if (! $rolename) {
             return $this->error("please provide role as --role='roleName'");
         }
 
         $admin = factory(Admin::class)
             ->create(['email' => 'super@admin.com', 'name' => 'Super Admin']);
         $admin->each(function ($admin) use ($role,$rolename) {
-            if (!$role) {
+            if (! $role) {
                 $role = factory(Role::class)->create(['name' => $rolename]);
             }
             $admin->roles()->attach($role);

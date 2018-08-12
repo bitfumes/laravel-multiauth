@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
+use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Bitfumes\Multiauth\Model\Role;
 
 class AdminTest extends TestCase
 {
@@ -41,7 +41,7 @@ class AdminTest extends TestCase
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
-            'role_id' => $role->id
+            'role_id' => $role->id,
         ]);
         $response->assertStatus(302)->assertRedirect('/admin/show');
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@gmail.com']);
@@ -75,8 +75,8 @@ class AdminTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_delete_admin()
     {
         $this->loginSuperAdmin();
@@ -88,8 +88,8 @@ class AdminTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_see_edit_page_for_admin()
     {
         $this->loginSuperAdmin();
@@ -98,8 +98,8 @@ class AdminTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_super_admin_can_update_admin_details()
     {
         $this->loginSuperAdmin();
