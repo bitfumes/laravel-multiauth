@@ -8,7 +8,7 @@ use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
-use Bitfumes\Multiauth\Console\Commands\Seed;
+use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -90,7 +90,7 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Seed::class,
+                SeedCmd::class,
                 RoleCmd::class
             ]);
         }

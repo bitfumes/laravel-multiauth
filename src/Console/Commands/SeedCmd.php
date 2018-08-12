@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
 
-class Seed extends Command
+class SeedCmd extends Command
 {
     /**
      * The name and signature of the console command.
