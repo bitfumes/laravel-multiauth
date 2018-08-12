@@ -105,4 +105,22 @@ class RegisterController extends Controller
     {
         return \Schema::getColumnListing('admins');
     }
+
+    public function destroy(Admin $admin)
+    {
+        $admin->delete();
+        return redirect('/admin/show')->with('message', 'You have deleted admin successfully');
+    }
+
+    public function update(Admin $admin, Request $request)
+    {
+        $admin->update($request->all());
+        return redirect('/admin/show')->with('message', "{$admin->name} details are successfully updated");
+    }
+
+    public function edit(Admin $admin)
+    {
+        $roles = Role::all();
+        return view('multiauth::admin.edit', compact('admin', 'roles'));
+    }
 }

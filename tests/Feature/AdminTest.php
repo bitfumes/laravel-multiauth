@@ -7,7 +7,7 @@ use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Model\Role;
 
-class RegisterTest extends TestCase
+class AdminTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -72,5 +72,43 @@ class RegisterTest extends TestCase
         $this->loginSuperAdmin();
         $newadmin = $this->createAdmin();
         $this->get('/admin/show')->assertSee($newadmin->name);
+    }
+
+    /**
+    * @test
+    */
+    public function a_super_admin_can_delete_admin()
+    {
+        $this->loginSuperAdmin();
+        $admin = $this->createAdmin();
+        $role = factory(Role::class)->create(['name' => 'editor']);
+        $admin->roles()->attach($role);
+        $this->delete("/admin/{$admin->id}")->assertRedirect('/admin/show');
+        $this->assertDatabaseMissing('admins', ['id' => $admin->id]);
+    }
+
+    /**
+    * @test
+    */
+    public function a_super_admin_can_see_edit_page_for_admin()
+    {
+        $this->loginSuperAdmin();
+        $admin = $this->createAdmin();
+        $this->get("/admin/{$admin->id}/edit")->assertSee("Edit details of {$admin->name}");
+    }
+
+    /**
+    * @test
+    */
+    public function a_super_admin_can_update_admin_details()
+    {
+        $this->loginSuperAdmin();
+        $admin = $this->createAdmin();
+        $role = factory(Role::class)->create(['name' => 'editor']);
+        $admin->roles()->attach($role);
+        $this->patch("/admin/{$admin->id}", [
+            'email' => 'newadmin@gmail.com',
+        ])->assertRedirect('/admin/show');
+        $this->assertDatabaseHas('admins', ['email' => 'newadmin@gmail.com']);
     }
 }

@@ -20,9 +20,12 @@ Route::group([
     Route::POST('admin-password/reset', 'ResetPasswordController@reset');
     Route::GET('admin-password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');
 
-    // Register Users
+    // Register Admins
     Route::get('/admin/register', 'RegisterController@showRegistrationForm');
     Route::post('/admin/register', 'RegisterController@register');
+    Route::get('/admin/{admin}/edit', 'RegisterController@edit');
+    Route::delete('/admin/{admin}', 'RegisterController@destroy');
+    Route::patch('/admin/{admin}', 'RegisterController@update');
 
     // Admin Lists
     Route::get('/admin/show', 'AdminController@show');
