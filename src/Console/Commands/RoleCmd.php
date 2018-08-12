@@ -3,7 +3,6 @@
 namespace Bitfumes\Multiauth\Console\Commands;
 
 use Illuminate\Console\Command;
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
 
 class RoleCmd extends Command
@@ -13,15 +12,15 @@ class RoleCmd extends Command
      *
      * @var string
      */
-    protected $signature = 'multiauth:seed {--r|role=}';
+    protected $signature = 'multiauth:role {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seed one super admin for multiauth package
-                            {--role= : Give any role name to create new role}';
+    protected $description = 'Create a new role in your database
+                            {name : The name of the Role}';
 
     /**
      * Create a new command instance.
@@ -40,17 +39,11 @@ class RoleCmd extends Command
      */
     public function handle()
     {
-        $rolename = $this->option('role');
-        $role = Role::whereName($rolename)->first();
-
-        $admin = factory(Admin::class)
-            ->create(['email' => 'admin@gmail.com', 'name' => 'Super Admin']);
-        $admin->each(function ($admin) use ($role,$rolename) {
-            if (!$role) {
-                $role = factory(Role::class)->create(['name' => $rolename]);
-            }
-            $admin->roles()->attach($role);
-        });
-        $this->info("You have created an admin name '{$admin->name}' with role of '{$admin->roles->first()->name}' ");
+        $role = $this->argument('name');
+        try {
+            factory(Role::class)->create(['name' => $role]);
+        } catch (QueryException $e) {
+            $this->error("Role name '{$role}' is already exist, choose another name");
+        }
     }
 }
