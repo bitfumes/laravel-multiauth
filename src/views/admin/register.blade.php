@@ -36,8 +36,8 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required> @if ($errors->has('password'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span> @endif
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span> @endif
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@
                             <label for="role_id" class="col-md-4 col-form-label text-md-right">Assign Role</label>
 
                             <div class="col-md-6">
-                                <select name="role_id" id="role_id" class="form-control" multiple>
+                                <select name="role_id[]" id="role_id" class="form-control" multiple>
                                     <option selected disabled>Select Role</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}">{{ $role->name }}</option>

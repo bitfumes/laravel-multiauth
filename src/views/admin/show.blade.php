@@ -11,13 +11,18 @@
                     </span>
                 </div>
                 <div class="card-body">
+                    @include('multiauth::message')
                     <ul class="list-group">
                         @foreach ($admins as $admin)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ $admin->name }}
-                            @foreach ($admin->roles as $role)
-                                <span class="badge badge-primary badge-pill">{{ $role->name }}</span>
-                            @endforeach
+                                <span class="badge">
+                                    @foreach ($admin->roles as $role)
+                                        <span class="badge-warning badge-pill ml-2">
+                                            {{ $role->name }}
+                                        </span>
+                                    @endforeach
+                                </span>
                             <div class="float-right">
                                 <a href="" class="btn btn-sm btn-secondary mr-3" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $admin->id }}').submit();">Delete</a>
                                 <form id="delete-form-{{ $admin->id }}" action="/admin/{{ $admin->id }}" method="POST" style="display: none;">

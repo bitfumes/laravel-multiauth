@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-light">
+                <div class="card-header bg-info text-white">
                     Roles
                     <span class="float-right">
                         <a href="/admin/role/create" class="btn btn-sm btn-success">New Role</a>

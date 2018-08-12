@@ -96,7 +96,7 @@ class RegisterController extends Controller
 
         $admin->save();
 
-        $admin->roles()->attach(request('role_id'));
+        $admin->roles()->sync(request('role_id'));
 
         return $admin;
     }
@@ -114,7 +114,8 @@ class RegisterController extends Controller
 
     public function update(Admin $admin, Request $request)
     {
-        $admin->update($request->all());
+        $admin->update($request->except('role_id'));
+        $admin->roles()->sync(request('role_id'));
         return redirect('/admin/show')->with('message', "{$admin->name} details are successfully updated");
     }
 

@@ -42,9 +42,12 @@ class SeedCmd extends Command
     {
         $rolename = $this->option('role');
         $role = Role::whereName($rolename)->first();
+        if (!$rolename) {
+            return $this->error("please provide role as --role='roleName'");
+        }
 
         $admin = factory(Admin::class)
-            ->create(['email' => 'admin@gmail.com', 'name' => 'Super Admin']);
+            ->create(['email' => 'super@admin.com', 'name' => 'Super Admin']);
         $admin->each(function ($admin) use ($role,$rolename) {
             if (!$role) {
                 $role = factory(Role::class)->create(['name' => $rolename]);

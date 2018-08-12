@@ -34,13 +34,13 @@ php artisan migrate
 php artisan multiauth:seed --role=super
 ```
 
-Now you can login your admin side by going to https://localhost:8000/admin with creadential of email = 'admin@gmail.com' and password = 'secret'.
+Now you can login your admin side by going to https://localhost:8000/admin with creadential of email = 'super@admin.com' and password = 'secret'.
 Obviously you can later change these things.
 
 ## Register new Admin
 
 To register new use you need to go to https://localhost:8000/admin/register
-Keep in mind that only a Super Admin can create new Admin.
+**Keep in mind that only a Super Admin can create new Admin.**
 
 ### Changing admin views
 You can Publish package views files and overrides with yours so that you can have views which suits your project design.
@@ -69,14 +69,15 @@ php artisan multiauth:role rolename
 ```
 
 2. Using Interface
-Just go to gttps://localhost:8000/admin/role
+Just go to https://localhost:8000/admin/role.
+
 Now you can click on 'Add Role' button to create new role.
 
 **Edit or Delete Role can also be done with same interface**
 
-### Caveat
+<!-- ### Caveat
 Please remember that you need to run php artisan make:auth for having some routes like login or register for normal users, otherwise there may be some error that register route not found.
-There is no relation with admin side for make:auth, its just for removing error.
+There is no relation with admin side for make:auth, its just for removing error. -->
 
 ### License
 This package inherits the licensing of its parent framework, Laravel, and as such is open-sourced
