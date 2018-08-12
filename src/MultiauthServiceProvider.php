@@ -89,8 +89,7 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                SeedCmd::class,
-                RoleCommand::class
+                SeedCmd::class
             ]);
         }
     }
