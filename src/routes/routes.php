@@ -38,11 +38,5 @@ Route::group([
     Route::get('/admin/role/{role}/edit', 'RoleController@edit');
     Route::patch('/admin/role/{role}', 'RoleController@update');
 
-    // Fix //
-    Route::GET('/login', function () {
-        return redirect('/');
-    })->name('login');
-    Route::GET('/register', function () {
-        return redirect('/');
-    })->name('register');
+    Auth::routes();
 });
