@@ -5,6 +5,7 @@ namespace Bitfumes\Multiauth\Tests\Feature;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Bitfumes\Multiauth\Model\Role;
 
 class RegisterTest extends TestCase
 {
@@ -34,14 +35,17 @@ class RegisterTest extends TestCase
     public function a_super_admin_can_only_create_new_admin()
     {
         $this->loginSuperAdmin();
+        $role = factory(Role::class)->create(['name' => 'editor']);
         $response = $this->post('/admin/register', [
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
+            'role_id' => $role->id
         ]);
         $response->assertStatus(302)->assertRedirect('/admin/show');
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@gmail.com']);
+        $this->assertDatabaseHas('admin_role', ['admin_id' => 2]);
     }
 
     /**

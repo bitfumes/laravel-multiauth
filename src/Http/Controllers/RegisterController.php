@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Bitfumes\Multiauth\Model\Role;
 
 class RegisterController extends Controller
 {
@@ -47,7 +48,8 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('multiauth::admin.register');
+        $roles = Role::all();
+        return view('multiauth::admin.register', compact('roles'));
     }
 
     public function register(Request $request)
@@ -93,6 +95,8 @@ class RegisterController extends Controller
         }
 
         $admin->save();
+
+        $admin->roles()->attach(request('role_id'));
 
         return $admin;
     }
