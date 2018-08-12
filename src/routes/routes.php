@@ -38,7 +38,7 @@ Route::group([
     Route::get('/admin/role/{role}/edit', 'RoleController@edit');
     Route::patch('/admin/role/{role}', 'RoleController@update');
 
-    // Fix
+    // Fix //
     Route::GET('/login', function () {
         return redirect('/');
     })->name('login');
