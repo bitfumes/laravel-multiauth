@@ -20,7 +20,7 @@ in as a user and an admin, without conflicts!
 Install via composer.
 
 ```bash
-composer require bitfumes/multiauth
+composer require bitfumes/laravel-multiauth
 ```
 
 Publish Migrations
@@ -34,7 +34,7 @@ php artisan migrate
 php artisan multiauth:seed --role=super
 ```
 
-Now you can login your admin side by going to https://localhost:8000/admin with creadential of email = 'super@admin.com' and password = 'secret'.
+Now you can login your admin side by going to https://localhost:8000/admin with creadential of email = super@admin.com and password = secret
 Obviously you can later change these things.
 
 ## Register new Admin

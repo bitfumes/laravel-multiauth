@@ -5,10 +5,6 @@ Route::group([
     'middleware' => 'web',
 ], function () {
     Route::GET('admin/home', 'AdminController@index');
-    Route::GET('/login', function () {
-        return 'please run php artisan make:auth command';
-    })->name('login');
-
     // Login and Logout
     Route::GET('/admin', 'LoginController@showLoginForm')->name('admin.login');
     Route::POST('admin', 'LoginController@login');
@@ -41,4 +37,12 @@ Route::group([
     Route::delete('/admin/role/{role}', 'RoleController@destroy');
     Route::get('/admin/role/{role}/edit', 'RoleController@edit');
     Route::patch('/admin/role/{role}', 'RoleController@update');
+
+    // Fix
+    Route::GET('/login', function () {
+        return redirect('/');
+    })->name('login');
+    Route::GET('/register', function () {
+        return redirect('/');
+    })->name('register');
 });
