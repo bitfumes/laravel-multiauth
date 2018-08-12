@@ -7,9 +7,16 @@
                 <div class="card-header">Admin Dashboard</div>
 
                 <div class="card-body">
-                    @foreach ($admins as $admin)
-                        {{ $admin->name }}
-                    @endforeach
+                    <ul class="list-group">
+                        @foreach ($admins as $admin)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ $admin->name }}
+                            @foreach ($admin->roles as $role)
+                                <span class="badge badge-primary badge-pill">{{ $role->name }}</span>
+                            @endforeach
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
