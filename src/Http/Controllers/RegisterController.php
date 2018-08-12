@@ -2,13 +2,13 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
-use Bitfumes\Multiauth\Model\Role;
 
 class RegisterController extends Controller
 {
@@ -49,6 +49,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $roles = Role::all();
+
         return view('multiauth::admin.register', compact('roles'));
     }
 
@@ -109,6 +110,7 @@ class RegisterController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
+
         return redirect('/admin/show')->with('message', 'You have deleted admin successfully');
     }
 
@@ -116,12 +118,14 @@ class RegisterController extends Controller
     {
         $admin->update($request->except('role_id'));
         $admin->roles()->sync(request('role_id'));
+
         return redirect('/admin/show')->with('message', "{$admin->name} details are successfully updated");
     }
 
     public function edit(Admin $admin)
     {
         $roles = Role::all();
+
         return view('multiauth::admin.edit', compact('admin', 'roles'));
     }
 }
