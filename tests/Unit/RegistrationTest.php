@@ -1,6 +1,6 @@
 <?php
 
-namespace Bitfumes\Multiauth\Tests\Feature;
+namespace Bitfumes\Multiauth\Tests\Unit;
 
 use Bitfumes\Multiauth\Tests\TestCase;
 
