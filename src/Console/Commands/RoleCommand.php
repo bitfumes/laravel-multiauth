@@ -5,7 +5,7 @@ namespace Bitfumes\Multiauth\Console\Commands;
 use Illuminate\Console\Command;
 use Bitfumes\Multiauth\Model\Role;
 
-class RoleCmd extends Command
+class RoleCommand extends Command
 {
     /**
      * The name and signature of the console command.
