@@ -3,6 +3,13 @@
     "description": "Laravel Multiauth package",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel multiauth",
+        "multiauth",
+        "bitfumes",
+        "admin auth",
+        "multi auth"
+    ],
     "authors": [{
         "name": "s-sarthak",
         "email": "sarthak@bitfumes.com"
