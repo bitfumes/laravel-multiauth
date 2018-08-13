@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {
@@ -75,5 +76,10 @@ class ResetPasswordController extends Controller
     protected function guard()
     {
         return Auth::guard('admin');
+    }
+
+    protected function validate($request, $rule)
+    {
+        Validator::make($request->all(), $rule);
     }
 }
