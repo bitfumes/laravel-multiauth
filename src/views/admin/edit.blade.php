@@ -7,7 +7,7 @@
                 <div class="card-header">Edit details of {{$admin->name}}</div>
 
                 <div class="card-body">
-                    <form action="/admin/{{ $admin->id }}" method="post">
+                    <form action="{{route('admin.update',[$admin->id])}}" method="post">
                         @csrf @method('patch')
                         <div class="form-group">
                             <label for="role">Name</label>
