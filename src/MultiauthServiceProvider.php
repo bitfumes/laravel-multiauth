@@ -83,7 +83,7 @@ class MultiauthServiceProvider extends ServiceProvider
         ], 'multiauth:factory');
         $this->publishes([
             __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
-        ]);
+        ], 'multiauth:config');
     }
 
     protected function loadCommands()

@@ -75,10 +75,6 @@ Now you can click on 'Add Role' button to create new role.
 
 **Edit or Delete Role can also be done with same interface**
 
-<!-- ### Caveat
-Please remember that you need to run php artisan make:auth for having some routes like login or register for normal users, otherwise there may be some error that register route not found.
-There is no relation with admin side for make:auth, its just for removing error. -->
-
 ### License
 This package inherits the licensing of its parent framework, Laravel, and as such is open-sourced
 software licensed under the [MIT license](http://opensource.org/licenses/MIT)

@@ -40,11 +40,11 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function un_authenticated_admin_can_not_see_admin_home_page()
-    {
-        $this->withExceptionHandling();
-        $this->get('/admin/home')->assertRedirect('/admin');
-    }
+    // public function un_authenticated_admin_can_not_see_admin_home_page()
+    // {
+    //     $this->withExceptionHandling();
+    //     $this->get('/admin/home')->assertRedirect('/admin');
+    // }
 
     /**
      * @test

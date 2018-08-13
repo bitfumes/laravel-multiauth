@@ -37,6 +37,4 @@ Route::group([
     Route::delete('/admin/role/{role}', 'RoleController@destroy');
     Route::get('/admin/role/{role}/edit', 'RoleController@edit');
     Route::patch('/admin/role/{role}', 'RoleController@update');
-
-    Auth::routes();
 });
