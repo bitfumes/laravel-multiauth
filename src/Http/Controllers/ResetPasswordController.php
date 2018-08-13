@@ -33,8 +33,6 @@ class ResetPasswordController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -53,9 +51,7 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('multiauth::admin.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
+        return view('multiauth::admin.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
     }
 
     /**

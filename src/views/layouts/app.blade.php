@@ -45,10 +45,10 @@
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/login">Admin Login</a>
+                            <a class="nav-link" href="{{route('admin.login')}}">Admin Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link" href="{{route('admin.register')}}">Register</a>
                         </li>
                         @else
                         <li class="nav-item dropdown">
