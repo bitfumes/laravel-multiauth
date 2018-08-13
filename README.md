@@ -48,9 +48,9 @@ You can Publish package views files and overrides with yours so that you can hav
 php artisan vendor:publish --tag="multiauth:views"
 ```
 
-## Admin table migrations
+## Admin table factories
 
-Sometime you need to add new column to Admin table, just publish the package Admin migration to add new columns.
+Sometime you need to add use admin model or role model factories, you can publish them using this command.
 ```bash
 php artisan vendor:publish --tag="multiauth:factories"
 ```
