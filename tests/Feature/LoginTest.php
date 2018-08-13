@@ -15,7 +15,7 @@ class LoginTest extends TestCase
      */
     public function a_user_can_see_admin_login_form()
     {
-        $this->get('/admin')->assertSee('password');
+        $this->get(route('admin.login'))->assertSee('password');
     }
 
     /**
@@ -24,8 +24,8 @@ class LoginTest extends TestCase
     public function a_user_can_login_and_redirected_to_admin_home()
     {
         $admin = $this->createAdmin();
-        $this->post('/admin', ['email' => $admin->email, 'password' => 'secret'])
-        ->assertRedirect('/admin/home');
+        $this->post(route('admin.login'), ['email' => $admin->email, 'password' => 'secret'])
+        ->assertRedirect(route('admin.home'));
     }
 
     /**
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
     public function logged_in_admin_can_not_see_admin_login_page()
     {
         $this->logInAdmin();
-        $this->get('/admin')->assertRedirect('/admin/home');
+        $this->get(route('admin.login'))->assertRedirect(route('admin.home'));
     }
 
     /**
@@ -52,6 +52,6 @@ class LoginTest extends TestCase
     public function after_logout_admin_is_redirected_to_admin_login_page()
     {
         $this->logInAdmin();
-        $this->post('/admin/logout')->assertRedirect('/admin');
+        $this->post(route('admin.logout'))->assertRedirect(route('admin.login'));
     }
 }

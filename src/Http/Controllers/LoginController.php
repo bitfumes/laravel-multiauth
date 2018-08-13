@@ -18,16 +18,9 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = 'admin/home';
 
     /**
      * Create a new controller instance.
@@ -46,7 +39,7 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        return redirect('admin/home');
+        return redirect(route('admin.home'));
     }
 
     /**
@@ -65,7 +58,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/admin');
+        return $this->loggedOut($request) ?: redirect(route('admin.login'));
     }
 
     /**

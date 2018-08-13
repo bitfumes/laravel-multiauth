@@ -20,7 +20,7 @@ class redirectIfAuthenticatedAdmin
         switch ($guard) {
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    return redirect('/admin/home');
+                    return redirect(route('admin.home'));
                 }
                 break;
 

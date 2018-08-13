@@ -17,7 +17,7 @@ class AdminTest extends TestCase
     public function a_super_admin_can_see_admin_register_page()
     {
         $this->loginSuperAdmin();
-        $this->get('/admin/register')->assertStatus(200)->assertSee('Register New Admin');
+        $this->get(route('admin.register'))->assertStatus(200)->assertSee('Register New Admin');
     }
 
     /**
@@ -26,7 +26,7 @@ class AdminTest extends TestCase
     public function a_non_super_admin_can_not_see_admin_register_page()
     {
         $this->logInAdmin();
-        $this->get('/admin/register')->assertStatus(302)->assertRedirect('/admin/home');
+        $this->get(route('admin.register'))->assertStatus(302)->assertRedirect(route('admin.home'));
     }
 
     /**
@@ -36,14 +36,14 @@ class AdminTest extends TestCase
     {
         $this->loginSuperAdmin();
         $role = factory(Role::class)->create(['name' => 'editor']);
-        $response = $this->post('/admin/register', [
+        $response = $this->post(route('admin.register'), [
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
             'role_id' => $role->id,
         ]);
-        $response->assertStatus(302)->assertRedirect('/admin/show');
+        $response->assertStatus(302)->assertRedirect(route('admin.show'));
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@gmail.com']);
         $this->assertDatabaseHas('admin_role', ['admin_id' => 2]);
     }
@@ -54,13 +54,13 @@ class AdminTest extends TestCase
     public function a_non_super_admin_can_not_create_new_admin()
     {
         $this->logInAdmin();
-        $response = $this->post('/admin/register', [
+        $response = $this->post(route('admin.register'), [
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
         ]);
-        $response->assertStatus(302)->assertRedirect('/admin/home');
+        $response->assertStatus(302)->assertRedirect(route('admin.home'));
         $this->assertDatabaseMissing('admins', ['email' => 'sarthak@gmail.com']);
     }
 
@@ -71,7 +71,7 @@ class AdminTest extends TestCase
     {
         $this->loginSuperAdmin();
         $newadmin = $this->createAdmin();
-        $this->get('/admin/show')->assertSee($newadmin->name);
+        $this->get(route('admin.show'))->assertSee($newadmin->name);
     }
 
     /**
@@ -83,7 +83,7 @@ class AdminTest extends TestCase
         $admin = $this->createAdmin();
         $role = factory(Role::class)->create(['name' => 'editor']);
         $admin->roles()->attach($role);
-        $this->delete("/admin/{$admin->id}")->assertRedirect('/admin/show');
+        $this->delete(route('admin.delete', $admin->id))->assertRedirect(route('admin.show'));
         $this->assertDatabaseMissing('admins', ['id' => $admin->id]);
     }
 
@@ -94,7 +94,7 @@ class AdminTest extends TestCase
     {
         $this->loginSuperAdmin();
         $admin = $this->createAdmin();
-        $this->get("/admin/{$admin->id}/edit")->assertSee("Edit details of {$admin->name}");
+        $this->get(route('admin.edit', $admin->id))->assertSee("Edit details of {$admin->name}");
     }
 
     /**
@@ -106,9 +106,12 @@ class AdminTest extends TestCase
         $admin = $this->createAdmin();
         $role = factory(Role::class)->create(['name' => 'editor']);
         $admin->roles()->attach($role);
-        $this->patch("/admin/{$admin->id}", [
+        $newDetails = [
+            'name' => 'newname',
             'email' => 'newadmin@gmail.com',
-        ])->assertRedirect('/admin/show');
+            'role_id' => [1, 2]
+        ];
+        $this->patch(route('admin.update', $admin->id), $newDetails)->assertRedirect(route('admin.show'));
         $this->assertDatabaseHas('admins', ['email' => 'newadmin@gmail.com']);
     }
 }

@@ -7,8 +7,8 @@ use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 
 class RegisterController extends Controller
 {
@@ -32,7 +32,7 @@ class RegisterController extends Controller
      */
     public function redirectTo()
     {
-        return $this->redirectTo = '/admin/show';
+        return $this->redirectTo = route('admin.show');
     }
 
     /**
@@ -53,25 +53,11 @@ class RegisterController extends Controller
         return view('multiauth::admin.register', compact('roles'));
     }
 
-    public function register(Request $request)
+    public function register(AdminRequest $request)
     {
-        $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
 
         return redirect($this->redirectPath());
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, config('multiauth.validations'));
     }
 
     /**
@@ -84,8 +70,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $admin = new Admin;
-
-        $data['password'] = bcrypt($data['password']);
 
         $fields = $this->tableFields();
 
@@ -104,22 +88,7 @@ class RegisterController extends Controller
 
     protected function tableFields()
     {
-        return \Schema::getColumnListing('admins');
-    }
-
-    public function destroy(Admin $admin)
-    {
-        $admin->delete();
-
-        return redirect('/admin/show')->with('message', 'You have deleted admin successfully');
-    }
-
-    public function update(Admin $admin, Request $request)
-    {
-        $admin->update($request->except('role_id'));
-        $admin->roles()->sync(request('role_id'));
-
-        return redirect('/admin/show')->with('message', "{$admin->name} details are successfully updated");
+        return collect(\Schema::getColumnListing('admins'));
     }
 
     public function edit(Admin $admin)
@@ -127,5 +96,21 @@ class RegisterController extends Controller
         $roles = Role::all();
 
         return view('multiauth::admin.edit', compact('admin', 'roles'));
+    }
+
+    public function update(Admin $admin, AdminRequest $request)
+    {
+        $admin->update($request->except('role_id'));
+        $admin->roles()->sync(request('role_id'));
+
+        return redirect(route('admin.show'))->with('message', "{$admin->name} details are successfully updated");
+    }
+
+    public function destroy(Admin $admin)
+    {
+        $prefix = config('multiauth.prefix');
+        $admin->delete();
+
+        return redirect(route('admin.show'))->with('message', "You have deleted {$prefix} successfully");
     }
 }

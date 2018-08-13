@@ -32,7 +32,9 @@ class MultiauthServiceProvider extends ServiceProvider
 
     protected function loadFactories()
     {
-        $factoryPath = __DIR__.'/factories';
+        $appFactories = scandir(database_path('/factories'));
+        $factoryPath = ! in_array('AdminFactory.php', $appFactories) ? __DIR__.'/factories' : database_path('/factories');
+
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
@@ -73,14 +75,14 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function publisheThings()
     {
         $this->publishes([
-            __DIR__.'/Database/migrations/' => database_path('migrations'),
+            __DIR__.'/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
             __DIR__.'/views' => resource_path('views/bitfumes/multiauth'),
         ], 'multiauth:views');
         $this->publishes([
-            __DIR__.'/Database/factories' => database_path('factories'),
-        ], 'multiauth:factory');
+            __DIR__.'/factories' => database_path('factories'),
+        ], 'multiauth:factories');
         $this->publishes([
             __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
         ], 'multiauth:config');

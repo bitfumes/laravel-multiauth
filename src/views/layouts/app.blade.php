@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} Admin</title>
+    <title>{{ config('app.name', 'Laravel') }} {{ ucfirst(config('multiauth.prefix')) }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -26,8 +26,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/admin') }}">
-                    {{ config('app.name', 'Laravel') }} Admin
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
+                    {{ config('app.name', 'Laravel') }} {{ ucfirst(config('multiauth.prefix')) }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -45,10 +45,7 @@
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.login')}}">Admin Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.register')}}">Register</a>
+                            <a class="nav-link" href="{{route('admin.login')}}">{{ ucfirst(config('multiauth.prefix')) }} Login</a>
                         </li>
                         @else
                         <li class="nav-item dropdown">
@@ -56,16 +53,16 @@
                                 aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-                            
+
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/admin/show">Admins</a>
-                                <a class="dropdown-item" href="/admin/roles">Roles</a>
+                                <a class="dropdown-item" href="{{ route('admin.show') }}">{{ ucfirst(config('multiauth.prefix')) }}</a>
+                                <a class="dropdown-item" href="{{ route('admin.roles') }}">Roles</a>
                                 <a class="dropdown-item" href="/admin/logout" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                             </div>

@@ -4,6 +4,9 @@ namespace Bitfumes\Multiauth\Tests\Unit;
 
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class AdminTest extends TestCase
 {
@@ -19,8 +22,20 @@ class AdminTest extends TestCase
     /**
      * @test
      */
-    public function name()
+    public function it_can_bcrypt_the_password()
     {
-        $this->assertTrue(true);
+        $admin = $this->createAdmin();
+        $this->assertTrue(Hash::check('secret', $admin->password));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_send_password_reset_notification()
+    {
+        Notification::fake();
+        $admin = $this->createAdmin();
+        $admin->sendPasswordResetNotification('fakeToken');
+        Notification::assertSentTo([$admin], AdminResetPasswordNotification::class);
     }
 }

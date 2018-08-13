@@ -7,14 +7,15 @@
                 <div class="card-header bg-info text-white">Add New Role</div>
 
                 <div class="card-body">
-                    <form action="/admin/role/store" method="post">
+    @include('multiauth::message')
+                    <form action="{{ route('admin.role.store') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="role">Role Name</label>
-                            <input type="text" placeholder="Give an awesome name for role" name="name" class="form-control" id="role">
+                            <input type="text" placeholder="Give an awesome name for role" name="name" class="form-control" id="role" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm">Store</button>
-                        <a href="/admin/roles" class="btn btn-sm btn-secondary float-right">Roles</a>
+                        <a href="{{ route('admin.roles') }}" class="btn btn-sm btn-danger float-right">Back</a>
                     </form>
                 </div>
             </div>

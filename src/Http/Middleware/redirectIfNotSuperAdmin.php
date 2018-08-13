@@ -19,7 +19,7 @@ class redirectIfNotSuperAdmin
     {
         $roles = auth($guard)->user()->roles()->pluck('name');
         if (! in_array('super', $roles->toArray())) {
-            return redirect('/admin/home');
+            return redirect(route('admin.home'));
         }
 
         return $next($request);

@@ -1,5 +1,4 @@
-@extends('multiauth::layouts.app') 
-@section('content')
+@extends('multiauth::layouts.app') @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -7,31 +6,48 @@
                 <div class="card-header">Edit details of {{$admin->name}}</div>
 
                 <div class="card-body">
+                    @include('multiauth::message')
                     <form action="{{route('admin.update',[$admin->id])}}" method="post">
                         @csrf @method('patch')
-                        <div class="form-group">
-                            <label for="role">Name</label>
-                            <input type="text" value="{{ $admin->name }}" name="name" class="form-control" id="role">
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">Name</label>
+                            <input type="text" value="{{ $admin->name }}" name="name" class="form-control col-md-6" id="role">
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="role">Email</label>
-                            <input type="text" value="{{ $admin->email }}" name="name" class="form-control" id="role">
+
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">Email</label>
+                            <input type="text" value="{{ $admin->email }}" name="email" class="form-control col-md-6" id="role">
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="role_id" class="col-md-4 col-form-label text-md-right">Assign Role</label>
-                        
-                            <div class="col-md-6">
-                                <select name="role_id[]" id="role_id" class="form-control" multiple>
-                                    <option selected disabled>Select Role</option>
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
+
+                            <select name="role_id[]" id="role_id" class="form-control col-md-6 {{ $errors->has('role_id') ? ' is-invalid' : '' }}" multiple>
+                                <option selected disabled>Select Role</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" 
+                                        @if (in_array($role->id,$admin->roles->pluck('id')->toArray())) 
+                                            selected 
+                                        @endif >{{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select> 
+
+                            @if ($errors->has('role_id'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('role_id') }}</strong>
+                                </span> 
+                            @endif
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    Change
+                                </button>
+                                <a href="{{ route('admin.show') }}" class="btn btn-danger btn-sm float-right">Back</a>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Change</button>
                     </form>
                 </div>
             </div>

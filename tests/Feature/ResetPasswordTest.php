@@ -2,7 +2,6 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Illuminate\Support\Facades\DB;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
@@ -18,7 +17,7 @@ class ResetPasswordTest extends TestCase
      */
     public function a_admin_can_see_forgot_password_form()
     {
-        $this->get('admin-password/reset')->assertStatus(200);
+        $this->get(route('admin.password.request'))->assertStatus(200);
     }
 
     /**
@@ -28,7 +27,7 @@ class ResetPasswordTest extends TestCase
     {
         Notification::fake();
         $admin = $this->createAdmin();
-        $this->post('admin-password/email', ['email' => $admin->email]);
+        $this->post(route('admin.password.email'), ['email' => $admin->email]);
         Notification::assertSentTo([$admin], AdminResetPasswordNotification::class);
     }
 
@@ -37,24 +36,6 @@ class ResetPasswordTest extends TestCase
      */
     public function an_admin_can_see_reset_password_form()
     {
-        $this->get('admin-password/reset/anytoken')->assertStatus(200);
+        $this->get(route('admin.password.reset', 'anytoken'))->assertStatus(200);
     }
-
-    /*
-    * @test
-    */
-    // public function an_admin_can_enter_email_to_change_his_password()
-    // {
-    //     // $this->withExceptionHandling();
-    //     $admin = factory(Admin::class)->create();
-    //     $res = $this->post('admin-password/email', ['email' => $admin->email]);
-
-    //     // Now reset password
-    //     $this->post('admin-password/reset', [
-    //         'email' => $admin->email,
-    //         'password' => 'abcdef',
-    //         'password_confirmation' => 'abcdef',
-    //         'token' => DB::table('password_resets')->first()->token
-    //     ])->assertRedirect('/admin/home');
-    // }
 }

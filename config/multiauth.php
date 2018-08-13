@@ -6,13 +6,13 @@ return [
     | Validations
     |--------------------------------------------------------------------------
     |
-    | Apply your own validations for register and login of admin.
+    | Apply your own validations for new columns of Admin registration.
     |
-    */
-    'validations' => [
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255|unique:users',
-        'password' => 'required|min:6|confirmed',
+ */
+    'admin' => [
+        'validations' => [
+            // Write rules here
+        ]
     ],
 
     /*

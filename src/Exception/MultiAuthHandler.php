@@ -17,7 +17,7 @@ class MultiAuthHandler extends AppHandler
 
         switch ($guard) {
             case 'admin':
-                return redirect()->guest('/admin');
+                return redirect()->guest(route('admin.login'));
                 break;
 
             default:

@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Admin Password') }}</div>
+                <div class="card-header">Reset {{ ucfirst(config('multiauth.prefix')) }} Password</div>
 
                 <div class="card-body">
                     @if (session('status'))

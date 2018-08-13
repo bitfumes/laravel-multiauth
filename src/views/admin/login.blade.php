@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Admin Login</div>
+                <div class="card-header">{{ ucfirst(config('multiauth.prefix')) }} Login</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.login') }}" aria-label="{{ __('Admin Login') }}">
