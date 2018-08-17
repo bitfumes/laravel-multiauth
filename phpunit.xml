@@ -9,6 +9,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
+         
     <testsuites>
         <testsuite name=":service_name Test Suite">
             <directory>tests</directory>
