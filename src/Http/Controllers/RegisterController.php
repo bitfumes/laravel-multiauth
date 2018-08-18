@@ -9,6 +9,7 @@ use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Bitfumes\Multiauth\Http\Requests\AdminRequest;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class RegisterController extends Controller
 {
@@ -82,6 +83,8 @@ class RegisterController extends Controller
         $admin->save();
 
         $admin->roles()->sync(request('role_id'));
+        $admin->notify(new RegistrationNotification(request('password')));
+        // dd('asdf');
 
         return $admin;
     }

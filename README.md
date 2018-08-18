@@ -79,6 +79,11 @@ Yes you can write validation rules to your new columns or change existing valida
 php artisan vendor:publish --tag="multiauth:config"
 ```
 
+## Change Prefix
+You can change the prefix in your config file you have just published. 
+With prefix we mean what you want to call your admin side, we call it admin you can call it whatever you want.
+Suppose you have changed prefix to 'master' now everywhere instead of 'admin' word, that changed to 'master'
+
 ## Create Roles
 
 To create a new role you have two options:
