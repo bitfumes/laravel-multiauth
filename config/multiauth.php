@@ -12,7 +12,7 @@ return [
     'admin' => [
         'validations' => [
             // Write rules here
-        ]
+        ],
     ],
 
     /*

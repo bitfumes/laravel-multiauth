@@ -69,7 +69,7 @@ class AdminValidationTest extends TestCase
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
         ]);
         $response->assertSessionHasErrors('role_id');
     }

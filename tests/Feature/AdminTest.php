@@ -5,8 +5,8 @@ namespace Bitfumes\Multiauth\Tests\Feature;
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class AdminTest extends TestCase
@@ -103,7 +103,7 @@ class AdminTest extends TestCase
         $newDetails = [
             'name' => 'newname',
             'email' => 'newadmin@gmail.com',
-            'role_id' => [1, 2]
+            'role_id' => [1, 2],
         ];
         $this->patch(route('admin.update', $admin->id), $newDetails)->assertRedirect(route('admin.show'));
         $this->assertDatabaseHas('admins', ['email' => 'newadmin@gmail.com']);
@@ -121,6 +121,7 @@ class AdminTest extends TestCase
     protected function createNewAdminWithRole()
     {
         $role = factory(Role::class)->create(['name' => 'editor']);
+
         return $this->post(route('admin.register'), [
             'name' => 'sarthak',
             'email' => 'sarthak@gmail.com',

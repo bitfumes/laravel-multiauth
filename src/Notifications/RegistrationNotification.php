@@ -42,6 +42,7 @@ class RegistrationNotification extends Notification
     public function toMail($notifiable)
     {
         $prefix = ucfirst(config('multiauth.prefix'));
+
         return (new MailMessage())
             ->subject("New Registration for {$prefix}")
             ->line("You are registered as an {$prefix} with this Email. Now you can login with these credentials.")

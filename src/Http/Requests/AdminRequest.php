@@ -29,7 +29,7 @@ class AdminRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admins,email,'.request('admin.id'),
             'password' => 'required|min:6|confirmed',
-            'role_id' => 'required'
+            'role_id' => 'required',
         ];
         $rules = $this->mergeClientRules($rules);
         $rules = $this->checkForUpdate($rules);
@@ -40,6 +40,7 @@ class AdminRequest extends FormRequest
     protected function mergeClientRules($rules)
     {
         $clientRules = config('multiauth.admin.validations');
+
         return array_merge($rules, $clientRules);
     }
 
@@ -48,6 +49,7 @@ class AdminRequest extends FormRequest
         if (request()->method() == 'PATCH') {
             unset($rules['password']);
         }
+
         return $rules;
     }
 }

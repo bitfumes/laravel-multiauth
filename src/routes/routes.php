@@ -3,7 +3,7 @@
 Route::group([
     'namespace' => 'Bitfumes\Multiauth\Http\Controllers',
     'middleware' => 'web',
-    'prefix' => config('multiauth.prefix', 'admin')
+    'prefix' => config('multiauth.prefix', 'admin'),
 ], function () {
     Route::GET('/home', 'AdminController@index')->name('admin.home');
     // Login and Logout
