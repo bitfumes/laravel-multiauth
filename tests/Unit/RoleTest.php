@@ -18,8 +18,8 @@ class RoleTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_role_can_not_be_deleted_if_has_admins()
     {
         $role = factory(Role::class)->create(['name' => 'editor']);

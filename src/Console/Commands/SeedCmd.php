@@ -55,10 +55,11 @@ class SeedCmd extends Command
         $prefix = config('multiauth.prefix');
         $admin = factory(Admin::class)
             ->create(['email' => "super@{$prefix}.com", 'name' => 'Super '.ucfirst($prefix)]);
-        if (!$role) {
+        if (! $role) {
             $role = factory(Role::class)->create(['name' => $rolename]);
         }
         $admin->roles()->attach($role);
+
         return $admin;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Bitfumes\Multiauth\Tests\Unit;
 
-use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Hash;
+use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class AdminTest extends TestCase
