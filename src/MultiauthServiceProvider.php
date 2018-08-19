@@ -2,13 +2,13 @@
 
 namespace Bitfumes\Multiauth;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
-use Illuminate\Support\Facades\Blade;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
@@ -95,7 +95,8 @@ class MultiauthServiceProvider extends ServiceProvider
         Blade::if('admin', function ($role) {
             $roles = auth('admin')->user()->roles()->pluck('name');
             $match = count(array_intersect([$role, 'super'], $roles->toArray()));
-            return !! $match;
+
+            return (bool) $match;
             // return in_array($role, $roles->toArray());
         });
     }
