@@ -40,6 +40,19 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
+    protected function loadRoutesFrom($path)
+    {
+        $prefix = config('multiauth.prefix', 'admin');
+        $routeDir = base_path('routes');
+        if (file_exists($routeDir)) {
+            $appRouteDir = scandir($routeDir);
+            if (!$this->app->routesAreCached()) {
+                require in_array("{$prefix}.php", $appRouteDir) ? base_path('routes/admin.php') : $path;
+            }
+        }
+        require $path;
+    }
+
     protected function loadMiddleware()
     {
         app('router')->aliasMiddleware('admin', redirectIfAuthenticatedAdmin::class);
@@ -76,6 +89,7 @@ class MultiauthServiceProvider extends ServiceProvider
 
     protected function publisheThings()
     {
+        $prefix = config('multiauth.prefix', 'admin');
         $this->publishes([
             __DIR__.'/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
@@ -88,6 +102,9 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
         ], 'multiauth:config');
+        $this->publishes([
+            __DIR__.'/routes/routes.php' => base_path("routes/{$prefix}.php"),
+        ], 'multiauth:routes');
     }
 
     public function loadBladeSyntax()

@@ -101,8 +101,8 @@ class AdminTest extends TestCase
         $role = factory(Role::class)->create(['name' => 'editor']);
         $admin->roles()->attach($role);
         $newDetails = [
-            'name' => 'newname',
-            'email' => 'newadmin@gmail.com',
+            'name'    => 'newname',
+            'email'   => 'newadmin@gmail.com',
             'role_id' => [1, 2],
         ];
         $this->patch(route('admin.update', $admin->id), $newDetails)->assertRedirect(route('admin.show'));
@@ -123,11 +123,11 @@ class AdminTest extends TestCase
         $role = factory(Role::class)->create(['name' => 'editor']);
 
         return $this->post(route('admin.register'), [
-            'name' => 'sarthak',
-            'email' => 'sarthak@gmail.com',
-            'password' => 'secret',
+            'name'                  => 'sarthak',
+            'email'                 => 'sarthak@gmail.com',
+            'password'              => 'secret',
             'password_confirmation' => 'secret',
-            'role_id' => $role->id,
+            'role_id'               => $role->id,
         ]);
     }
 
