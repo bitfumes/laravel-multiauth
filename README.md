@@ -52,7 +52,7 @@ Obviously, first time you need at least one super admin to login with and then c
 php artisan multiauth:seed --role=super
 ```
 
-Now you can login your admin side by going to https://localhost:8000/admin with creadential of email = super@admin.com and password = secret
+Now you can login your admin side by going to https://localhost:8000/admin with creadential of **email = super@admin.com** and **password = secret**
 Obviously you can later change these things.
 
 
