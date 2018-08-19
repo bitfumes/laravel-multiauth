@@ -80,7 +80,7 @@ class MultiauthServiceProvider extends ServiceProvider
             __DIR__.'/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
-            __DIR__.'/views' => resource_path('views/bitfumes/multiauth'),
+            __DIR__.'/views' => resource_path('views/vendor/multiauth'),
         ], 'multiauth:views');
         $this->publishes([
             __DIR__.'/factories' => database_path('factories'),
