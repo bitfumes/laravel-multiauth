@@ -35,8 +35,6 @@ Run [the Migration](https://github.com/s-sarthak/laravel-multiauth/database/migr
 php artisan migrate
 ```
 
----
-
 **Caveat**
 
 If you have added new column to admin migration then you should need admin factory to generate first super admin via above command.
@@ -45,7 +43,6 @@ If you have added new column to admin migration then you should need admin facto
 php artisan vendor:publish --tag="multiauth:factories"
 ```
 
----
 
 ## First Admin
 
@@ -124,25 +121,27 @@ Now you can click on 'Add Role' button to create new role.
 ## Access Level
 
 **With Middleware**
-You can use 'role' middleware to allow various admin for accessing certain section according to their role.
 
-```php
-    Route::get('admin/check',function(){
-        return "This route can only be accessed by admin with role of Editor"
-    })->middleware('role:editor');
-```
-Here it does't matter if you give role as uppercase or lowercase or mixed, this package take care of all these.
+    1. You can use 'role' middleware to allow various admin for accessing certain section according to their role.
 
-If you want a section to be accessed by only super user then use role:super middleware
-A super admin can access all lower role sections.
-```php
-    Route::get('admin/check',function(){
-        return "This route can only be accessed by super admin"
-    })->middleware('role:super');
-```
+    ```php
+        Route::get('admin/check',function(){
+            return "This route can only be accessed by admin with role of Editor"
+        })->middleware('role:editor');
+    ```
+    Here it does't matter if you give role as uppercase or lowercase or mixed, this package take care of all these.
+
+    2. If you want a section to be accessed by only super user then use role:super middleware
+    A super admin can access all lower role sections.
+    ```php
+        Route::get('admin/check',function(){
+            return "This route can only be accessed by super admin"
+        })->middleware('role:super');
+    ```
 
 
 **With Blade Syntax**
+
 You can simply use blade syntax for showing or hiding any section for admin with perticular role.
 For example, If you want to show a button for admin with role of editor then write.
 ```php
