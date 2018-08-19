@@ -117,6 +117,11 @@ Now you can click on 'Add Role' button to create new role.
 
 **Edit or Delete Role can also be done with same interface**
 
+## Publish Routes file
+```bash
+php artisan vendor:publish --tag="multiauth:routes"
+```
+
 
 ## Access Level
 
@@ -149,7 +154,6 @@ For example, If you want to show a button for admin with role of editor then wri
     <button>Only For Editor</button>
 @endadmin
 ```
-
 
 
 ## License
