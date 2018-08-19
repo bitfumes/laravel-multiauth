@@ -130,4 +130,17 @@ class AdminTest extends TestCase
             'role_id' => $role->id,
         ]);
     }
+
+    /** @test */
+    public function a_super_admin_can_only_see_master_and_role_drop_down()
+    {
+        $this->get(route('admin.home'))->assertSee('Roles');
+    }
+
+    /** @test */
+    public function a_normal_admin_can_not_see_master_and_role_drop_down()
+    {
+        $this->logInAdmin();
+        $this->get(route('admin.home'))->assertDontSee('Roles');
+    }
 }

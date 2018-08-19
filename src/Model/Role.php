@@ -23,4 +23,9 @@ class Role extends Model
     {
         return $this->belongsToMany(Admin::class);
     }
+
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
 }

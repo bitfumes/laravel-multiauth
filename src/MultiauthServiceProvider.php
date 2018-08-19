@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factory;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfNotSuperAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
+use Illuminate\Support\Facades\Blade;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
         $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
         $this->loadCommands();
+        $this->loadBladeSyntax();
     }
 
     public function register()
@@ -41,7 +43,7 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadMiddleware()
     {
         app('router')->aliasMiddleware('admin', redirectIfAuthenticatedAdmin::class);
-        app('router')->aliasMiddleware('super', redirectIfNotSuperAdmin::class);
+        app('router')->aliasMiddleware('role', redirectIfNotWithRoleOfAdmin::class);
     }
 
     protected function registerExceptionHandler()
@@ -86,6 +88,16 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
         ], 'multiauth:config');
+    }
+
+    public function loadBladeSyntax()
+    {
+        Blade::if('admin', function ($role) {
+            $roles = auth('admin')->user()->roles()->pluck('name');
+            $match = count(array_intersect([$role, 'super'], $roles->toArray()));
+            return !! $match;
+            // return in_array($role, $roles->toArray());
+        });
     }
 
     protected function loadCommands()

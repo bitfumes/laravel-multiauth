@@ -28,4 +28,11 @@ class RoleTest extends TestCase
         $this->expectException(\Exception::class);
         $role->delete();
     }
+
+    /** @test */
+    public function a_role_must_saved_in_lower_cased()
+    {
+        $role = factory(Role::class)->create(['name' => 'Editor']);
+        $this->assertEquals($role->name, 'editor');
+    }
 }

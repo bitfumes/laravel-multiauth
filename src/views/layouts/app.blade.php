@@ -55,13 +55,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('admin.show') }}">{{ ucfirst(config('multiauth.prefix')) }}</a>
-                                <a class="dropdown-item" href="{{ route('admin.roles') }}">Roles</a>
+                                @admin('super')
+                                    <a class="dropdown-item" href="{{ route('admin.show') }}">{{ ucfirst(config('multiauth.prefix')) }}</a>
+                                    <a class="dropdown-item" href="{{ route('admin.roles') }}">Roles</a>
+                                @endadmin
                                 <a class="dropdown-item" href="/admin/logout" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>

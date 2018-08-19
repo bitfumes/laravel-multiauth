@@ -5,7 +5,7 @@ namespace Bitfumes\Multiauth\Http\Middleware;
 use Auth;
 use Closure;
 
-class redirectIfNotSuperAdmin
+class redirectIfNotWithRoleOfAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,14 @@ class redirectIfNotSuperAdmin
      *
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $role = 'super')
     {
-        $roles = auth($guard)->user()->roles()->pluck('name');
-        if (! in_array('super', $roles->toArray())) {
+        $roles = auth('admin')->user()->roles()->pluck('name');
+        if (in_array('super', $roles->toArray())) {
+            return $next($request);
+        }
+
+        if (! in_array(strtolower($role), $roles->toArray())) {
             return redirect(route('admin.home'));
         }
 

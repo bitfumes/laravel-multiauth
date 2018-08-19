@@ -10,7 +10,7 @@ class AdminRoleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('super:admin');
+        $this->middleware('role:super');
     }
 
     public function attach(Admin $admin, Role $role)
