@@ -48,6 +48,7 @@ class SeedCmd extends Command
         $admin = $this->createSuperAdmin($role, $rolename);
 
         $this->info("You have created an admin name '{$admin->name}' with role of '{$admin->roles->first()->name}' ");
+        $this->info("Now log-in with {$admin->email} email and password as 'secret'");
     }
 
     protected function createSuperAdmin($role, $rolename)
