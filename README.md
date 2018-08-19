@@ -122,22 +122,22 @@ Now you can click on 'Add Role' button to create new role.
 
 **With Middleware**
 
-    1. You can use 'role' middleware to allow various admin for accessing certain section according to their role.
+1. You can use 'role' middleware to allow various admin for accessing certain section according to their role.
 
-    ```php
-        Route::get('admin/check',function(){
-            return "This route can only be accessed by admin with role of Editor"
-        })->middleware('role:editor');
-    ```
-    Here it does't matter if you give role as uppercase or lowercase or mixed, this package take care of all these.
+```php
+    Route::get('admin/check',function(){
+        return "This route can only be accessed by admin with role of Editor"
+    })->middleware('role:editor');
+```
+Here it does't matter if you give role as uppercase or lowercase or mixed, this package take care of all these.
 
-    2. If you want a section to be accessed by only super user then use role:super middleware
-    A super admin can access all lower role sections.
-    ```php
-        Route::get('admin/check',function(){
-            return "This route can only be accessed by super admin"
-        })->middleware('role:super');
-    ```
+2. If you want a section to be accessed by only super user then use role:super middleware
+A super admin can access all lower role sections.
+```php
+    Route::get('admin/check',function(){
+        return "This route can only be accessed by super admin"
+    })->middleware('role:super');
+```
 
 
 **With Blade Syntax**
