@@ -50,6 +50,7 @@ class RollbackMultiAuthCommand extends Command
     {
         if (! $this->checkGuard()) {
             $this->error("Guard {$this->name} does't exist");
+
             return;
         }
         $this->unPublishGuard()
@@ -151,6 +152,7 @@ class RollbackMultiAuthCommand extends Command
     protected function checkGuard()
     {
         $guards = array_keys(config('auth.guards'));
+
         return in_array($this->name, $guards);
     }
 
@@ -168,7 +170,7 @@ class RollbackMultiAuthCommand extends Command
 
         $stubs = [
             $this->stub_path.'/routes/map.stub',
-            $this->stub_path.'/routes/map_call.stub'
+            $this->stub_path.'/routes/map_call.stub',
         ];
         foreach ($stubs as $stub) {
             $map = file_get_contents($stub);
@@ -186,7 +188,7 @@ class RollbackMultiAuthCommand extends Command
         $auth = file_get_contents(config_path('auth.php'));
         $guard = $this->parseName()['{{singularSnake}}'];
 
-        for ($i = 0; $i < 3 ; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $m = preg_match_all("/'{$guard}s?'\s*=>\s*\[\n(.*\n){2}.*(\n.*)?\],/", $auth, $match);
             $auth = str_replace($match[0][0], '', $auth);
         }
@@ -207,13 +209,13 @@ class RollbackMultiAuthCommand extends Command
 
     /**
      * Parse guard name
-     * Get the guard name in different cases
+     * Get the guard name in different cases.
      * @param string $name
      * @return array
      */
     protected function parseName($name = null)
     {
-        if (!$name) {
+        if (! $name) {
             $name = $this->name;
         }
 
@@ -232,12 +234,13 @@ class RollbackMultiAuthCommand extends Command
 
     /**
      * Get project namespace
-     * Default: App
+     * Default: App.
      * @return string
      */
     protected function getNamespace()
     {
         $namespace = Container::getInstance()->getNamespace();
+
         return rtrim($namespace, '\\');
     }
 }
