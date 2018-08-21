@@ -1,0 +1,21 @@
+<?php
+
+Route::group(['namespace' => '{{singularClass}}'], function() {
+    Route::get('/', 'HomeController@index')->name('{{singularSlug}}.dashboard');
+
+    // Login
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('{{singularSlug}}.login');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('logout', 'Auth\LoginController@logout')->name('{{singularSlug}}.logout');
+
+    // Register
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('{{singularSlug}}.register');
+    Route::post('register', 'Auth\RegisterController@register');
+
+    // Passwords
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('{{singularSlug}}.password.email');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('{{singularSlug}}.password.request');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('{{singularSlug}}.password.reset');
+
+});

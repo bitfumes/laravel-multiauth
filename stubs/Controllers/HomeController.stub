@@ -1,0 +1,31 @@
+<?php
+
+namespace {{namespace}}\Http\Controllers\{{singularClass}};
+
+use {{namespace}}\Http\Controllers\Controller;
+
+class HomeController extends Controller
+{
+
+    protected $redirectTo = '/{{singularSlug}}/login';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('{{singularSnake}}.auth:{{singularSnake}}');
+    }
+
+    /**
+     * Show the {{singularClass}} dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+        return view('{{singularSlug}}.home');
+    }
+
+}

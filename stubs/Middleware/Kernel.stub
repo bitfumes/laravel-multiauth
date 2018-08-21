@@ -1,0 +1,3 @@
+
+        '{{singularSnake}}.auth' => \App\Http\Middleware\RedirectIfNot{{singularClass}}::class,
+        '{{singularSnake}}.guest' => \App\Http\Middleware\RedirectIf{{singularClass}}::class,

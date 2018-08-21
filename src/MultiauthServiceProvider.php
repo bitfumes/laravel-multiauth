@@ -10,26 +10,33 @@ use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
+use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
+use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/views', 'multiauth');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
-        $this->publisheThings();
-        $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
-        $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
+        if ($this->canHaveAdminBackend()) {
+            $this->loadViewsFrom(__DIR__.'/views', 'multiauth');
+            $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+            $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
+            $this->publisheThings();
+            $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
+            $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
+            $this->loadBladeSyntax();
+            $this->loadAdminCommands();
+        }
         $this->loadCommands();
-        $this->loadBladeSyntax();
     }
 
     public function register()
     {
-        $this->loadFactories();
-        $this->loadMiddleware();
-        $this->registerExceptionHandler();
+        if ($this->canHaveAdminBackend()) {
+            $this->loadFactories();
+            $this->loadMiddleware();
+            $this->registerExceptionHandler();
+        }
     }
 
     protected function loadFactories()
@@ -47,7 +54,7 @@ class MultiauthServiceProvider extends ServiceProvider
         if (file_exists($routeDir)) {
             $appRouteDir = scandir($routeDir);
             if (!$this->app->routesAreCached()) {
-                require in_array("{$prefix}.php", $appRouteDir) ? base_path('routes/admin.php') : $path;
+                require in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
             }
         }
         require $path;
@@ -107,18 +114,17 @@ class MultiauthServiceProvider extends ServiceProvider
         ], 'multiauth:routes');
     }
 
-    public function loadBladeSyntax()
+    protected function loadBladeSyntax()
     {
         Blade::if('admin', function ($role) {
             $roles = auth('admin')->user()->roles()->pluck('name');
             $match = count(array_intersect([$role, 'super'], $roles->toArray()));
 
             return (bool) $match;
-            // return in_array($role, $roles->toArray());
         });
     }
 
-    protected function loadCommands()
+    protected function loadAdminCommands()
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -126,5 +132,20 @@ class MultiauthServiceProvider extends ServiceProvider
                 RoleCmd::class,
             ]);
         }
+    }
+
+    protected function loadCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MakeMultiAuthCommand::class,
+                RollbackMultiAuthCommand::class
+            ]);
+        }
+    }
+
+    protected function canHaveAdminBackend()
+    {
+        return config('multiauth.admin_active', true);
     }
 }

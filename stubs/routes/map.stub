@@ -1,0 +1,15 @@
+    /**
+     * Define the "{{singularSnake}}" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function map{{singularClass}}Routes()
+    {
+        Route::prefix('{{singularSlug}}')
+             ->middleware(['web'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/{{singularSlug}}.php'));
+    }
+

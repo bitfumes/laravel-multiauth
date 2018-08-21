@@ -3,6 +3,17 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Turn Off Admin Login
+    |--------------------------------------------------------------------------
+    |
+    | After creating another multiauth apart from admin, and you don't want to have admin
+    | backend then you can simply turn if off by makeing admin_active as false here.
+    |
+ */
+    'admin_active' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Validations
     |--------------------------------------------------------------------------
     |
