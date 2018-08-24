@@ -86,7 +86,7 @@ class MakeMultiAuthCommand extends Command
         }
 
         $auth = file_put_contents(config_path('auth.php'), $auth);
-
+        $this->info("Step 1. {$guard} Guard is added to config/auth.php file \n");
         return $this;
     }
 
@@ -122,6 +122,7 @@ class MakeMultiAuthCommand extends Command
             $complied = strtr($stub, $name_map);
             file_put_contents("{$publish_path}/{$file}.php", $complied);
         }
+        $this->info("Step 2. New Controllers for {$guard} is added to App\Http\Controller\Student \n");
         return $this;
     }
 
@@ -131,6 +132,12 @@ class MakeMultiAuthCommand extends Command
         $name_map = $this->parseName();
         $publish_path = base_path('routes');
         $guard = $name_map['{{singularSlug}}'];
+
+        if (app()->environment() == 'testing') {
+            if (! file_exists(base_path('routes'))) {
+                mkdir(base_path('routes'));
+            }
+        }
 
         if (file_exists("{$publish_path}/{$guard}.php")) {
             $this->error("{$guard}.php file already exists");
@@ -142,7 +149,7 @@ class MakeMultiAuthCommand extends Command
         $stub = file_get_contents("{$stub_path}/routes.stub");
         $complied = strtr($stub, $name_map);
         file_put_contents("{$publish_path}/{$guard}.php", $complied);
-
+        $this->info("Step 3. Routes for {$guard} is added to routes/{$guard}.php file \n");
         return $this;
     }
 
@@ -151,7 +158,6 @@ class MakeMultiAuthCommand extends Command
         $provider_path = app_path('Providers/RouteServiceProvider.php');
 
         $provider = file_get_contents($provider_path);
-
         $name_map = $this->parseName();
 
         // Function
@@ -164,9 +170,8 @@ class MakeMultiAuthCommand extends Command
             return;
         }
 
-        $doc_box = "    /**\n".'     * Define the "web" routes for the application.';
-
-        $provider = str_replace($doc_box, $map.$doc_box, $provider);
+        preg_match('/\s+\/\*\*\n\s+\*\s(\w+\s)+"web"\s(\w+\s)+\w+.\n/', $provider, $match);
+        $provider = str_replace($match[0], $map.$match[0], $provider);
         /********** Function Call **********/
 
         $map_call = file_get_contents($this->stub_path.'/routes/map_call.stub');
@@ -179,7 +184,7 @@ class MakeMultiAuthCommand extends Command
 
         // Overwrite config file
         file_put_contents($provider_path, $provider);
-
+        $this->info("Step 4. Step 3 generated route file is registered in App\Provider\RouteServiceProvider.php \n");
         return $this;
     }
 
@@ -207,6 +212,7 @@ class MakeMultiAuthCommand extends Command
             }
             file_put_contents("{$views_path}/{$view}.php", $complied);
         }
+        $this->info("Step 5. Views are added to resources\\views\student directory \n");
 
         return $this;
     }
@@ -220,7 +226,7 @@ class MakeMultiAuthCommand extends Command
         $factory_path = database_path("factories/{$this->parseName()['{{singularClass}}']}Factory.php");
 
         file_put_contents($factory_path, $compiled);
-
+        $this->info("Step 6. Factory for {$this->name} is added to database\\factories directory as StudentFactory.php \n");
         return $this;
     }
 
@@ -233,7 +239,7 @@ class MakeMultiAuthCommand extends Command
         $migration_path = database_path("migrations/{$signature}_create_{$this->parseName()['{{pluralSnake}}']}_table.php");
 
         file_put_contents($migration_path, $compiled);
-
+        $this->info("Step 7. Migration for {$this->name} table schema is added to database\migrations \n");
         return $this;
     }
 
@@ -244,7 +250,7 @@ class MakeMultiAuthCommand extends Command
         $model_path = app_path($this->parseName()['{{singularClass}}'].'.php');
 
         file_put_contents($model_path, $compiled);
-
+        $this->info("Step 8. Model for {$this->name} is added to App\{$this->name}.php \n");
         return $this;
     }
 
@@ -265,7 +271,7 @@ class MakeMultiAuthCommand extends Command
         $middleware = strtr($stub, $this->parseName());
 
         file_put_contents($middleware_path.'/RedirectIfNot'.$this->parseName()['{{singularClass}}'].'.php', $middleware);
-
+        $this->info("Step 9. Middlewares related to {$this->name} is added App\Http\Middleware directory \n");
         return $this;
     }
 
@@ -287,7 +293,7 @@ class MakeMultiAuthCommand extends Command
 
         // Overwrite config file
         file_put_contents($kernel_path, $kernel);
-
+        $this->info("Step 10. Above crated middleware in step 9 is registered in App\Http\Kernel.php file within routeMiddleware array \n");
         return $this;
     }
 
@@ -305,7 +311,7 @@ class MakeMultiAuthCommand extends Command
         }
 
         file_put_contents($notification_path, $notification);
-
+        $this->info("Step 11. Notification file for password reset is published at App\Notification\{$this->name} directory \n");
         return $this;
     }
 

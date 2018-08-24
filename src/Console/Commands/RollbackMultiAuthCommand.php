@@ -65,70 +65,17 @@ class RollbackMultiAuthCommand extends Command
              ->removeNotification();
     }
 
-    protected function removeFactory()
+    protected function unPublishGuard()
     {
-        $factory = database_path("factories/{$this->parseName()['{{singularClass}}']}Factory.php");
-        unlink($factory);
-
-        return $this;
-    }
-
-    protected function removeModel()
-    {
-        $model = app_path($this->parseName()['{{singularClass}}'].'.php');
-        unlink($model);
-
-        return $this;
-    }
-
-    protected function removeMiddleware()
-    {
-        $guard = $this->parseName()['{{singularClass}}'];
-        $path = app_path('Http/Middleware');
-        unlink("{$path}/RedirectIf{$guard}.php");
-        unlink("{$path}/RedirectIfNot{$guard}.php");
-
-        return $this;
-    }
-
-    protected function unRegisterMiddleware()
-    {
-        $kernel = file_get_contents(app_path('Http/Kernel.php'));
+        $auth = file_get_contents(config_path('auth.php'));
         $guard = $this->parseName()['{{singularSnake}}'];
-        preg_match_all("/'{$guard}.+::class,\s+/", $kernel, $match);
-        foreach ($match[0] as $match) {
-            $kernel = str_replace($match, '', $kernel);
+
+        for ($i = 0; $i < 3; $i++) {
+            $m = preg_match_all("/'{$guard}s?'\s*=>\s*\[\n(.*\n){2}.*(\n.*)?\],/", $auth, $match);
+            $auth = str_replace($match[0][0], '', $auth);
         }
-
-        file_put_contents(app_path('Http/Kernel.php'), $kernel);
-
-        return $this;
-    }
-
-    protected function removeMigration()
-    {
-        $guard = $this->parseName()['{{pluralSlug}}'];
-        $migration_path = database_path('migrations');
-        $files = glob("{$migration_path}/*.php");
-        foreach ($files as $file) {
-            if (str_contains($file, "create_{$guard}_table")) {
-                unlink($file);
-            }
-        }
-
-        return $this;
-    }
-
-    protected function rollbackViews()
-    {
-        $guard = $this->parseName()['{{singularClass}}'];
-        $views_path = resource_path("views/{$guard}");
-        $dirs = ['/auth/passwords/', '/auth/', '/layouts/', '/'];
-        foreach ($dirs as $dir) {
-            array_map('unlink', glob("{$views_path}{$dir}*.php"));
-            rmdir($views_path.$dir);
-        }
-
+        $auth = file_put_contents(config_path('auth.php'), $auth);
+        $this->error("Step 1. {$guard} Guard is removed from config/auth.php file \n");
         return $this;
     }
 
@@ -144,19 +91,19 @@ class RollbackMultiAuthCommand extends Command
         } catch (Exception $ex) {
             throw new \RuntimeException($ex->getMessage());
         }
+        $this->error("Step 2.  Controllers for {$guard} is rollbacked from App\Http\Controller\Student \n");
 
         return $this;
     }
 
-    protected function checkGuard()
-    {
-        $guards = array_keys(config('auth.guards'));
-        return in_array($this->name, $guards);
-    }
-
     protected function rollbackRoutes()
     {
-        unlink(base_path("routes/{$this->name}.php"));
+        try {
+            unlink(base_path("routes/{$this->name}.php"));
+            $this->error("Step 3. Routes for {$this->name} is rollbacked from routes directory \n");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         return $this;
     }
@@ -177,22 +124,87 @@ class RollbackMultiAuthCommand extends Command
         }
 
         file_put_contents($provider_path, $provider);
+        $this->error("Step 4. Routes are UnRegistered in App\Provider\RouteServiceProvider.php \n");
+        return $this;
+    }
+
+    protected function rollbackViews()
+    {
+        $guard = $this->parseName()['{{singularClass}}'];
+        $views_path = resource_path("views/{$guard}");
+        $dirs = ['/auth/passwords/', '/auth/', '/layouts/', '/'];
+        foreach ($dirs as $dir) {
+            array_map('unlink', glob("{$views_path}{$dir}*.php"));
+            rmdir($views_path.$dir);
+        }
+        $this->error("Step 5. Views are removed from resources\\views\student directory \n");
+        return $this;
+    }
+
+    protected function removeFactory()
+    {
+        $factory = database_path("factories/{$this->parseName()['{{singularClass}}']}Factory.php");
+        try {
+            unlink($factory);
+            $this->error("Step 6. Factory for {$this->name} is removed from database\\factories directory \n");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
 
         return $this;
     }
 
-    protected function unPublishGuard()
+    protected function removeMigration()
     {
-        $auth = file_get_contents(config_path('auth.php'));
-        $guard = $this->parseName()['{{singularSnake}}'];
-
-        for ($i = 0; $i < 3 ; $i++) {
-            $m = preg_match_all("/'{$guard}s?'\s*=>\s*\[\n(.*\n){2}.*(\n.*)?\],/", $auth, $match);
-            $auth = str_replace($match[0][0], '', $auth);
+        $guard = $this->parseName()['{{pluralSlug}}'];
+        $migration_path = database_path('migrations');
+        $files = glob("{$migration_path}/*.php");
+        foreach ($files as $file) {
+            if (str_contains($file, "create_{$guard}_table")) {
+                unlink($file);
+            }
         }
-        $auth = file_put_contents(config_path('auth.php'), $auth);
+        $this->error("Step 7. Migration for {$this->name} table schema is added to database\migrations \n");
+        return $this;
+    }
+
+    protected function removeModel()
+    {
+        $model = app_path($this->parseName()['{{singularClass}}'].'.php');
+        unlink($model);
+        $this->error("Step 8. Model for {$this->name} is removed from App\{$this->name}.php \n");
 
         return $this;
+    }
+
+    protected function removeMiddleware()
+    {
+        $guard = $this->parseName()['{{singularClass}}'];
+        $path = app_path('Http/Middleware');
+        unlink("{$path}/RedirectIf{$guard}.php");
+        unlink("{$path}/RedirectIfNot{$guard}.php");
+        $this->error("Step 9. Middlewares related to {$this->name} is removed from App\Http\Middleware directory \n");
+        return $this;
+    }
+
+    protected function unRegisterMiddleware()
+    {
+        $kernel = file_get_contents(app_path('Http/Kernel.php'));
+        $guard = $this->parseName()['{{singularSnake}}'];
+        preg_match_all("/'{$guard}.+::class,\s+/", $kernel, $match);
+        foreach ($match[0] as $match) {
+            $kernel = str_replace($match, '', $kernel);
+        }
+
+        file_put_contents(app_path('Http/Kernel.php'), $kernel);
+        $this->error("Step 10. Middleware for {$this->name} is Un-Registered from App\Http\Kernel.php file within routeMiddleware array \n");
+        return $this;
+    }
+
+    protected function checkGuard()
+    {
+        $guards = array_keys(config('auth.guards'));
+        return in_array($this->name, $guards);
     }
 
     protected function removeNotification()
@@ -201,7 +213,7 @@ class RollbackMultiAuthCommand extends Command
         $notification_path = app_path("/Notifications/{$name}");
         unlink("{$notification_path}/{$name}ResetPassword.php");
         rmdir($notification_path);
-
+        $this->error("Step 11. Notification file for password reset is published at App\Notification\{$this->name}  directory \n");
         return $this;
     }
 

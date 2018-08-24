@@ -127,9 +127,9 @@ php artisan vendor:publish --tag="multiauth:routes"
 1. You can use 'role' middleware to allow various admin for accessing certain section according to their role.
 
 ```php
-    Route::get('admin/check',function(){
-        return "This route can only be accessed by admin with role of Editor"
-    })->middleware('role:editor');
+Route::get('admin/check',function(){
+    return "This route can only be accessed by admin with role of Editor"
+})->middleware('role:editor');
 ```
 
 Here it does't matter if you give role as uppercase or lowercase or mixed, this package take care of all these.
@@ -138,9 +138,9 @@ Here it does't matter if you give role as uppercase or lowercase or mixed, this 
    A super admin can access all lower role sections.
 
 ```php
-    Route::get('admin/check',function(){
-        return "This route can only be accessed by super admin"
-    })->middleware('role:super');
+Route::get('admin/check',function(){
+    return "This route can only be accessed by super admin"
+})->middleware('role:super');
 ```
 
 **With Blade Syntax**
@@ -156,17 +156,23 @@ For example, If you want to show a button for admin with role of editor then wri
 
 ## Another Auth
 
-Apart from Admin section, you can make a another auth
+**Apart from Admin section, you can make a another auth**
 
 ```php
 php artisan multiauth:make {guard}
 ```
 
-you can rollback this auth also if you want.
+After you run this command you will get steps in which files has been added/changed.
+![For Make](https://user-images.githubusercontent.com/41295276/44602450-4a4e2580-a7fd-11e8-858b-cac65c496908.png)
+
+**You can rollback this auth also if you want.**
 
 ```php
 php artisan multiauth:rollback {guard}
 ```
+
+This command will show you steps to rollback and file that has changed/removed.
+![For Rollback](https://user-images.githubusercontent.com/41295276/44602466-5508ba80-a7fd-11e8-9737-3711baecbbdb.png)
 
 ## License
 
