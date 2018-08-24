@@ -45,6 +45,7 @@ class MakeMultiAuthCommand extends Command
         $this->name = $this->argument('name');
         if ($this->checkGuard()) {
             $this->error("Guard '{$this->name}' already exist");
+
             return;
         }
         $this->addGuard()
@@ -68,16 +69,16 @@ class MakeMultiAuthCommand extends Command
         $keys = [
             'guards' => [
                 'to_replace' => "'guards' => [",
-                'stub'       => file_get_contents("{$this->stub_path}/config/guards.stub")
+                'stub'       => file_get_contents("{$this->stub_path}/config/guards.stub"),
             ],
             'providers' => [
                 'to_replace' => "'providers' => [",
-                'stub'       => file_get_contents("{$this->stub_path}/config/providers.stub")
+                'stub'       => file_get_contents("{$this->stub_path}/config/providers.stub"),
             ],
             'passwords' => [
                 'to_replace' => "'passwords' => [",
-                'stub'       => file_get_contents("{$this->stub_path}/config/passwords.stub")
-            ]
+                'stub'       => file_get_contents("{$this->stub_path}/config/passwords.stub"),
+            ],
         ];
 
         foreach ($keys as $key) {
@@ -87,12 +88,14 @@ class MakeMultiAuthCommand extends Command
 
         $auth = file_put_contents(config_path('auth.php'), $auth);
         $this->info("Step 1. {$guard} Guard is added to config/auth.php file \n");
+
         return $this;
     }
 
     protected function checkGuard()
     {
         $guards = array_keys(config('auth.guards'));
+
         return in_array($this->name, $guards);
     }
 
@@ -107,7 +110,7 @@ class MakeMultiAuthCommand extends Command
             'Auth/LoginController',
             'Auth/RegisterController',
             'Auth/ResetPasswordController',
-            'HomeController'
+            'HomeController',
         ];
 
         $publish_path = app_path("/Http/Controllers/{$guard}");
@@ -123,6 +126,7 @@ class MakeMultiAuthCommand extends Command
             file_put_contents("{$publish_path}/{$file}.php", $complied);
         }
         $this->info("Step 2. New Controllers for {$guard} is added to App\Http\Controller\Student \n");
+
         return $this;
     }
 
@@ -150,6 +154,7 @@ class MakeMultiAuthCommand extends Command
         $complied = strtr($stub, $name_map);
         file_put_contents("{$publish_path}/{$guard}.php", $complied);
         $this->info("Step 3. Routes for {$guard} is added to routes/{$guard}.php file \n");
+
         return $this;
     }
 
@@ -167,6 +172,7 @@ class MakeMultiAuthCommand extends Command
         $map = strtr($map, $name_map);
         if (strpos($provider, $map)) {
             $this->error('Routes are already registered');
+
             return;
         }
 
@@ -185,6 +191,7 @@ class MakeMultiAuthCommand extends Command
         // Overwrite config file
         file_put_contents($provider_path, $provider);
         $this->info("Step 4. Step 3 generated route file is registered in App\Provider\RouteServiceProvider.php \n");
+
         return $this;
     }
 
@@ -207,7 +214,7 @@ class MakeMultiAuthCommand extends Command
             $stub_content = file_get_contents("{$stub_path}/{$view}.stub");
             $complied = strtr($stub_content, $this->parseName());
             $dir = dirname("{$views_path}/{$view}");
-            if (!is_dir($dir)) {
+            if (! is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
             file_put_contents("{$views_path}/{$view}.php", $complied);
@@ -227,6 +234,7 @@ class MakeMultiAuthCommand extends Command
 
         file_put_contents($factory_path, $compiled);
         $this->info("Step 6. Factory for {$this->name} is added to database\\factories directory as StudentFactory.php \n");
+
         return $this;
     }
 
@@ -240,6 +248,7 @@ class MakeMultiAuthCommand extends Command
 
         file_put_contents($migration_path, $compiled);
         $this->info("Step 7. Migration for {$this->name} table schema is added to database\migrations \n");
+
         return $this;
     }
 
@@ -251,6 +260,7 @@ class MakeMultiAuthCommand extends Command
 
         file_put_contents($model_path, $compiled);
         $this->info("Step 8. Model for {$this->name} is added to App\{$this->name}.php \n");
+
         return $this;
     }
 
@@ -272,6 +282,7 @@ class MakeMultiAuthCommand extends Command
 
         file_put_contents($middleware_path.'/RedirectIfNot'.$this->parseName()['{{singularClass}}'].'.php', $middleware);
         $this->info("Step 9. Middlewares related to {$this->name} is added App\Http\Middleware directory \n");
+
         return $this;
     }
 
@@ -294,6 +305,7 @@ class MakeMultiAuthCommand extends Command
         // Overwrite config file
         file_put_contents($kernel_path, $kernel);
         $this->info("Step 10. Above crated middleware in step 9 is registered in App\Http\Kernel.php file within routeMiddleware array \n");
+
         return $this;
     }
 
@@ -306,24 +318,25 @@ class MakeMultiAuthCommand extends Command
         $notification_path = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
 
         $dir = dirname($notification_path);
-        if (!is_dir($dir)) {
+        if (! is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
         file_put_contents($notification_path, $notification);
         $this->info("Step 11. Notification file for password reset is published at App\Notification\{$this->name} directory \n");
+
         return $this;
     }
 
     /**
      * Parse guard name
-     * Get the guard name in different cases
+     * Get the guard name in different cases.
      * @param string $name
      * @return array
      */
     protected function parseName($name = null)
     {
-        if (!$name) {
+        if (! $name) {
             $name = $this->name;
         }
 
@@ -342,12 +355,13 @@ class MakeMultiAuthCommand extends Command
 
     /**
      * Get project namespace
-     * Default: App
+     * Default: App.
      * @return string
      */
     protected function getNamespace()
     {
         $namespace = Container::getInstance()->getNamespace();
+
         return rtrim($namespace, '\\');
     }
 }
