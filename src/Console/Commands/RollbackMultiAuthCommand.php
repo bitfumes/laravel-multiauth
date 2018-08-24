@@ -50,6 +50,7 @@ class RollbackMultiAuthCommand extends Command
     {
         if (! $this->checkGuard()) {
             $this->error("Guard {$this->name} does't exist");
+
             return;
         }
         $this->unPublishGuard()
@@ -76,6 +77,7 @@ class RollbackMultiAuthCommand extends Command
         }
         $auth = file_put_contents(config_path('auth.php'), $auth);
         $this->error("Step 1. {$guard} Guard is removed from config/auth.php file \n");
+
         return $this;
     }
 
@@ -115,7 +117,7 @@ class RollbackMultiAuthCommand extends Command
 
         $stubs = [
             $this->stub_path.'/routes/map.stub',
-            $this->stub_path.'/routes/map_call.stub'
+            $this->stub_path.'/routes/map_call.stub',
         ];
         foreach ($stubs as $stub) {
             $map = file_get_contents($stub);
@@ -125,6 +127,7 @@ class RollbackMultiAuthCommand extends Command
 
         file_put_contents($provider_path, $provider);
         $this->error("Step 4. Routes are UnRegistered in App\Provider\RouteServiceProvider.php \n");
+
         return $this;
     }
 
@@ -138,6 +141,7 @@ class RollbackMultiAuthCommand extends Command
             rmdir($views_path.$dir);
         }
         $this->error("Step 5. Views are removed from resources\\views\student directory \n");
+
         return $this;
     }
 
@@ -165,6 +169,7 @@ class RollbackMultiAuthCommand extends Command
             }
         }
         $this->error("Step 7. Migration for {$this->name} table schema is added to database\migrations \n");
+
         return $this;
     }
 
@@ -184,6 +189,7 @@ class RollbackMultiAuthCommand extends Command
         unlink("{$path}/RedirectIf{$guard}.php");
         unlink("{$path}/RedirectIfNot{$guard}.php");
         $this->error("Step 9. Middlewares related to {$this->name} is removed from App\Http\Middleware directory \n");
+
         return $this;
     }
 
@@ -198,12 +204,14 @@ class RollbackMultiAuthCommand extends Command
 
         file_put_contents(app_path('Http/Kernel.php'), $kernel);
         $this->error("Step 10. Middleware for {$this->name} is Un-Registered from App\Http\Kernel.php file within routeMiddleware array \n");
+
         return $this;
     }
 
     protected function checkGuard()
     {
         $guards = array_keys(config('auth.guards'));
+
         return in_array($this->name, $guards);
     }
 
@@ -214,18 +222,19 @@ class RollbackMultiAuthCommand extends Command
         unlink("{$notification_path}/{$name}ResetPassword.php");
         rmdir($notification_path);
         $this->error("Step 11. Notification file for password reset is published at App\Notification\{$this->name}  directory \n");
+
         return $this;
     }
 
     /**
      * Parse guard name
-     * Get the guard name in different cases
+     * Get the guard name in different cases.
      * @param string $name
      * @return array
      */
     protected function parseName($name = null)
     {
-        if (!$name) {
+        if (! $name) {
             $name = $this->name;
         }
 
@@ -244,12 +253,13 @@ class RollbackMultiAuthCommand extends Command
 
     /**
      * Get project namespace
-     * Default: App
+     * Default: App.
      * @return string
      */
     protected function getNamespace()
     {
         $namespace = Container::getInstance()->getNamespace();
+
         return rtrim($namespace, '\\');
     }
 }
