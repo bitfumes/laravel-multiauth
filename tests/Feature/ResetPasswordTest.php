@@ -3,11 +3,11 @@
 namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Support\Facades\Hash;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
-use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordTest extends TestCase
 {
@@ -53,9 +53,10 @@ class ResetPasswordTest extends TestCase
                 'email'                 => $admin->email,
                 'password'              => 'newpass',
                 'password_confirmation' => 'newpass',
-                'token'                 => $token
+                'token'                 => $token,
             ]);
             $this->assertTrue(Hash::check('newpass', $admin->fresh()->password));
+
             return true;
         });
     }
