@@ -73,7 +73,7 @@ class RegisterController extends Controller
         $admin = new Admin;
 
         $fields = $this->tableFields();
-
+        $data['password'] = bcrypt($data['password']);
         foreach ($fields as $field) {
             if (isset($data[$field])) {
                 $admin->$field = $data[$field];
@@ -81,7 +81,6 @@ class RegisterController extends Controller
         }
 
         $admin->save();
-
         $admin->roles()->sync(request('role_id'));
         $admin->notify(new RegistrationNotification(request('password')));
         // dd('asdf');

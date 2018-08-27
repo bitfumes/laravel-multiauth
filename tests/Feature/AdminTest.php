@@ -8,6 +8,7 @@ use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
+use Illuminate\Support\Facades\Hash;
 
 class AdminTest extends TestCase
 {
@@ -48,6 +49,8 @@ class AdminTest extends TestCase
         $response = $this->createNewAdminWithRole();
         $response->assertStatus(302)->assertRedirect(route('admin.show'));
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@gmail.com']);
+        $admin = Admin::find(2);
+        $this->assertTrue(Hash::check('secret', $admin->password));
         $this->assertDatabaseHas('admin_role', ['admin_id' => 2]);
     }
 
