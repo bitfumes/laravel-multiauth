@@ -7,6 +7,7 @@ use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
+use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordTest extends TestCase
 {
@@ -37,5 +38,25 @@ class ResetPasswordTest extends TestCase
     public function an_admin_can_see_reset_password_form()
     {
         $this->get(route('admin.password.reset', 'anytoken'))->assertStatus(200);
+    }
+
+    /** @test */
+    public function an_admin_can_change_its_password()
+    {
+        Notification::fake();
+        $admin = $this->createAdmin();
+        $this->post(route('admin.password.email'), ['email' => $admin->email]);
+        Notification::assertSentTo([$admin], AdminResetPasswordNotification::class, function ($notification) use ($admin) {
+            $token = $notification->token;
+            $this->assertTrue(Hash::check('secret', $admin->password));
+            $this->post(route('admin.password.request'), [
+                'email'                 => $admin->email,
+                'password'              => 'newpass',
+                'password_confirmation' => 'newpass',
+                'token'                 => $token
+            ]);
+            $this->assertTrue(Hash::check('newpass', $admin->fresh()->password));
+            return true;
+        });
     }
 }
