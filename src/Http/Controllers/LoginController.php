@@ -42,9 +42,7 @@ class LoginController extends Controller
         return redirect(route('admin.home'));
     }
 
-
     /**
-     *
      * Show the application's login form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

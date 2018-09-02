@@ -44,6 +44,7 @@ class SeedCmd extends Command
         $role = Role::whereName($rolename)->first();
         if (! $rolename) {
             $this->error("please provide role as --role='roleName'");
+
             return;
         }
         $admin = $this->createSuperAdmin($role, $rolename);
