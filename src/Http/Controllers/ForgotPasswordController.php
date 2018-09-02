@@ -32,7 +32,6 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest:admin');
     }
 
-
     /**
      * Display the form to request a password reset link.
      *
