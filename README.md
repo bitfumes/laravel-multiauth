@@ -1,6 +1,6 @@
 # Laravel Multi Auth
 
-- **Laravel**: 5.6
+- **Laravel**: 5.6/5.7
 - **Author**: Bitfumes
 - **Author Homepage**: https://bitfumes.com
 
