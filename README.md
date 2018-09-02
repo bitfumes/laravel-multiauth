@@ -4,7 +4,9 @@
 - **Author**: Bitfumes
 - **Author Homepage**: https://bitfumes.com
 
-[![Build Status](https://travis-ci.org/s-sarthak/laravel-multiauth.svg?branch=master)](https://travis-ci.org/s-sarthak/laravel-multiauth)
+[![Build Status](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/69d079cd52b7b2fb94c4/maintainability)](https://codeclimate.com/github/s-sarthak/laravel-multiauth/maintainability)
 [![StyleCI](https://github.styleci.io/repos/143331251/shield?branch=master)](https://github.styleci.io/repos/143331251)
 [![Total Downloads](https://poser.pugx.org/bitfumes/laravel-multiauth/downloads)](https://packagist.org/packages/bitfumes/laravel-multiauth)
 [![GitHub license](https://img.shields.io/github/license/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/blob/master/LICENSE.md)
