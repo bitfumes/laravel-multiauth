@@ -20,6 +20,19 @@ class AdminTest extends TestCase
         $this->loginSuperAdmin();
     }
 
+    /** @test */
+    public function a_super_admin_can_see_admin_home_page()
+    {
+        $this->get(route('admin.home'))->assertOk();
+    }
+
+    /** @test */
+    public function a_non_super_admin_can_also_see_admin_home_page()
+    {
+        $this->logInAdmin();
+        $this->get(route('admin.home'))->assertOk();
+    }
+
     /**
      * @test
      */
@@ -72,6 +85,18 @@ class AdminTest extends TestCase
     {
         $newadmin = $this->createAdmin();
         $this->get(route('admin.show'))->assertSee($newadmin->name);
+    }
+
+    /**
+     * @test
+     */
+    public function a_non_super_admin_can_not_see_all_other_admins()
+    {
+        $this->logInAdmin();
+        $newadmin = $this->createAdmin();
+        $this->get(route('admin.show'))
+        ->assertDontSee($newadmin->name)
+        ->assertRedirect(route('admin.home'));
     }
 
     /**
