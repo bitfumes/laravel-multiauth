@@ -4,11 +4,11 @@ namespace Bitfumes\Multiauth\Tests\Feature;
 
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Support\Facades\Hash;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
-use Illuminate\Support\Facades\Hash;
 
 class AdminTest extends TestCase
 {
