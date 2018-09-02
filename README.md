@@ -9,6 +9,9 @@
 [![Total Downloads](https://poser.pugx.org/bitfumes/laravel-multiauth/downloads)](https://packagist.org/packages/bitfumes/laravel-multiauth)
 [![GitHub license](https://img.shields.io/github/license/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/blob/master/LICENSE.md)
 [![GitHub stars](https://img.shields.io/github/stars/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/stargazers)
+[![Latest Stable Version](https://poser.pugx.org/bitfumes/laravel-multiauth/v/stable)](https://packagist.org/packages/bitfumes/laravel-multiauth)
+[![GitHub issues](https://img.shields.io/github/issues/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/issues)
+
 
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
 

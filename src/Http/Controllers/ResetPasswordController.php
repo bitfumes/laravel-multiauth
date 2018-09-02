@@ -24,6 +24,8 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
+    public $redirectTo;
+
     /**
      * Create a new controller instance.
      */
@@ -35,7 +37,7 @@ class ResetPasswordController extends Controller
     /**
      * Where to redirect users after registration.
      *
-     * @var string
+     * @return string
      */
     public function redirectTo()
     {

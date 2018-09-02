@@ -42,23 +42,29 @@ class LoginController extends Controller
         return redirect(route('admin.home'));
     }
 
+
     /**
+     *
      * Show the application's login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showLoginForm()
     {
         return view('multiauth::admin.login');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout(Request $request)
     {
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect(route('admin.login'));
+        return redirect(route('admin.login'));
     }
 
     /**
@@ -80,7 +86,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required|string',
+            'email'    => 'required|string',
             'password' => 'required|string',
         ]);
     }

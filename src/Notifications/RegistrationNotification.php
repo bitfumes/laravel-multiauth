@@ -10,6 +10,8 @@ class RegistrationNotification extends Notification
 {
     use Queueable;
 
+    public $password;
+
     /**
      * Create a new notification instance.
      *

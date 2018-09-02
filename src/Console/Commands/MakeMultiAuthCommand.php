@@ -8,6 +8,7 @@ use Illuminate\Container\Container;
 class MakeMultiAuthCommand extends Command
 {
     protected $name;
+    protected $stub_path;
 
     /**
      * The name and signature of the console command.

@@ -8,6 +8,7 @@ use Illuminate\Container\Container;
 class RollbackMultiAuthCommand extends Command
 {
     protected $name;
+    protected $stub_path;
 
     /**
      * The name and signature of the console command.
@@ -90,7 +91,7 @@ class RollbackMultiAuthCommand extends Command
             array_map('unlink', glob("{$path}/*.php"));
             rmdir("$path/Auth");
             rmdir($path);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new \RuntimeException($ex->getMessage());
         }
         $this->error("Step 2.  Controllers for {$guard} is rollbacked from App\Http\Controller\Student \n");

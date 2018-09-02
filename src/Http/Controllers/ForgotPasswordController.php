@@ -32,21 +32,28 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest:admin');
     }
 
+
     /**
      * Display the form to request a password reset link.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showLinkRequestForm()
     {
         return view('multiauth::admin.passwords.email');
     }
 
+    /**
+     * @return mixed
+     */
     public function broker()
     {
         return Password::broker('admins');
     }
 
+    /**
+     * @param Request $request
+     */
     protected function validateEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
