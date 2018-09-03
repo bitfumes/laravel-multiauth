@@ -25,7 +25,7 @@ in as a user and an admin, without conflicts!
 Install via composer.
 
 ```bash
-composer require bitfumes/laravel-multiauth
+composer require bitfumes/laravel-multiauth:5.5.x-dev
 ```
 
 Before proceeding : you can make a normal auth, check [this doc](https://github.com/s-sarthak/laravel-multiauth#another-auth)
