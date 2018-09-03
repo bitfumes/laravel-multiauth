@@ -1,14 +1,14 @@
-@extends('multiauth::layouts.app') 
+@extends('multiauth::layouts.app')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ ucfirst(config('multiauth.prefix')) }} Dashboard</div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ ucfirst(config('multiauth.prefix')) }} Dashboard</div>
 
-                <div class="card-body">
+                <div class="panel-body">
                     @if (session('status'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success">
                         {{ session('status') }}
                     </div>
                     @endif You are logged in to {{ config('multiauth.prefix') }} side!
