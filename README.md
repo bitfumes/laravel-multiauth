@@ -25,7 +25,7 @@ in as a user and an admin, without conflicts!
 Install via composer.
 
 ```bash
-composer require bitfumes/laravel-multiauth
+composer require bitfumes/laravel-multiauth:5.4.x-dev
 ```
 
 Now add the service provider in `config/app.php` file:
