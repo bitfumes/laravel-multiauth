@@ -24,7 +24,7 @@ class MultiauthServiceProvider extends ServiceProvider
             $this->publisheThings();
             $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
             $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
-            $this->loadBladeSyntax();
+            // $this->loadBladeSyntax();
             $this->loadAdminCommands();
         }
         $this->loadCommands();

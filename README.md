@@ -28,6 +28,14 @@ Install via composer.
 composer require bitfumes/laravel-multiauth
 ```
 
+Now add the service provider in `config/app.php` file:
+```php
+'providers' => [
+    // ...
+    Bitfumes\Multiauth\MultiauthServiceProvider::class,
+];
+```
+
 Before proceeding : you can make a normal auth, check [this doc](https://github.com/s-sarthak/laravel-multiauth#another-auth)
 
 Publish Migrations
@@ -148,16 +156,6 @@ Route::get('admin/check',function(){
 })->middleware('role:super');
 ```
 
-**With Blade Syntax**
-
-You can simply use blade syntax for showing or hiding any section for admin with perticular role.
-For example, If you want to show a button for admin with role of editor then write.
-
-```php
-@admin('editor')
-    <button>Only For Editor</button>
-@endadmin
-```
 
 ## Another Auth
 

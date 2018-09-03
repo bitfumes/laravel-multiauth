@@ -54,10 +54,10 @@
 
                             <ul class="dropdown-menu">
                                 <li>
-                                    @admin('super')
+                                    @if(in_array('super',auth()->user()->roles()->pluck('name')->toArray()))
                                     <a href="{{ route('admin.show') }}">{{ ucfirst(config('multiauth.prefix')) }}</a>
                                     <a href="{{ route('admin.roles') }}">Roles</a> 
-                                    @endadmin
+                                    @endif
                                     <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
