@@ -20,6 +20,15 @@ This package is just create admin side (multi auth), which is totaly isolated fr
 On top of that, you can use multiple authentication types, simultaneously, so you can be logged
 in as a user and an admin, without conflicts!
 
+## Version Guidance
+
+|Laravel version | Branch | Install           |
+|----------------|--------|-------------------|
+|5.4             |   5.4  | composer require bitfumes/laravel-multiauth:5.4.x-dev|
+|5.5             |   5.5  | composer require bitfumes/laravel-multiauth:5.5.x-dev|
+|5.6 and 5.7     | Master | composer require bitfumes/laravel-multiauth|
+
+
 ## Installation
 
 Install via composer.
