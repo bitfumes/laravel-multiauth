@@ -168,6 +168,13 @@ For example, If you want to show a button for admin with role of editor then wri
 @endadmin
 ```
 
+If you want to add multiple role, you can do like this
+```php
+@admin('editor,publisher,any_role')
+    <button> This is visible to admin with all these role</button>
+@endadmin
+```
+
 ## Another Auth
 
 **Apart from Admin section, you can make a another auth**
