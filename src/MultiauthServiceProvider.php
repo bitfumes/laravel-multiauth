@@ -117,6 +117,9 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadBladeSyntax()
     {
         Blade::if('admin', function ($role) {
+            if (! auth('admin')->check()) {
+                return  false;
+            }
             $role = explode(',', $role);
             $role[] = 'super';
             $roles = auth('admin')->user()->/* @scrutinizer ignore-call */ roles()->pluck('name');
