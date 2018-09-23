@@ -4,16 +4,15 @@
 - **Author**: Bitfumes
 - **Author Homepage**: https://bitfumes.com
 
-[![Build Status](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/s-sarthak/laravel-multiauth/?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/69d079cd52b7b2fb94c4/maintainability)](https://codeclimate.com/github/s-sarthak/laravel-multiauth/maintainability)
+[![Build Status](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/69d079cd52b7b2fb94c4/maintainability)](https://codeclimate.com/github/sarthaksavvy/laravel-multiauth/maintainability)
 [![StyleCI](https://github.styleci.io/repos/143331251/shield?branch=master)](https://github.styleci.io/repos/143331251)
 [![Total Downloads](https://poser.pugx.org/bitfumes/laravel-multiauth/downloads)](https://packagist.org/packages/bitfumes/laravel-multiauth)
-[![GitHub license](https://img.shields.io/github/license/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/blob/master/LICENSE.md)
-[![GitHub stars](https://img.shields.io/github/stars/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/stargazers)
+[![GitHub license](https://img.shields.io/github/license/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/blob/master/LICENSE.md)
+[![GitHub stars](https://img.shields.io/github/stars/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/stargazers)
 [![Latest Stable Version](https://poser.pugx.org/bitfumes/laravel-multiauth/v/stable)](https://packagist.org/packages/bitfumes/laravel-multiauth)
-[![GitHub issues](https://img.shields.io/github/issues/s-sarthak/laravel-multiauth.svg)](https://github.com/s-sarthak/laravel-multiauth/issues)
-
+[![GitHub issues](https://img.shields.io/github/issues/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/issues)
 
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
 
@@ -22,12 +21,11 @@ in as a user and an admin, without conflicts!
 
 ## Version Guidance
 
-|Laravel version | Branch | Install           |
-|----------------|--------|-------------------|
-|5.4             |   5.4  | composer require bitfumes/laravel-multiauth:5.4.x-dev|
-|5.5             |   5.5  | composer require bitfumes/laravel-multiauth:5.5.x-dev|
-|5.6 and 5.7     | Master | composer require bitfumes/laravel-multiauth|
-
+| Laravel version | Branch | Install                                               |
+| --------------- | ------ | ----------------------------------------------------- |
+| 5.4             | 5.4    | composer require bitfumes/laravel-multiauth:5.4.x-dev |
+| 5.5             | 5.5    | composer require bitfumes/laravel-multiauth:5.5.x-dev |
+| 5.6 and 5.7     | Master | composer require bitfumes/laravel-multiauth           |
 
 ## Installation
 
@@ -37,7 +35,7 @@ Install via composer.
 composer require bitfumes/laravel-multiauth
 ```
 
-Before proceeding : you can make a normal auth, check [this doc](https://github.com/s-sarthak/laravel-multiauth#another-auth)
+Before proceeding : you can make a normal auth, check [this doc](https://github.com/sarthaksavvy/laravel-multiauth#another-auth)
 
 Publish Migrations
 
@@ -45,7 +43,7 @@ Publish Migrations
 php artisan vendor:publish --tag="multiauth:migrations"
 ```
 
-Run [the Migration](https://github.com/s-sarthak/laravel-multiauth/database/migrations/create_permission_tables.php) to have tables in your database.
+Run [the Migration](https://github.com/sarthaksavvy/laravel-multiauth/database/migrations/create_permission_tables.php) to have tables in your database.
 
 ```bash
 php artisan migrate
@@ -169,6 +167,7 @@ For example, If you want to show a button for admin with role of editor then wri
 ```
 
 If you want to add multiple role, you can do like this
+
 ```php
 @admin('editor,publisher,any_role')
     <button> This is visible to admin with all these role</button>
