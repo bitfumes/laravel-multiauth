@@ -84,10 +84,20 @@ class RegisterController extends Controller
 
         $admin->save();
         $admin->roles()->sync(request('role_id'));
-        $admin->notify(new RegistrationNotification(request('password')));
-        // dd('asdf');
+        $this->sendConfirmationNotification($admin, request('password'));
 
         return $admin;
+    }
+
+    protected function sendConfirmationNotification($admin, $password)
+    {
+        if (config('multiauth.registration_notifiation_email')) {
+            try {
+                $admin->notify(new RegistrationNotification($password));
+            } catch (\Exception $e) {
+                request()->session()->flash('message', 'Email not sent properly, Please check your mail configurations');
+            }
+        }
     }
 
     protected function tableFields()

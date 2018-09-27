@@ -36,4 +36,18 @@ return [
     | Default : admin
     */
     'prefix' => 'admin',
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Registration Notification Email
+    |--------------------------------------------------------------------------
+    |
+    | While registering new admin by superadmin, you can send an email to
+    | the new registered admin with the password you have selected
+    | If you make it 'true' then it will send email otherwise
+    | It will not going to send any email to the admin
+    | Default : false
+    */
+    'registration_notifiation_email' => false,
 ];
