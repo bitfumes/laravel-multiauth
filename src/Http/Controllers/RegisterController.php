@@ -91,7 +91,7 @@ class RegisterController extends Controller
 
     protected function sendConfirmationNotification($admin, $password)
     {
-        if (config('multiauth.registration_notifiation_email')) {
+        if (config('multiauth.registration_notification_email')) {
             try {
                 $admin->notify(new RegistrationNotification($password));
             } catch (\Exception $e) {

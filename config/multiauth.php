@@ -36,8 +36,7 @@ return [
     | Default : admin
     */
     'prefix' => 'admin',
-    
-    
+     
     /*
     |--------------------------------------------------------------------------
     | Registration Notification Email
@@ -49,5 +48,5 @@ return [
     | It will not going to send any email to the admin
     | Default : false
     */
-    'registration_notifiation_email' => false,
+    'registration_notification_email' => false,
 ];
