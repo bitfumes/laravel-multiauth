@@ -36,7 +36,7 @@ return [
     | Default : admin
     */
     'prefix' => 'admin',
-     
+
     /*
     |--------------------------------------------------------------------------
     | Registration Notification Email
@@ -49,4 +49,16 @@ return [
     | Default : false
     */
     'registration_notification_email' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect After Login
+    |--------------------------------------------------------------------------
+    |
+    | It will redirect to a path defined here after login.
+    | You can change it to where ever you want to
+    | redirect the admin after login.
+    | Default : /admin/home
+    */
+    'redirect_after_login' => '/admin/home',
 ];

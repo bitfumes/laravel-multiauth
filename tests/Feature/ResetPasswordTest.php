@@ -2,7 +2,6 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Support\Facades\Hash;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;

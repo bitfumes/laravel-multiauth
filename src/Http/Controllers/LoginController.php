@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        return redirect(route('admin.home'));
+        return redirect($this->redirectPath());
     }
 
     /**
@@ -87,5 +87,10 @@ class LoginController extends Controller
             'email'    => 'required|string',
             'password' => 'required|string',
         ]);
+    }
+
+    protected function redirectPath()
+    {
+        return config('multiauth.redirect_after_login');
     }
 }

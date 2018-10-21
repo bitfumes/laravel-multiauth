@@ -4,15 +4,15 @@
 - **Author**: Bitfumes
 - **Author Homepage**: https://bitfumes.com
 
-[![Build Status](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sarthaksavvy/laravel-multiauth/?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/69d079cd52b7b2fb94c4/maintainability)](https://codeclimate.com/github/sarthaksavvy/laravel-multiauth/maintainability)
+[![Build Status](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/69d079cd52b7b2fb94c4/maintainability)](https://codeclimate.com/github/bitfumes/laravel-multiauth/maintainability)
 [![StyleCI](https://github.styleci.io/repos/143331251/shield?branch=master)](https://github.styleci.io/repos/143331251)
 [![Total Downloads](https://poser.pugx.org/bitfumes/laravel-multiauth/downloads)](https://packagist.org/packages/bitfumes/laravel-multiauth)
-[![GitHub license](https://img.shields.io/github/license/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/blob/master/LICENSE.md)
-[![GitHub stars](https://img.shields.io/github/stars/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/stargazers)
+[![GitHub license](https://img.shields.io/github/license/bitfumes/laravel-multiauth.svg)](https://github.com/bitfumes/laravel-multiauth/blob/master/LICENSE.md)
+[![GitHub stars](https://img.shields.io/github/stars/bitfumes/laravel-multiauth.svg)](https://github.com/bitfumes/laravel-multiauth/stargazers)
 [![Latest Stable Version](https://poser.pugx.org/bitfumes/laravel-multiauth/v/stable)](https://packagist.org/packages/bitfumes/laravel-multiauth)
-[![GitHub issues](https://img.shields.io/github/issues/sarthaksavvy/laravel-multiauth.svg)](https://github.com/sarthaksavvy/laravel-multiauth/issues)
+[![GitHub issues](https://img.shields.io/github/issues/bitfumes/laravel-multiauth.svg)](https://github.com/bitfumes/laravel-multiauth/issues)
 
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
 
@@ -35,7 +35,7 @@ Install via composer.
 composer require bitfumes/laravel-multiauth
 ```
 
-Before proceeding : you can make a normal auth, check [this doc](https://github.com/sarthaksavvy/laravel-multiauth#another-auth)
+Before proceeding : you can make a normal auth, check [this doc](https://github.com/bitfumes/laravel-multiauth#another-auth)
 
 Publish Migrations
 
@@ -43,7 +43,7 @@ Publish Migrations
 php artisan vendor:publish --tag="multiauth:migrations"
 ```
 
-Run [the Migration](https://github.com/sarthaksavvy/laravel-multiauth/database/migrations/create_permission_tables.php) to have tables in your database.
+Run [the Migration](https://github.com/bitfumes/laravel-multiauth/database/migrations/create_permission_tables.php) to have tables in your database.
 
 ```bash
 php artisan migrate
@@ -107,6 +107,24 @@ Suppose you have changed prefix to 'master' now everywhere instead of 'admin' wo
     | Default : admin
     */
     'prefix' => 'admin', // can change it to, lets say 'prefix' => 'master'
+```
+
+## Redirect after Login
+
+You can change the redirect path after login for admin section. Just change this setting on config/multiauth.php file.
+
+```php
+/*
+    |--------------------------------------------------------------------------
+    | Redirect After Login
+    |--------------------------------------------------------------------------
+    |
+    | It will redirect to a path defined here after login.
+    | You can change it to where ever you want to
+    | redirect the admin after login.
+    | Default : /admin/home
+    */
+    'redirect_after_login' => '/admin/home',
 ```
 
 ## Create Roles

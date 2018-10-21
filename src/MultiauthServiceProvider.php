@@ -18,12 +18,12 @@ class MultiauthServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->canHaveAdminBackend()) {
-            $this->loadViewsFrom(__DIR__.'/views', 'multiauth');
-            $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-            $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
+            $this->loadViewsFrom(__DIR__ . '/views', 'multiauth');
+            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+            $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
             $this->publisheThings();
-            $this->mergeAuthFileFrom(__DIR__.'/../config/auth.php', 'auth');
-            $this->mergeConfigFrom(__DIR__.'/../config/multiauth.php', 'multiauth');
+            $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');
+            $this->mergeConfigFrom(__DIR__ . '/../config/multiauth.php', 'multiauth');
             $this->loadBladeSyntax();
             $this->loadAdminCommands();
         }
@@ -42,7 +42,7 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadFactories()
     {
         $appFactories = scandir(database_path('/factories'));
-        $factoryPath = ! in_array('AdminFactory.php', $appFactories) ? __DIR__.'/factories' : database_path('/factories');
+        $factoryPath = !in_array('AdminFactory.php', $appFactories) ? __DIR__ . '/factories' : database_path('/factories');
 
         $this->app->make(Factory::class)->load($factoryPath);
     }
@@ -53,7 +53,7 @@ class MultiauthServiceProvider extends ServiceProvider
         $routeDir = base_path('routes');
         if (file_exists($routeDir)) {
             $appRouteDir = scandir($routeDir);
-            if (! $this->app->routesAreCached()) {
+            if (!$this->app->routesAreCached()) {
                 require in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
             }
         }
@@ -98,26 +98,26 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         $prefix = config('multiauth.prefix', 'admin');
         $this->publishes([
-            __DIR__.'/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
-            __DIR__.'/views' => resource_path('views/vendor/multiauth'),
+            __DIR__ . '/views' => resource_path('views/vendor/multiauth'),
         ], 'multiauth:views');
         $this->publishes([
-            __DIR__.'/factories' => database_path('factories'),
+            __DIR__ . '/factories' => database_path('factories'),
         ], 'multiauth:factories');
         $this->publishes([
-            __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
+            __DIR__ . '/../config/multiauth.php' => config_path('multiauth.php'),
         ], 'multiauth:config');
         $this->publishes([
-            __DIR__.'/routes/routes.php' => base_path("routes/{$prefix}.php"),
+            __DIR__ . '/routes/routes.php' => base_path("routes/{$prefix}.php"),
         ], 'multiauth:routes');
     }
 
     protected function loadBladeSyntax()
     {
         Blade::if('admin', function ($role) {
-            if (! auth('admin')->check()) {
+            if (!auth('admin')->check()) {
                 return  false;
             }
             $role = explode(',', $role);
