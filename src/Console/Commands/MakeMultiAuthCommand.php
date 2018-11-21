@@ -33,7 +33,7 @@ class MakeMultiAuthCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->stub_path = __DIR__.'/../../../stubs';
+        $this->stub_path = __DIR__ . '/../../../stubs';
     }
 
     /**
@@ -45,7 +45,7 @@ class MakeMultiAuthCommand extends Command
     {
         $this->name = $this->argument('name');
         if ($this->checkGuard()) {
-            $this->error("Guard '{$this->name}' already exist");
+            $this->error("Provider '{$this->name}' already exist");
 
             return;
         }
@@ -84,7 +84,7 @@ class MakeMultiAuthCommand extends Command
 
         foreach ($keys as $key) {
             $compiled = strtr($key['stub'], $this->parseName());
-            $auth = str_replace($key['to_replace'], $key['to_replace'].$compiled, $auth);
+            $auth = str_replace($key['to_replace'], $key['to_replace'] . $compiled, $auth);
         }
 
         $auth = file_put_contents(config_path('auth.php'), $auth);
@@ -95,14 +95,15 @@ class MakeMultiAuthCommand extends Command
 
     protected function checkGuard()
     {
-        $guards = array_keys(config('auth.guards'));
+        $providers = array_keys(config('auth.providers'));
+        $name = str_plural($this->name);
 
-        return in_array($this->name, $guards);
+        return in_array($name, $providers);
     }
 
     protected function publishControllers()
     {
-        $stub_path = $this->stub_path.'/Controllers';
+        $stub_path = $this->stub_path . '/Controllers';
         $name_map = $this->parseName();
         $guard = $name_map['{{singularClass}}'];
 
@@ -116,7 +117,7 @@ class MakeMultiAuthCommand extends Command
 
         $publish_path = app_path("/Http/Controllers/{$guard}");
 
-        if (! is_dir($publish_path)) {
+        if (!is_dir($publish_path)) {
             mkdir($publish_path, 0755, true);
             mkdir("{$publish_path}/Auth", 0755, true);
         }
@@ -133,20 +134,20 @@ class MakeMultiAuthCommand extends Command
 
     protected function publishRoutes()
     {
-        $stub_path = $this->stub_path.'/routes';
+        $stub_path = $this->stub_path . '/routes';
         $name_map = $this->parseName();
         $publish_path = base_path('routes');
         $guard = $name_map['{{singularSlug}}'];
 
         if (app()->environment() == 'testing') {
-            if (! file_exists(base_path('routes'))) {
+            if (!file_exists(base_path('routes'))) {
                 mkdir(base_path('routes'));
             }
         }
 
         if (file_exists("{$publish_path}/{$guard}.php")) {
             $this->error("{$guard}.php file already exists");
-            if (! $this->confirm('Do you want to override ?')) {
+            if (!$this->confirm('Do you want to override ?')) {
                 return;
             }
         }
@@ -167,7 +168,7 @@ class MakeMultiAuthCommand extends Command
         $name_map = $this->parseName();
 
         // Function
-        $stub = $this->stub_path.'/routes/map.stub';
+        $stub = $this->stub_path . '/routes/map.stub';
 
         $map = file_get_contents($stub);
         $map = strtr($map, $name_map);
@@ -178,16 +179,16 @@ class MakeMultiAuthCommand extends Command
         }
 
         preg_match('/\s+\/\*\*\n\s+\*\s(\w+\s)+"web"\s(\w+\s)+\w+.\n/', $provider, $match);
-        $provider = str_replace($match[0], $map.$match[0], $provider);
+        $provider = str_replace($match[0], $map . $match[0], $provider);
         /********** Function Call **********/
 
-        $map_call = file_get_contents($this->stub_path.'/routes/map_call.stub');
+        $map_call = file_get_contents($this->stub_path . '/routes/map_call.stub');
 
         $map_call = strtr($map_call, $name_map);
 
         $map_call_bait = '$this->mapWebRoutes();';
 
-        $provider = str_replace($map_call_bait, $map_call_bait.$map_call, $provider);
+        $provider = str_replace($map_call_bait, $map_call_bait . $map_call, $provider);
 
         // Overwrite config file
         file_put_contents($provider_path, $provider);
@@ -200,7 +201,7 @@ class MakeMultiAuthCommand extends Command
     {
         $guard = $this->parseName()['{{singularSlug}}'];
 
-        $views_path = resource_path('views/'.$guard);
+        $views_path = resource_path('views/' . $guard);
         $stub_path = "{$this->stub_path}/views";
         $views = [
             'home.blade',
@@ -215,7 +216,7 @@ class MakeMultiAuthCommand extends Command
             $stub_content = file_get_contents("{$stub_path}/{$view}.stub");
             $complied = strtr($stub_content, $this->parseName());
             $dir = dirname("{$views_path}/{$view}");
-            if (! is_dir($dir)) {
+            if (!is_dir($dir)) {
                 mkdir($dir, 0755, true);
             }
             file_put_contents("{$views_path}/{$view}.php", $complied);
@@ -257,7 +258,7 @@ class MakeMultiAuthCommand extends Command
     {
         $stub_content = file_get_contents("{$this->stub_path}/model.stub");
         $compiled = strtr($stub_content, $this->parseName());
-        $model_path = app_path($this->parseName()['{{singularClass}}'].'.php');
+        $model_path = app_path($this->parseName()['{{singularClass}}'] . '.php');
 
         file_put_contents($model_path, $compiled);
         $this->info("Step 8. Model for {$this->name} is added to App\{$this->name}.php \n");
@@ -269,19 +270,19 @@ class MakeMultiAuthCommand extends Command
     {
         $middleware_path = app_path('Http/Middleware');
 
-        $stub = file_get_contents($this->stub_path.'/Middleware/RedirectIfAuthenticated.stub');
+        $stub = file_get_contents($this->stub_path . '/Middleware/RedirectIfAuthenticated.stub');
 
         $guest_middleware = strtr($stub, $this->parseName());
 
-        file_put_contents($middleware_path.'/RedirectIf'.$this->parseName()['{{singularClass}}'].'.php', $guest_middleware);
+        file_put_contents($middleware_path . '/RedirectIf' . $this->parseName()['{{singularClass}}'] . '.php', $guest_middleware);
 
         // ...
 
-        $stub = file_get_contents($this->stub_path.'/Middleware/RedirectIfNotAuthenticated.stub');
+        $stub = file_get_contents($this->stub_path . '/Middleware/RedirectIfNotAuthenticated.stub');
 
         $middleware = strtr($stub, $this->parseName());
 
-        file_put_contents($middleware_path.'/RedirectIfNot'.$this->parseName()['{{singularClass}}'].'.php', $middleware);
+        file_put_contents($middleware_path . '/RedirectIfNot' . $this->parseName()['{{singularClass}}'] . '.php', $middleware);
         $this->info("Step 9. Middlewares related to {$this->name} is added App\Http\Middleware directory \n");
 
         return $this;
@@ -295,13 +296,13 @@ class MakeMultiAuthCommand extends Command
 
         // Route Middleware
 
-        $route_middleware = file_get_contents($this->stub_path.'/Middleware/Kernel.stub');
+        $route_middleware = file_get_contents($this->stub_path . '/Middleware/Kernel.stub');
 
         $route_middleware = strtr($route_middleware, $this->parseName());
 
         $route_middleware_bait = 'protected $routeMiddleware = [';
 
-        $kernel = str_replace($route_middleware_bait, $route_middleware_bait.$route_middleware, $kernel);
+        $kernel = str_replace($route_middleware_bait, $route_middleware_bait . $route_middleware, $kernel);
 
         // Overwrite config file
         file_put_contents($kernel_path, $kernel);
@@ -312,14 +313,14 @@ class MakeMultiAuthCommand extends Command
 
     protected function publishNotification()
     {
-        $stub = file_get_contents($this->stub_path.'/Notifications/ResetPassword.stub');
+        $stub = file_get_contents($this->stub_path . '/Notifications/ResetPassword.stub');
 
         $notification = strtr($stub, $this->parseName());
         $name = $this->parseName()['{{singularClass}}'];
         $notification_path = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
 
         $dir = dirname($notification_path);
-        if (! is_dir($dir)) {
+        if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
@@ -337,7 +338,7 @@ class MakeMultiAuthCommand extends Command
      */
     protected function parseName($name = null)
     {
-        if (! $name) {
+        if (!$name) {
             $name = $this->name;
         }
 
