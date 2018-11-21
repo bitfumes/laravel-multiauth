@@ -2,14 +2,14 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Bitfumes\Multiauth\Model\Role;
-use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Model\Role;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Bitfumes\Multiauth\Http\Requests\AdminRequest;
-use Bitfumes\Multiauth\Notifications\RegistrationNotification;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class RegisterController extends Controller
 {
@@ -72,9 +72,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $admin = new Admin;
+        $admin = new Admin();
 
-        $fields = $this->tableFields();
+        $fields           = $this->tableFields();
         $data['password'] = bcrypt($data['password']);
         foreach ($fields as $field) {
             if (isset($data[$field])) {

@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
@@ -51,7 +51,7 @@ class TestCase extends BaseTestCase
     public function loginSuperAdmin($args = [])
     {
         $super = factory(Admin::class)->create($args);
-        $role = factory(Role::class)->create();
+        $role  = factory(Role::class)->create();
         $super->roles()->attach($role);
         $this->actingAs($super, 'admin');
 

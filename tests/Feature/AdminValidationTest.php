@@ -23,8 +23,8 @@ class AdminValidationTest extends TestCase
     {
         $this->loginSuperAdmin();
         $response = $this->post(route('admin.register'), [
-            'email' => 'sarthak@gmail.com',
-            'password' => 'secret',
+            'email'                 => 'sarthak@gmail.com',
+            'password'              => 'secret',
             'password_confirmation' => 'secret',
         ]);
         $response->assertSessionHasErrors('name');
@@ -37,8 +37,8 @@ class AdminValidationTest extends TestCase
     {
         $this->loginSuperAdmin();
         $response = $this->post(route('admin.register'), [
-            'name' => 'sarthak',
-            'password' => 'secret',
+            'name'                  => 'sarthak',
+            'password'              => 'secret',
             'password_confirmation' => 'secret',
         ]);
         $response->assertSessionHasErrors('email');
@@ -51,9 +51,9 @@ class AdminValidationTest extends TestCase
     {
         $this->loginSuperAdmin();
         $response = $this->post(route('admin.register'), [
-            'name' => 'sarthak',
-            'email' => 'sarthak@gmail.com',
-            'password' => 'secret',
+            'name'                  => 'sarthak',
+            'email'                 => 'sarthak@gmail.com',
+            'password'              => 'secret',
             'password_confirmation' => 'differentPassword',
         ]);
         $response->assertSessionHasErrors('password');
@@ -66,9 +66,9 @@ class AdminValidationTest extends TestCase
     {
         $this->loginSuperAdmin();
         $response = $this->post(route('admin.register'), [
-            'name' => 'sarthak',
-            'email' => 'sarthak@gmail.com',
-            'password' => 'secret',
+            'name'                  => 'sarthak',
+            'email'                 => 'sarthak@gmail.com',
+            'password'              => 'secret',
             'password_confirmation' => 'secret',
         ]);
         $response->assertSessionHasErrors('role_id');
@@ -80,7 +80,7 @@ class AdminValidationTest extends TestCase
     public function while_update_admin_mode_need_validation()
     {
         $this->loginSuperAdmin();
-        $admin = $this->createAdmin();
+        $admin    = $this->createAdmin();
         $response = $this->patch(route('admin.update', $admin->id), []);
         $response->assertSessionHasErrors(['role_id', 'email', 'name']);
     }

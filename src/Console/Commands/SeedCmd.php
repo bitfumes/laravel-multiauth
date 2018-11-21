@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
-use Illuminate\Console\Command;
-use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Model\Role;
+use Illuminate\Console\Command;
 
 class SeedCmd extends Command
 {
@@ -41,8 +41,8 @@ class SeedCmd extends Command
     public function handle()
     {
         $rolename = $this->option('role');
-        $role = Role::whereName($rolename)->first();
-        if (! $rolename) {
+        $role     = Role::whereName($rolename)->first();
+        if (!$rolename) {
             $this->error("please provide role as --role='roleName'");
 
             return;
@@ -56,9 +56,9 @@ class SeedCmd extends Command
     protected function createSuperAdmin($role, $rolename)
     {
         $prefix = config('multiauth.prefix');
-        $admin = factory(Admin::class)
+        $admin  = factory(Admin::class)
             ->create(['email' => "super@{$prefix}.com", 'name' => 'Super '.ucfirst($prefix)]);
-        if (! $role) {
+        if (!$role) {
             $role = factory(Role::class)->create(['name' => $rolename]);
         }
         $admin->roles()->attach($role);
