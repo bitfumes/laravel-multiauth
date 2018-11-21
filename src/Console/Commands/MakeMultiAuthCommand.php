@@ -15,7 +15,7 @@ class MakeMultiAuthCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'multiauth:make 
+    protected $signature = 'multiauth:make
                                 {name=student : Give a name for guard}';
 
     /**
@@ -127,7 +127,7 @@ class MakeMultiAuthCommand extends Command
             $complied = strtr($stub, $name_map);
             file_put_contents("{$publish_path}/{$file}.php", $complied);
         }
-        $this->info("Step 2. New Controllers for {$guard} is added to App\Http\Controller\Student \n");
+        $this->info("Step 2. New Controllers for {$guard} is added to App\Http\Controller\{$guard} \n");
 
         return $this;
     }
@@ -221,7 +221,7 @@ class MakeMultiAuthCommand extends Command
             }
             file_put_contents("{$views_path}/{$view}.php", $complied);
         }
-        $this->info("Step 5. Views are added to resources\\views\student directory \n");
+        $this->info("Step 5. Views are added to resources\\views\{$guard} directory \n");
 
         return $this;
     }
@@ -235,7 +235,7 @@ class MakeMultiAuthCommand extends Command
         $factory_path = database_path("factories/{$this->parseName()['{{singularClass}}']}Factory.php");
 
         file_put_contents($factory_path, $compiled);
-        $this->info("Step 6. Factory for {$this->name} is added to database\\factories directory as StudentFactory.php \n");
+        $this->info("Step 6. Factory for {$this->name} is added to database\\factories directory as {$this->parseName()['{{singularClass}}']}Factory.php \n");
 
         return $this;
     }
@@ -261,7 +261,7 @@ class MakeMultiAuthCommand extends Command
         $model_path = app_path($this->parseName()['{{singularClass}}'] . '.php');
 
         file_put_contents($model_path, $compiled);
-        $this->info("Step 8. Model for {$this->name} is added to App\{$this->name}.php \n");
+        $this->info("Step 8. Model for {$this->name} is added to App\\{$this->name}.php \n");
 
         return $this;
     }
@@ -325,7 +325,7 @@ class MakeMultiAuthCommand extends Command
         }
 
         file_put_contents($notification_path, $notification);
-        $this->info("Step 11. Notification file for password reset is published at App\Notification\{$this->name} directory \n");
+        $this->info("Step 11. Notification file for password reset is published at App\Notification\\{$this->name} directory \n");
 
         return $this;
     }
