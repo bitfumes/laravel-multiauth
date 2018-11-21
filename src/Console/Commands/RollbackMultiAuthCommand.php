@@ -33,7 +33,7 @@ class RollbackMultiAuthCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->stub_path = __DIR__.'/../../../stubs';
+        $this->stub_path = __DIR__ . '/../../../stubs';
     }
 
     /**
@@ -49,7 +49,7 @@ class RollbackMultiAuthCommand extends Command
 
     protected function rollback()
     {
-        if (! $this->checkGuard()) {
+        if (!$this->checkGuard()) {
             $this->error("Guard {$this->name} does't exist");
 
             return;
@@ -73,10 +73,10 @@ class RollbackMultiAuthCommand extends Command
         $guard = $this->parseName()['{{singularSnake}}'];
 
         for ($i = 0; $i < 3; $i++) {
-            $m = preg_match_all("/'{$guard}s?'\s*=>\s*\[\n(.*\n){2}.*(\n.*)?\],/", $auth, $match);
+            preg_match_all("/'{$guard}s?'\s*=>\s*\[\n(.*\n){2}.*(\n.*)?\],/", $auth, $match);
             $auth = str_replace($match[0][0], '', $auth);
         }
-        $auth = file_put_contents(config_path('auth.php'), $auth);
+        file_put_contents(config_path('auth.php'), $auth);
         $this->error("Step 1. {$guard} Guard is removed from config/auth.php file \n");
 
         return $this;
@@ -117,8 +117,8 @@ class RollbackMultiAuthCommand extends Command
         $provider = file_get_contents($provider_path);
 
         $stubs = [
-            $this->stub_path.'/routes/map.stub',
-            $this->stub_path.'/routes/map_call.stub',
+            $this->stub_path . '/routes/map.stub',
+            $this->stub_path . '/routes/map_call.stub',
         ];
         foreach ($stubs as $stub) {
             $map = file_get_contents($stub);
@@ -139,7 +139,7 @@ class RollbackMultiAuthCommand extends Command
         $dirs = ['/auth/passwords/', '/auth/', '/layouts/', '/'];
         foreach ($dirs as $dir) {
             array_map('unlink', glob("{$views_path}{$dir}*.php"));
-            rmdir($views_path.$dir);
+            rmdir($views_path . $dir);
         }
         $this->error("Step 5. Views are removed from resources\\views\student directory \n");
 
@@ -176,7 +176,7 @@ class RollbackMultiAuthCommand extends Command
 
     protected function removeModel()
     {
-        $model = app_path($this->parseName()['{{singularClass}}'].'.php');
+        $model = app_path($this->parseName()['{{singularClass}}'] . '.php');
         unlink($model);
         $this->error("Step 8. Model for {$this->name} is removed from App\{$this->name}.php \n");
 
@@ -235,11 +235,11 @@ class RollbackMultiAuthCommand extends Command
      */
     protected function parseName($name = null)
     {
-        if (! $name) {
+        if (!$name) {
             $name = $this->name;
         }
 
-        return $parsed = [
+        return [
             '{{pluralCamel}}'   => str_plural(camel_case($name)),
             '{{pluralSlug}}'    => str_plural(str_slug($name)),
             '{{pluralSnake}}'   => str_plural(snake_case($name)),

@@ -1,1 +1,8 @@
 preset: laravel
+
+disabled:
+  - concat_without_spaces
+  - unalign_equals
+
+enabled:
+  - align_equals_minimal
