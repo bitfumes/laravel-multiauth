@@ -11,9 +11,9 @@ class redirectIfNotWithRoleOfAdmin
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
+     * @param string                   $role
      *
-     * @param string $role
      * @return mixed
      */
     public function handle($request, Closure $next, $role = 'super')
@@ -23,7 +23,7 @@ class redirectIfNotWithRoleOfAdmin
             return $next($request);
         }
 
-        if (! in_array(strtolower($role), $roles->toArray())) {
+        if (!in_array(strtolower($role), $roles->toArray())) {
             return redirect(route('admin.home'));
         }
 

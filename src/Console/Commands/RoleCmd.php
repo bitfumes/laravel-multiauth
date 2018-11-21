@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
-use Illuminate\Console\Command;
 use Bitfumes\Multiauth\Model\Role;
+use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 
 class RoleCmd extends Command
@@ -41,6 +41,7 @@ class RoleCmd extends Command
     public function handle()
     {
         $role = $this->argument('name');
+
         try {
             factory(Role::class)->create(['name' => $role]);
         } catch (QueryException $e) {

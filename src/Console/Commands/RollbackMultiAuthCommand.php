@@ -69,7 +69,7 @@ class RollbackMultiAuthCommand extends Command
 
     protected function unPublishGuard()
     {
-        $auth = file_get_contents(config_path('auth.php'));
+        $auth  = file_get_contents(config_path('auth.php'));
         $guard = $this->parseName()['{{singularSnake}}'];
 
         for ($i = 0; $i < 3; $i++) {
@@ -86,7 +86,7 @@ class RollbackMultiAuthCommand extends Command
     {
         try {
             $guard = $this->parseName()['{{singularClass}}'];
-            $path = app_path("/Http/Controllers/{$guard}");
+            $path  = app_path("/Http/Controllers/{$guard}");
             array_map('unlink', glob("{$path}/Auth/*.php"));
             array_map('unlink', glob("{$path}/*.php"));
             rmdir("$path/Auth");
@@ -114,15 +114,15 @@ class RollbackMultiAuthCommand extends Command
     protected function unRegisterRoutes()
     {
         $provider_path = app_path('Providers/RouteServiceProvider.php');
-        $provider = file_get_contents($provider_path);
+        $provider      = file_get_contents($provider_path);
 
         $stubs = [
             $this->stub_path . '/routes/map.stub',
             $this->stub_path . '/routes/map_call.stub',
         ];
         foreach ($stubs as $stub) {
-            $map = file_get_contents($stub);
-            $map = strtr($map, $this->parseName());
+            $map      = file_get_contents($stub);
+            $map      = strtr($map, $this->parseName());
             $provider = str_replace($map, '', $provider);
         }
 
@@ -134,9 +134,9 @@ class RollbackMultiAuthCommand extends Command
 
     protected function rollbackViews()
     {
-        $guard = $this->parseName()['{{singularClass}}'];
+        $guard      = $this->parseName()['{{singularClass}}'];
         $views_path = resource_path("views/{$guard}");
-        $dirs = ['/auth/passwords/', '/auth/', '/layouts/', '/'];
+        $dirs       = ['/auth/passwords/', '/auth/', '/layouts/', '/'];
         foreach ($dirs as $dir) {
             array_map('unlink', glob("{$views_path}{$dir}*.php"));
             rmdir($views_path . $dir);
@@ -149,6 +149,7 @@ class RollbackMultiAuthCommand extends Command
     protected function removeFactory()
     {
         $factory = database_path("factories/{$this->parseName()['{{singularClass}}']}Factory.php");
+
         try {
             unlink($factory);
             $this->error("Step 6. Factory for {$this->name} is removed from database\\factories directory \n");
@@ -161,9 +162,9 @@ class RollbackMultiAuthCommand extends Command
 
     protected function removeMigration()
     {
-        $guard = $this->parseName()['{{pluralSlug}}'];
+        $guard          = $this->parseName()['{{pluralSlug}}'];
         $migration_path = database_path('migrations');
-        $files = glob("{$migration_path}/*.php");
+        $files          = glob("{$migration_path}/*.php");
         foreach ($files as $file) {
             if (str_contains($file, "create_{$guard}_table")) {
                 unlink($file);
@@ -186,7 +187,7 @@ class RollbackMultiAuthCommand extends Command
     protected function removeMiddleware()
     {
         $guard = $this->parseName()['{{singularClass}}'];
-        $path = app_path('Http/Middleware');
+        $path  = app_path('Http/Middleware');
         unlink("{$path}/RedirectIf{$guard}.php");
         unlink("{$path}/RedirectIfNot{$guard}.php");
         $this->error("Step 9. Middlewares related to {$this->name} is removed from App\Http\Middleware directory \n");
@@ -197,7 +198,7 @@ class RollbackMultiAuthCommand extends Command
     protected function unRegisterMiddleware()
     {
         $kernel = file_get_contents(app_path('Http/Kernel.php'));
-        $guard = $this->parseName()['{{singularSnake}}'];
+        $guard  = $this->parseName()['{{singularSnake}}'];
         preg_match_all("/'{$guard}.+::class,\s+/", $kernel, $match);
         foreach ($match[0] as $match) {
             $kernel = str_replace($match, '', $kernel);
@@ -218,7 +219,7 @@ class RollbackMultiAuthCommand extends Command
 
     protected function removeNotification()
     {
-        $name = $this->parseName()['{{singularClass}}'];
+        $name              = $this->parseName()['{{singularClass}}'];
         $notification_path = app_path("/Notifications/{$name}");
         unlink("{$notification_path}/{$name}ResetPassword.php");
         rmdir($notification_path);
@@ -230,7 +231,9 @@ class RollbackMultiAuthCommand extends Command
     /**
      * Parse guard name
      * Get the guard name in different cases.
+     *
      * @param string $name
+     *
      * @return array
      */
     protected function parseName($name = null)
@@ -255,6 +258,7 @@ class RollbackMultiAuthCommand extends Command
     /**
      * Get project namespace
      * Default: App.
+     *
      * @return string
      */
     protected function getNamespace()

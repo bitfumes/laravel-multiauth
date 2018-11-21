@@ -2,16 +2,16 @@
 
 namespace Bitfumes\Multiauth;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
+use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
-use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
-use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
+use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -42,14 +42,14 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadFactories()
     {
         $appFactories = scandir(database_path('/factories'));
-        $factoryPath = !in_array('AdminFactory.php', $appFactories) ? __DIR__ . '/factories' : database_path('/factories');
+        $factoryPath  = !in_array('AdminFactory.php', $appFactories) ? __DIR__ . '/factories' : database_path('/factories');
 
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
     protected function loadRoutesFrom($path)
     {
-        $prefix = config('multiauth.prefix', 'admin');
+        $prefix   = config('multiauth.prefix', 'admin');
         $routeDir = base_path('routes');
         if (file_exists($routeDir)) {
             $appRouteDir = scandir($routeDir);

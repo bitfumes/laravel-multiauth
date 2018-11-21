@@ -15,7 +15,7 @@ class AttachRoleTest extends TestCase
     public function setup()
     {
         parent::setUp();
-        $this->super = $this->loginSuperAdmin();
+        $this->super      = $this->loginSuperAdmin();
         $this->editorRole = factory(Role::class)->create(['name' => 'editor']);
     }
 

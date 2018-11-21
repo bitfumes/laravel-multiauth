@@ -333,7 +333,9 @@ class MakeMultiAuthCommand extends Command
     /**
      * Parse guard name
      * Get the guard name in different cases.
+     *
      * @param string $name
+     *
      * @return array
      */
     protected function parseName($name = null)
@@ -358,6 +360,7 @@ class MakeMultiAuthCommand extends Command
     /**
      * Get project namespace
      * Default: App.
+     *
      * @return string
      */
     protected function getNamespace()

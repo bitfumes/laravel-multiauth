@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Admin;
 
 class AdminRoleController extends Controller
 {

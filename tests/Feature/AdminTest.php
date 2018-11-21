@@ -2,13 +2,13 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Model\Admin;
-use Illuminate\Support\Facades\Hash;
-use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
+use Bitfumes\Multiauth\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class AdminTest extends TestCase
 {
@@ -105,7 +105,7 @@ class AdminTest extends TestCase
     public function a_super_admin_can_delete_admin()
     {
         $admin = $this->createAdmin();
-        $role = factory(Role::class)->create(['name' => 'editor']);
+        $role  = factory(Role::class)->create(['name' => 'editor']);
         $admin->roles()->attach($role);
         $this->delete(route('admin.delete', $admin->id))->assertRedirect(route('admin.show'));
         $this->assertDatabaseMissing('admins', ['id' => $admin->id]);
@@ -126,7 +126,7 @@ class AdminTest extends TestCase
     public function a_super_admin_can_update_admin_details()
     {
         $admin = $this->createAdmin();
-        $role = factory(Role::class)->create(['name' => 'editor']);
+        $role  = factory(Role::class)->create(['name' => 'editor']);
         $admin->roles()->attach($role);
         $newDetails = [
             'name'    => 'newname',
