@@ -15,7 +15,7 @@ class TestCase extends BaseTestCase
         $this->withoutExceptionHandling();
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations(['--database' => 'testing']);
-        $this->withFactories(__DIR__.'/../src/factories');
+        $this->withFactories(__DIR__ . '/../src/database/factories');
     }
 
     protected function getEnvironmentSetUp($app)
@@ -51,7 +51,7 @@ class TestCase extends BaseTestCase
     public function loginSuperAdmin($args = [])
     {
         $super = factory(Admin::class)->create($args);
-        $role = factory(Role::class)->create();
+        $role  = factory(Role::class)->create();
         $super->roles()->attach($role);
         $this->actingAs($super, 'admin');
 

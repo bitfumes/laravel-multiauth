@@ -38,6 +38,15 @@ Route::group([
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');
     Route::get('/role/{role}/edit', 'RoleController@edit')->name('admin.role.edit');
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');
+
+    // Permissions
+    Route::get('/permission', 'PermissionController@index')->name('admin.permission');
+    Route::get('/permission/create', 'PermissionController@create')->name('admin.permission.create');
+    Route::post('/permission/store', 'PermissionController@store')->name('admin.permission.store');
+    Route::delete('/permission/{permission}', 'PermissionController@destroy')->name('admin.permission.delete');
+    Route::get('/permission/{permission}/edit', 'PermissionController@edit')->name('admin.permission.edit');
+    Route::patch('/permission/{permission}', 'PermissionController@update')->name('admin.permission.update');
+
     Route::get('/{any}', function () {
         return abort(404);
     });
