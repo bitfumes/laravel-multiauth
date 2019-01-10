@@ -1,4 +1,4 @@
-@if (session()->has('message'))
+@if (session()->has('message') || session()->has('status'))
     <div class="alert alert-success">{{ session()->get('message') }}</div>
 @endif
 

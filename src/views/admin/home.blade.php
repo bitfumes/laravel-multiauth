@@ -7,11 +7,8 @@
                 <div class="card-header">{{ ucfirst(config('multiauth.prefix')) }} Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif You are logged in to {{ config('multiauth.prefix') }} side!
+                @include('multiauth::message')
+                     You are logged in to {{ config('multiauth.prefix') }} side!
                 </div>
             </div>
         </div>

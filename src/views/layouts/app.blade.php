@@ -59,6 +59,7 @@
                                     <a class="dropdown-item" href="{{ route('admin.show') }}">{{ ucfirst(config('multiauth.prefix')) }}</a>
                                     <a class="dropdown-item" href="{{ route('admin.roles') }}">Roles</a>
                                 @endadmin
+                                    <a class="dropdown-item" href="{{ route('admin.password.change') }}">Change Password</a>
                                 <a class="dropdown-item" href="/admin/logout" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

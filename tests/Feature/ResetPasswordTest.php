@@ -60,4 +60,27 @@ class ResetPasswordTest extends TestCase
             return true;
         });
     }
+
+    /** @test */
+    public function admin_can_visit_change_password_page()
+    {
+        $admin = $this->logInAdmin();
+        $this->get(route('admin.password.change'))
+        ->assertOk()
+        ->assertSee('Old Password');
+    }
+
+    /** @test */
+    public function admin_can_change_password_after_login()
+    {
+        $admin = $this->logInAdmin();
+        $this->post(route('admin.password.change'), [
+            'oldPassword'              => 'secret',
+            'password'                 => '123456',
+            'password_confirmation'    => '123456'
+        ])
+        ->assertRedirect(route('admin.home'))
+        ->assertSessionHas('message');
+        $this->assertTrue(Hash::check('123456', $admin->fresh()->password));
+    }
 }
