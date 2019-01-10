@@ -77,7 +77,7 @@ class ResetPasswordTest extends TestCase
         $this->post(route('admin.password.change'), [
             'oldPassword'              => 'secret',
             'password'                 => '123456',
-            'password_confirmation'    => '123456'
+            'password_confirmation'    => '123456',
         ])
         ->assertRedirect(route('admin.home'))
         ->assertSessionHas('message');
