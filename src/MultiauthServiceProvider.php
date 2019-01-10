@@ -11,8 +11,8 @@ use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -70,7 +70,7 @@ class MultiauthServiceProvider extends ServiceProvider
         return [
             'namespace'  => "Bitfumes\Multiauth\Http\Controllers",
             'middleware' => 'web',
-            'prefix'     => config('multiauth.prefix', 'admin')
+            'prefix'     => config('multiauth.prefix', 'admin'),
         ];
     }
 
@@ -86,8 +86,9 @@ class MultiauthServiceProvider extends ServiceProvider
         }
 
         if (!app('router')->has('login')) {
-            Route::get('/login', function () {})->name('login');
-        };
+            Route::get('/login', function () {
+            })->name('login');
+        }
 
         require $path;
     }
