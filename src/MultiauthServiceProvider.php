@@ -12,6 +12,7 @@ use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,7 @@ class MultiauthServiceProvider extends ServiceProvider
         if ($this->canHaveAdminBackend()) {
             $this->loadViewsFrom(__DIR__ . '/views', 'multiauth');
             $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-            $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
+            $this->registerRoutes();
             $this->publisheThings();
             $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');
             $this->mergeConfigFrom(__DIR__ . '/../config/multiauth.php', 'multiauth');
@@ -47,6 +48,32 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->app->make(Factory::class)->load($factoryPath);
     }
 
+    /**
+     * Register the package routes.
+     *
+     * @return void
+     */
+    private function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
+        });
+    }
+
+    /**
+     * Get the Blogg route group configuration array.
+     *
+     * @return array
+     */
+    private function routeConfiguration()
+    {
+        return [
+            'namespace'  => "Bitfumes\Multiauth\Http\Controllers",
+            'middleware' => 'web',
+            'prefix'     => config('multiauth.prefix', 'admin')
+        ];
+    }
+
     protected function loadRoutesFrom($path)
     {
         $prefix   = config('multiauth.prefix', 'admin');
@@ -57,6 +84,11 @@ class MultiauthServiceProvider extends ServiceProvider
                 require in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
             }
         }
+
+        if (!app('router')->has('login')) {
+            Route::get('/login', function () {})->name('login');
+        };
+
         require $path;
     }
 

@@ -1,10 +1,5 @@
 <?php
 
-Route::group([
-    'namespace'  => 'Bitfumes\Multiauth\Http\Controllers',
-    'middleware' => 'web',
-    'prefix'     => config('multiauth.prefix', 'admin'),
-], function () {
     Route::GET('/home', 'AdminController@index')->name('admin.home');
     // Login and Logout
     Route::GET('/', 'LoginController@showLoginForm')->name('admin.login');
@@ -38,7 +33,6 @@ Route::group([
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');
     Route::get('/role/{role}/edit', 'RoleController@edit')->name('admin.role.edit');
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');
-    Route::get('/{any}', function () {
+    Route::fallback(function () {
         return abort(404);
     });
-});
