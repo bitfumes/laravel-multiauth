@@ -61,6 +61,11 @@ class AdminController extends Controller
         return Admin::all();
     }
 
+    public function me()
+    {
+        return response(auth('admin')->user(), Response::HTTP_FOUND);
+    }
+
     /**
      * Refresh a token.
      *

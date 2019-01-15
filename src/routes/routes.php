@@ -16,6 +16,7 @@
 
     // // Admin Lists
     Route::post('/all', 'AdminController@all')->name('admin.all');
+    Route::post('/me', 'AdminController@me')->name('admin.me');
 
     // // Admin Roles
     Route::post('/{admin}/role/{role}', 'AdminRoleController@attach')->name('admin.attach.roles');
