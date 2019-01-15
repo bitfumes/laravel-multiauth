@@ -31,10 +31,14 @@ class AdminController extends Controller
      */
     public function login()
     {
+        request()->validate([
+            'email'    => 'required|email',
+            'password' => 'required'
+        ]);
         $credentials = request(['email', 'password']);
 
         if (!$token = auth('admin')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'These credentials does not match our record'], 401);
         }
 
         return $this->respondWithToken($token);
