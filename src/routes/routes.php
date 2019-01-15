@@ -9,19 +9,19 @@
     Route::POST('/password/reset', 'ResetPasswordController@reset')->name('admin.password.request');
     Route::POST('/password/change', 'AdminController@changePassword')->name('admin.password.change');
 
-    // Register Admins
+    // // Register Admins
     Route::post('/register', 'RegisterController@register')->name('admin.register');
     Route::delete('/{admin}', 'AdminController@destroy')->name('admin.delete');
     Route::patch('/{admin}', 'AdminController@update')->name('admin.update');
 
-    // Admin Lists
+    // // Admin Lists
     Route::post('/all', 'AdminController@all')->name('admin.all');
 
-    // Admin Roles
+    // // Admin Roles
     Route::post('/{admin}/role/{role}', 'AdminRoleController@attach')->name('admin.attach.roles');
     Route::delete('/{admin}/role/{role}', 'AdminRoleController@detach');
 
-    // Roles
+    // // Roles
     Route::post('/role', 'RoleController@index')->name('admin.role.index');
     Route::post('/role/store', 'RoleController@store')->name('admin.role.store');
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');

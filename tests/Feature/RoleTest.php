@@ -64,7 +64,7 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create(['name' => 'editr']);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
-        $this->patch(route('admin.role.update', $role->id), ['name' => 'editor'])
+        $this->patchJson(route('admin.role.update', $role->id), ['name' => 'editor'])
             ->assertStatus(202);
         $this->assertDatabaseHas('roles', ['name' => 'editor']);
     }

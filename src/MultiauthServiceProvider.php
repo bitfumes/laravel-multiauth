@@ -68,7 +68,7 @@ class MultiauthServiceProvider extends ServiceProvider
         return [
             'namespace'  => "Bitfumes\Multiauth\Http\Controllers",
             'middleware' => 'api',
-            'prefix'     => config('multiauth.prefix', 'admin')
+            'prefix'     => 'api/' . config('multiauth.prefix', 'admin')
         ];
     }
 
