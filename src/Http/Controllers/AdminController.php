@@ -63,7 +63,7 @@ class AdminController extends Controller
 
     public function me()
     {
-        return response(auth('admin')->user(), Response::HTTP_FOUND);
+        return response(auth('admin')->user(), Response::HTTP_ACCEPTED);
     }
 
     /**
