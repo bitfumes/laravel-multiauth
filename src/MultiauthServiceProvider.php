@@ -8,24 +8,21 @@ use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 use Illuminate\Database\Eloquent\Factory;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Bitfumes\Multiauth\Providers\AuthServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         if ($this->canHaveAdminBackend()) {
-            $this->loadViewsFrom(__DIR__ . '/views', 'multiauth');
             $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
             $this->registerRoutes();
             $this->publisheThings();
             $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');
             $this->mergeConfigFrom(__DIR__ . '/../config/multiauth.php', 'multiauth');
-            $this->loadBladeSyntax();
             $this->loadAdminCommands();
         }
         $this->loadCommands();
@@ -37,6 +34,7 @@ class MultiauthServiceProvider extends ServiceProvider
             $this->loadFactories();
             $this->loadMiddleware();
             $this->registerExceptionHandler();
+            app()->register(AuthServiceProvider::class);
         }
     }
 
@@ -69,7 +67,7 @@ class MultiauthServiceProvider extends ServiceProvider
     {
         return [
             'namespace'  => "Bitfumes\Multiauth\Http\Controllers",
-            'middleware' => 'web',
+            'middleware' => 'api',
             'prefix'     => config('multiauth.prefix', 'admin')
         ];
     }
@@ -85,17 +83,12 @@ class MultiauthServiceProvider extends ServiceProvider
             }
         }
 
-        if (!app('router')->has('login')) {
-            Route::get('/login', function () {})->name('login');
-        };
-
         require $path;
     }
 
     protected function loadMiddleware()
     {
         app('router')->aliasMiddleware('admin', redirectIfAuthenticatedAdmin::class);
-        app('router')->aliasMiddleware('role', redirectIfNotWithRoleOfAdmin::class);
     }
 
     protected function registerExceptionHandler()
@@ -133,9 +126,6 @@ class MultiauthServiceProvider extends ServiceProvider
             __DIR__ . '/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
-            __DIR__ . '/views' => resource_path('views/vendor/multiauth'),
-        ], 'multiauth:views');
-        $this->publishes([
             __DIR__ . '/factories' => database_path('factories'),
         ], 'multiauth:factories');
         $this->publishes([
@@ -144,21 +134,6 @@ class MultiauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/routes/routes.php' => base_path("routes/{$prefix}.php"),
         ], 'multiauth:routes');
-    }
-
-    protected function loadBladeSyntax()
-    {
-        Blade::if('admin', function ($role) {
-            if (!auth('admin')->check()) {
-                return  false;
-            }
-            $role = explode(',', $role);
-            $role[] = 'super';
-            $roles = auth('admin')->user()->/* @scrutinizer ignore-call */ roles()->pluck('name');
-            $match = count(array_intersect($role, $roles->toArray()));
-
-            return (bool) $match;
-        });
     }
 
     protected function loadAdminCommands()

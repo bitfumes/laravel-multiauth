@@ -2,12 +2,18 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
+use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Create a new controller instance.
      *
@@ -15,34 +21,91 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin');
-        $this->middleware('role:super', ['only'=>'show']);
+        $this->middleware('auth:admin')->except(['login', 'register']);
     }
 
-    public function index()
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login()
     {
-        return view('multiauth::admin.home');
+        $credentials = request(['email', 'password']);
+
+        if (!$token = auth('admin')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
-    public function show()
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
     {
-        $admins = Admin::where('id', '!=', 1)->get();
-
-        return view('multiauth::admin.show', compact('admins'));
+        auth('admin')->logout();
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function showChangePasswordForm()
+    public function all()
     {
-        return view('multiauth::admin.passwords.change');
+        $this->authorize('isSuperAdmin', Admin::class);
+        return Admin::all();
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth('admin')->refresh());
+    }
+
+    public function update(Admin $admin, AdminRequest $request)
+    {
+        $this->authorize('isSuperAdmin', Admin::class);
+        $admin->update($request->except('role_id'));
+        $admin->roles()->sync(request('role_id'));
+        return response('updated', Response::HTTP_ACCEPTED);
+    }
+
+    public function destroy(Admin $admin)
+    {
+        $this->authorize('isSuperAdmin', Admin::class);
+        $admin->delete();
+        return response('success', Response::HTTP_ACCEPTED);
     }
 
     public function changePassword(Request $request)
     {
         $data = $request->validate([
-            'oldPassword'   => 'required',
-            'password'      => 'required|confirmed'
+            'oldPassword' => 'required',
+            'password'    => 'required|confirmed',
         ]);
         auth()->user()->update(['password' => bcrypt($data['password'])]);
-        return redirect(route('admin.home'))->with('message', 'Your password is changed successfully');
+        return response('password successfully changed', Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth('admin')->factory()->getTTL() * 60,
+            'user'         => auth('admin')->user()
+        ]);
     }
 }

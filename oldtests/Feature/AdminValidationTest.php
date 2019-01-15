@@ -2,6 +2,7 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

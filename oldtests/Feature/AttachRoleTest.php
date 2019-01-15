@@ -25,11 +25,9 @@ class AttachRoleTest extends TestCase
     public function a_super_admin_can_attach_roles_to_admin()
     {
         $admin = $this->createAdmin();
-        $this->post(route('admin.attach.roles', [
-            'admin' => $admin->id, 'role' => $this->editorRole->id
-        ]))->assertStatus(201);
+        $this->get(route('admin.role.create'));
+        $this->post(route('admin.attach.roles', ['admin' => $admin->id, 'role' => $this->editorRole->id]));
         $this->assertEquals($admin->roles()->pluck('name')[0], 'editor');
-        $this->assertDatabaseHas('admin_role', ['role_id'=> $this->editorRole->id]);
     }
 
     /**
@@ -38,10 +36,10 @@ class AttachRoleTest extends TestCase
     public function a_non_super_admin_can_not_attach__roles_to_admin()
     {
         $this->logInAdmin();
-        $this->withExceptionHandling();
         $admin = $this->createAdmin();
         $this->post(route('admin.attach.roles', ['admin' => $admin->id, 'role' => $this->editorRole->id]))
-             ->assertStatus(403);
+             ->assertStatus(302)
+             ->assertRedirect('/admin/home');
     }
 
     /**
@@ -50,9 +48,9 @@ class AttachRoleTest extends TestCase
     public function a_super_user_can_detach_role_for_an_admin()
     {
         $admin = $this->createAdmin();
-        $admin->roles()->attach($this->editorRole->id);
-        $this->delete(route('admin.attach.roles', ['admin' => $admin->id, 'role' => $this->editorRole->id]))->assertStatus(202);
+        $this->post(route('admin.attach.roles', ['admin' => $admin->id, 'role' => $this->editorRole->id]));
+        $this->assertEquals($admin->roles[0]->id, $this->editorRole->id);
+        $this->delete(route('admin.attach.roles', ['admin' => $admin->id, 'role' => $this->editorRole->id]));
         $this->assertEmpty($admin->fresh()->roles()->count());
-        $this->assertDatabaseMissing('admin_role', ['role_id' => $this->editorRole->id]);
     }
 }

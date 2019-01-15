@@ -6,6 +6,7 @@ use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
 class TestCase extends BaseTestCase
 {
@@ -15,12 +16,14 @@ class TestCase extends BaseTestCase
         $this->withoutExceptionHandling();
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations(['--database' => 'testing']);
-        $this->withFactories(__DIR__.'/../src/factories');
+        $this->withFactories(__DIR__ . '/../src/factories');
+        app()->register(LaravelServiceProvider::class);
     }
 
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
+        $app['config']->set('jwt.secret', 'abcdef');
         $app['config']->set('database.default', 'testing');
         $app['config']->set('multiauth.registration_notification_email', true);
         $app['config']->set('database.connections.testing', [

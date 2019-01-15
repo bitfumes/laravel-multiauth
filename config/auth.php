@@ -3,7 +3,7 @@
 return [
     'guards' => [
         'admin' => [
-            'driver'   => 'session',
+            'driver'   => 'jwt',
             'provider' => 'admins',
         ],
     ],

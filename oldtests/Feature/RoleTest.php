@@ -16,21 +16,12 @@ class RoleTest extends TestCase
         $this->loginSuperAdmin();
     }
 
-    /** @test */
-    public function a_super_admin_can_fetch_all_roles()
+    /**
+     * @test
+     */
+    public function a_super_user_can_see_create_role_page()
     {
-        $role = factory(Role::class)->create(['name' => 'editor']);
-        $res  = $this->postJson(route('admin.role.index'))->assertSuccessful()->json();
-        $this->assertEquals(2, count($res));
-    }
-
-    /** @test */
-    public function normal_admin_can_not_fetch_all_roles()
-    {
-        $this->logInAdmin();
-        $this->withExceptionHandling();
-        $role = factory(Role::class)->create(['name' => 'editor']);
-        $this->postJson(route('admin.role.index'))->assertStatus(403);
+        $this->get(route('admin.role.create'))->assertStatus(200);
     }
 
     /**
@@ -40,21 +31,19 @@ class RoleTest extends TestCase
     {
         $role = ['name' => 'editor'];
         $this->post(route('admin.role.store'), $role)
-            ->assertStatus(201);
+            ->assertStatus(302)
+            ->assertSessionHas('message');
         $this->assertDatabaseHas('roles', $role);
     }
 
     /**
      * @test
      */
-    public function normal_admin_can_not_only_store_new_role()
+    public function a_super_admin_can_only_see_edit_page_for_role()
     {
-        $this->logInAdmin();
-        $this->withExceptionHandling();
-        $role = ['name' => 'editor'];
-        $this->post(route('admin.role.store'), $role)
-            ->assertStatus(403);
-        $this->assertDatabaseMissing('roles', $role);
+        $role = factory(Role::class)->create(['name' => 'editr']);
+        $this->get(route('admin.role.edit', $role->id))
+            ->assertStatus(200);
     }
 
     /**
@@ -65,7 +54,8 @@ class RoleTest extends TestCase
         $role = factory(Role::class)->create(['name' => 'editr']);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
         $this->patch(route('admin.role.update', $role->id), ['name' => 'editor'])
-            ->assertStatus(202);
+            ->assertStatus(302)
+            ->assertSessionHas('message');
         $this->assertDatabaseHas('roles', ['name' => 'editor']);
     }
 
@@ -76,7 +66,7 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create(['name' => 'editor']);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
-        $this->delete(route('admin.role.delete', $role->id))->assertStatus(204);
+        $this->delete(route('admin.role.delete', $role->id))->assertStatus(302);
         $this->assertDatabaseMissing('roles', ['name' => 'editor']);
     }
 }

@@ -4,63 +4,18 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+    use AuthorizesRequests;
 
-    use RegistersUsers;
-
-    public $redirectTo;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @return string
-     */
-    public function redirectTo()
-    {
-        return $this->redirectTo = route('admin.show');
-    }
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('role:super');
-    }
-
-    public function showRegistrationForm()
-    {
-        $roles = Role::all();
-
-        return view('multiauth::admin.register', compact('roles'));
-    }
-
-    public function register(AdminRequest $request)
-    {
-        event(new Registered($user = $this->create($request->all())));
-
-        return redirect($this->redirectPath());
     }
 
     /**
@@ -70,12 +25,12 @@ class RegisterController extends Controller
      *
      * @return Admin
      */
-    protected function create(array $data)
+    protected function register(AdminRequest $data)
     {
-        $admin = new Admin();
-
-        $fields           = $this->tableFields();
+        $this->authorize('isSuperAdmin', Admin::class);
+        $admin            = new Admin();
         $data['password'] = bcrypt($data['password']);
+        $fields           = $this->tableFields();
         foreach ($fields as $field) {
             if (isset($data[$field])) {
                 $admin->$field = $data[$field];
@@ -85,8 +40,7 @@ class RegisterController extends Controller
         $admin->save();
         $admin->roles()->sync(request('role_id'));
         $this->sendConfirmationNotification($admin, request('password'));
-
-        return $admin;
+        return $this->respondWithToken(auth('admin')->attempt(request(['email', 'password'])));
     }
 
     protected function sendConfirmationNotification($admin, $password)
@@ -100,31 +54,35 @@ class RegisterController extends Controller
         }
     }
 
+    public function changePassword(Request $request)
+    {
+        $data = $request->validate([
+            'oldPassword' => 'required',
+            'password'    => 'required|confirmed'
+        ]);
+        auth()->user()->update(['password' => bcrypt($data['password'])]);
+        return redirect(route('admin.home'))->with('message', 'Your password is changed successfully');
+    }
+
     protected function tableFields()
     {
         return collect(\Schema::getColumnListing('admins'));
     }
 
-    public function edit(Admin $admin)
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
     {
-        $roles = Role::all();
-
-        return view('multiauth::admin.edit', compact('admin', 'roles'));
-    }
-
-    public function update(Admin $admin, AdminRequest $request)
-    {
-        $admin->update($request->except('role_id'));
-        $admin->roles()->sync(request('role_id'));
-
-        return redirect(route('admin.show'))->with('message', "{$admin->name} details are successfully updated");
-    }
-
-    public function destroy(Admin $admin)
-    {
-        $prefix = config('multiauth.prefix');
-        $admin->delete();
-
-        return redirect(route('admin.show'))->with('message', "You have deleted {$prefix} successfully");
+        return response()->json([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth('admin')->factory()->getTTL() * 60,
+            'user'         => auth('admin')->user()
+        ]);
     }
 }

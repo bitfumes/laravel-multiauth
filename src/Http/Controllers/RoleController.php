@@ -2,57 +2,45 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Bitfumes\Multiauth\Model\Admin;
 
 class RoleController extends Controller
 {
+    use AuthorizesRequests;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('role:super');
+        $this->authorize('isSuperAdmin', Admin::class);
     }
 
     public function index()
     {
-        $roles = Role::all();
-
-        return view('multiauth::roles.index', compact('roles'));
-    }
-
-    public function create()
-    {
-        return view('multiauth::roles.create');
-    }
-
-    public function edit(Role $role)
-    {
-        return view('multiauth::roles.edit', compact('role'));
+        return Role::all();
     }
 
     public function store(Request $request)
     {
         $request->validate(['name' => 'required']);
         Role::create($request->all());
-
-        return redirect(route('admin.roles'))->with('message', 'New Role is stored successfully successfully');
+        return response('created', Response::HTTP_CREATED);
     }
 
     public function update(Role $role, Request $request)
     {
         $request->validate(['name' => 'required']);
-
         $role->update($request->all());
-
-        return redirect(route('admin.roles'))->with('message', 'You have updated Role successfully');
+        return response('updated', Response::HTTP_ACCEPTED);
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-
-        return redirect()->back()->with('message', 'You have deleted Role successfully');
+        return response('deleted', Response::HTTP_NO_CONTENT);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
@@ -45,21 +46,6 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, display the link request form.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string|null              $token
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showResetForm(Request $request, $token = null)
-    {
-        return view('multiauth::admin.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
-    }
-
-    /**
      * Get the broker to be used during password reset.
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
@@ -67,6 +53,30 @@ class ResetPasswordController extends Controller
     public function broker()
     {
         return Password::broker('admins');
+    }
+
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        return response('success', Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * Get the response for a failed password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        return response('Credentials not matched', Response::HTTP_NOT_ACCEPTABLE);
     }
 
     /**
