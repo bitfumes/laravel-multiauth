@@ -14,11 +14,12 @@ class AdminResource extends JsonResource
      */
     public function toArray($request)
     {
+        $roleResource = config('multiauth.resources.role');
         return [
             'name'  => $this->name,
             'id'    => $this->id,
             'email' => $this->email,
-            'roles' => $this->roles()->pluck('name')
+            'roles' => $roleResource::collection($this->roles)
         ];
     }
 }
