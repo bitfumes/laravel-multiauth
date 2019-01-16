@@ -35,7 +35,8 @@ class AdminController extends Controller
             'email'    => 'required|email',
             'password' => 'required'
         ]);
-        $credentials = request(['email', 'password']);
+        $credentials           = request(['email', 'password']);
+        $credentials['active'] = true;
 
         if (!$token = auth('admin')->attempt($credentials)) {
             return response()->json(['error' => 'These credentials does not match our record'], 401);

@@ -30,4 +30,19 @@ class LoginTest extends TestCase
         $this->assertArrayHasKey('password', $res['errors']);
         $this->assertArrayHasKey('email', $res['errors']);
     }
+
+    /** @test */
+    public function if_admin_status_is_false_then_admin_can_not_log_in()
+    {
+        $admin = $this->createAdmin();
+        $res   = $this->postJson(route('admin.login'), [
+            'email'    => $admin->email,
+            'password' => 'secret'
+        ])->assertStatus(401)->json();
+        $admin->update(['active'=>true]);
+        $res   = $this->postJson(route('admin.login'), [
+            'email'    => $admin->email,
+            'password' => 'secret'
+        ])->assertStatus(200)->json();
+    }
 }

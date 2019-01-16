@@ -27,3 +27,7 @@
     Route::post('/role/store', 'RoleController@store')->name('admin.role.store');
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');
+
+    // active status
+    Route::post('/{admin}/activation', 'ActivationController@activate')->name('admin.activation');
+    Route::delete('/{admin}/activation', 'ActivationController@deactivate');

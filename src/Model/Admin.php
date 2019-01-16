@@ -11,6 +11,8 @@ class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    protected $casts = ['active' => 'boolean'];
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -53,7 +55,7 @@ class Admin extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'active'];
 
     /**
      * The attributes that should be hidden for arrays.
