@@ -34,7 +34,7 @@ class LoginTest extends TestCase
     /** @test */
     public function if_admin_status_is_false_then_admin_can_not_log_in()
     {
-        $admin = $this->createAdmin();
+        $admin = $this->createAdmin(['active'=>false]);
         $res   = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
             'password' => 'secret'
