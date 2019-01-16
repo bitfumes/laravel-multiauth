@@ -40,7 +40,8 @@ class RegisterController extends Controller
         $admin->save();
         $admin->roles()->sync(request('role_id'));
         $this->sendConfirmationNotification($admin, request('password'));
-        return $this->respondWithToken(auth('admin')->attempt(request(['email', 'password'])));
+        $resource = config('multiauth.resources.admin');
+        return new $resource($admin);
     }
 
     protected function sendConfirmationNotification($admin, $password)

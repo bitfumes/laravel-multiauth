@@ -10,7 +10,7 @@ class RegistrationTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function api_can_register_a_new_admin_and_get_token_by_super_admin_only()
+    public function api_can_register_a_new_admin_by_super_user_only()
     {
         $this->loginSuperAdmin();
         $res = $this->postJson(route('admin.register'), [
@@ -20,8 +20,8 @@ class RegistrationTest extends TestCase
             'password_confirmation'=> '123456',
             'role_id'              => 1
         ])
-        ->assertSuccessful();
-        $this->assertNotNull($res->original['access_token']);
+        ->assertSuccessful()->json();
+        $this->assertEquals($res['data']['email'], 'sarthak@bitfumes.com');
         $this->assertDatabaseHas('admins', ['email'=>'sarthak@bitfumes.com']);
     }
 
