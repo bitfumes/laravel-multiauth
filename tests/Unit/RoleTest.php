@@ -5,6 +5,7 @@ namespace Bitfumes\Multiauth\Tests\Unit;
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Bitfumes\Multiauth\Http\Resources\RoleResource;
 
 class RoleTest extends TestCase
 {
@@ -34,5 +35,25 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create(['name' => 'Editor']);
         $this->assertEquals($role->name, 'editor');
+    }
+
+    /** @test */
+    public function admin_has_resource()
+    {
+        $role  = factory(Role::class)->create();
+        $admin = $this->createAdmin();
+        $admin->roles()->attach($role->id);
+        $data  = new RoleResource($role);
+        $this->assertArrayHasKey('admins_attached', $data->resolve());
+    }
+
+    /** @test */
+    public function admin_has_resource_collection()
+    {
+        $roles = factory(Role::class, 2)->create();
+        $admin = $this->createAdmin();
+        $admin->roles()->attach($roles);
+        $data = RoleResource::collection($roles);
+        $this->assertEquals(2, $data->count());
     }
 }

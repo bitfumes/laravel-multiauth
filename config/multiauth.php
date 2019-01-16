@@ -61,6 +61,7 @@ return [
     | Default : /admin/home
     */
     'resources' => [
-        'admin'          => Bitfumes\Multiauth\Http\Resources\AdminResource::class
+        'admin'          => Bitfumes\Multiauth\Http\Resources\AdminResource::class,
+        'role'           => Bitfumes\Multiauth\Http\Resources\RoleResource::class
     ]
 ];

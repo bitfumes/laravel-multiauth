@@ -21,7 +21,7 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create(['name' => 'editor']);
         $res  = $this->postJson(route('admin.role.index'))->assertSuccessful()->json();
-        $this->assertEquals(2, count($res));
+        $this->assertEquals(2, count($res['data']));
     }
 
     /** @test */

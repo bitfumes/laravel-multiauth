@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,7 @@ class RoleController extends Controller
     public function index()
     {
         $this->authorize('isSuperAdmin', Admin::class);
-        return Role::all();
+        return RoleResource::collection(Role::all());
     }
 
     public function store(Request $request)

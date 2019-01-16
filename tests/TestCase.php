@@ -54,7 +54,7 @@ class TestCase extends BaseTestCase
     public function loginSuperAdmin($args = [])
     {
         $super = factory(Admin::class)->create($args);
-        $role  = factory(Role::class)->create();
+        $role  = factory(Role::class)->create(['name'=>'super']);
         $super->roles()->attach($role);
         $this->actingAs($super, 'admin');
 
