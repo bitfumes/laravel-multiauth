@@ -7,6 +7,8 @@ use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Bitfumes\Multiauth\Http\Resources\AdminResource;
+use Bitfumes\Multiauth\Model\Admin;
 
 class AdminTest extends TestCase
 {
@@ -37,5 +39,21 @@ class AdminTest extends TestCase
         $admin = $this->createAdmin();
         $admin->sendPasswordResetNotification('fakeToken');
         Notification::assertSentTo([$admin], AdminResetPasswordNotification::class);
+    }
+
+    /** @test */
+    public function admin_has_resource()
+    {
+        $admin = $this->loginSuperAdmin();
+        $data  = new AdminResource($admin);
+        $this->assertArrayHasKey('roles', $data->resolve());
+    }
+
+    /** @test */
+    public function admin_has_resource_collection()
+    {
+        $admins = $this->createAdmin([], 2);
+        $data   = AdminResource::collection(Admin::all());
+        $this->assertEquals(2, $data->count());
     }
 }

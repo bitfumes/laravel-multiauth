@@ -12,7 +12,7 @@ class AdminGetTest extends TestCase
         $this->loginSuperAdmin();
         $this->createAdmin();
         $res = $this->postJson(route('admin.all'))->assertSuccessful()->json();
-        $this->assertEquals(2, count($res));
+        $this->assertEquals(2, count($res['data']));
     }
 
     /** @test */
@@ -28,7 +28,8 @@ class AdminGetTest extends TestCase
     public function api_can_give_logged_in_admin_details()
     {
         $admin = $this->logInAdmin();
-        $res   = $this->postJson(route('admin.me'))->assertStatus(302)->json();
+        $this->withExceptionHandling();
+        $res   = $this->postJson(route('admin.me'))->assertStatus(202)->json();
         $this->assertEquals($admin->name, $res['name']);
     }
 }

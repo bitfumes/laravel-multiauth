@@ -46,9 +46,9 @@ class TestCase extends BaseTestCase
         return $admin;
     }
 
-    public function createAdmin($args = [])
+    public function createAdmin($args = [], $num=null)
     {
-        return factory(Admin::class)->create($args);
+        return factory(Admin::class, $num)->create($args);
     }
 
     public function loginSuperAdmin($args = [])

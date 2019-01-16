@@ -57,13 +57,16 @@ class AdminController extends Controller
 
     public function all()
     {
+        $resource = config('multiauth.resources.admin');
         $this->authorize('isSuperAdmin', Admin::class);
-        return Admin::all();
+        return $resource::collection(Admin::all());
     }
 
     public function me()
     {
-        return response(auth('admin')->user(), Response::HTTP_ACCEPTED);
+        $resource = config('multiauth.resources.admin');
+        $admin    = new $resource(auth('admin')->user());
+        return response($admin, Response::HTTP_ACCEPTED);
     }
 
     /**
