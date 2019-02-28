@@ -2,7 +2,6 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -10,7 +9,7 @@ class AdminValidationTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setup()
+    public function setup():void
     {
         parent::setUp();
         $this->withExceptionHandling();

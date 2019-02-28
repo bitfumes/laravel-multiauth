@@ -12,7 +12,7 @@ class AttachRoleTest extends TestCase
     public $super;
     public $editorRole;
 
-    public function setup()
+    public function setup():void
     {
         parent::setUp();
         $this->super      = $this->loginSuperAdmin();
