@@ -3,8 +3,8 @@
 namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Bitfumes\Multiauth\Model\Admin;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
 {
@@ -40,9 +40,10 @@ class AdminController extends Controller
     {
         $data = $request->validate([
             'oldPassword'   => 'required',
-            'password'      => 'required|confirmed'
+            'password'      => 'required|confirmed',
         ]);
         auth()->user()->update(['password' => bcrypt($data['password'])]);
+
         return redirect(route('admin.home'))->with('message', 'Your password is changed successfully');
     }
 }
