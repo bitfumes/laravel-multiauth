@@ -10,7 +10,7 @@ use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
 class TestCase extends BaseTestCase
 {
-    public function setup()
+    public function setup():void
     {
         parent::setUp();
         $this->withoutExceptionHandling();
