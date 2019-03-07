@@ -27,6 +27,7 @@ class AdminController extends Controller
     public function show()
     {
         $admins = Admin::where('id', '!=', auth()->id())->get();
+
         return view('multiauth::admin.show', compact('admins'));
     }
 

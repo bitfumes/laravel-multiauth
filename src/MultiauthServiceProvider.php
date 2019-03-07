@@ -9,11 +9,11 @@ use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
+use Bitfumes\Multiauth\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Bitfumes\Multiauth\Providers\AuthServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
