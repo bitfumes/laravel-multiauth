@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Policies\AdminPolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Admin::class => AdminPolicy::class
+        Admin::class => AdminPolicy::class,
     ];
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminPolicy
 {

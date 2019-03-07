@@ -108,6 +108,7 @@ class RegisterController extends Controller
     public function edit(Admin $admin)
     {
         $roles = Role::all();
+
         return view('multiauth::admin.edit', compact('admin', 'roles'));
     }
 

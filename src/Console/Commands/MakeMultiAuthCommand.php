@@ -317,11 +317,11 @@ class MakeMultiAuthCommand extends Command
         $stub1 = file_get_contents($this->stub_path . '/Notifications/ResetPassword.stub');
         $stub2 = file_get_contents($this->stub_path . '/Notifications/VerifyEmail.stub');
 
-        $notification1       = strtr($stub1, $this->parseName());
-        $notification2       = strtr($stub2, $this->parseName());
-        $name                = $this->parseName()['{{singularClass}}'];
-        $notification_path1  = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
-        $notification_path2  = app_path("/Notifications/{$name}/{$name}VerifyEmail.php");
+        $notification1      = strtr($stub1, $this->parseName());
+        $notification2      = strtr($stub2, $this->parseName());
+        $name               = $this->parseName()['{{singularClass}}'];
+        $notification_path1 = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
+        $notification_path2 = app_path("/Notifications/{$name}/{$name}VerifyEmail.php");
 
         $dir = dirname($notification_path1);
         if (!is_dir($dir)) {
