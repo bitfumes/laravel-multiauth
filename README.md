@@ -204,6 +204,9 @@ If you want to add multiple role, you can do like this
 
 **Apart from Admin section, you can make a another auth**
 
+This is fully compatible with laravel `MustVerifyEmail` trait, so that you can make user to must verify email. [click here](https://laravel.com/docs/5.8/verification) more details
+
+
 ```php
 php artisan multiauth:make {guard}
 ```
