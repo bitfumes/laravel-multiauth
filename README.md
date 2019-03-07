@@ -21,11 +21,12 @@ in as a user and an admin, without conflicts!
 
 ## Version Guidance
 
-| Laravel version | Branch | Install                                               |
-| --------------- | ------ | ----------------------------------------------------- |
-| 5.4             | 5.4    | composer require bitfumes/laravel-multiauth:5.4.x-dev |
-| 5.5             | 5.5    | composer require bitfumes/laravel-multiauth:5.5.x-dev |
-| 5.6 and 5.7     | Master | composer require bitfumes/laravel-multiauth           |
+| Laravel version     | Branch   | Install                                                 |
+| ------------------- | ------   | ------------------------------------------------------- |
+| 5.4                 | 5.4      | composer require bitfumes/laravel-multiauth:5.4.x-dev   |
+| 5.5                 | 5.5      | composer require bitfumes/laravel-multiauth:5.5.x-dev   |
+| 5.6, 5.7 and 5.8    | Master   | composer require bitfumes/laravel-multiauth             |
+| JWT Api version     | jwt-auth | composer require bitfumes/laravel-multiauth -b jwt-auth |
 
 ## Installation
 
@@ -89,6 +90,13 @@ Yes you can write validation rules to your new columns or change existing valida
 ```bash
 php artisan vendor:publish --tag="multiauth:config"
 ```
+## Activate or Deactive admin
+Now super admin can activate or deactivate other admin.
+This will be usefull when you want to deactivate any admin for some reason.
+
+By default new admin is deactivate, so that you can activate him when you want.
+
+To activate admin, just go to the proceedure of editing admin.
 
 ## Change Prefix
 

@@ -50,14 +50,14 @@ class SeedCmd extends Command
         $admin = $this->createSuperAdmin($role, $rolename);
 
         $this->info("You have created an admin name '{$admin->name}' with role of '{$admin->roles->first()->name}' ");
-        $this->info("Now log-in with {$admin->email} email and password as 'secret'");
+        $this->info("Now log-in with {$admin->email} email and password as 'secret123'");
     }
 
     protected function createSuperAdmin($role, $rolename)
     {
         $prefix = config('multiauth.prefix');
         $admin  = factory(Admin::class)
-            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super '.ucfirst($prefix)]);
+            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super ' . ucfirst($prefix)]);
         if (!$role) {
             $role = factory(Role::class)->create(['name' => $rolename]);
         }

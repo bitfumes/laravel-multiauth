@@ -39,6 +39,19 @@ class RoleTest extends TestCase
     /**
      * @test
      */
+    public function normal_admin_can_not_only_store_new_role()
+    {
+        $this->logInAdmin();
+        $this->withExceptionHandling();
+        $role = ['name' => 'editor'];
+        $this->post(route('admin.role.store'), $role)
+            ->assertStatus(302);
+        $this->assertDatabaseMissing('roles', $role);
+    }
+
+    /**
+     * @test
+     */
     public function a_super_admin_can_only_see_edit_page_for_role()
     {
         $role = factory(Role::class)->create(['name' => 'editr']);

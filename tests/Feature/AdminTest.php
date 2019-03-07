@@ -63,7 +63,7 @@ class AdminTest extends TestCase
         $response->assertStatus(302)->assertRedirect(route('admin.show'));
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@gmail.com']);
         $admin = Admin::find(2);
-        $this->assertTrue(Hash::check('secret', $admin->password));
+        $this->assertTrue(Hash::check('secret123', $admin->password));
         $this->assertDatabaseHas('admin_role', ['admin_id' => 2]);
     }
 
@@ -154,8 +154,8 @@ class AdminTest extends TestCase
         return $this->post(route('admin.register'), [
             'name'                  => 'sarthak',
             'email'                 => 'sarthak@gmail.com',
-            'password'              => 'secret',
-            'password_confirmation' => 'secret',
+            'password'              => 'secret123',
+            'password_confirmation' => 'secret123',
             'role_id'               => $role->id,
         ]);
     }

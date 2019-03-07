@@ -10,6 +10,8 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
+    protected $casts = ['active' => 'boolean'];
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);

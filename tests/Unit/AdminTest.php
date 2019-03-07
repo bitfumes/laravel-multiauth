@@ -25,7 +25,7 @@ class AdminTest extends TestCase
     public function it_can_bcrypt_the_password()
     {
         $admin = $this->createAdmin();
-        $this->assertTrue(Hash::check('secret', $admin->password));
+        $this->assertTrue(Hash::check('secret123', $admin->password));
     }
 
     /**

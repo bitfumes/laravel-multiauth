@@ -24,7 +24,7 @@ class LoginTest extends TestCase
     public function a_user_can_login_and_redirected_to_admin_home()
     {
         $admin = $this->createAdmin();
-        $this->post(route('admin.login'), ['email' => $admin->email, 'password' => 'secret'])
+        $this->post(route('admin.login'), ['email' => $admin->email, 'password' => 'secret123'])
         ->assertRedirect(route('admin.home'));
     }
 

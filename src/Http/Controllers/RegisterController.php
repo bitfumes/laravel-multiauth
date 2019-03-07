@@ -108,12 +108,13 @@ class RegisterController extends Controller
     public function edit(Admin $admin)
     {
         $roles = Role::all();
-
         return view('multiauth::admin.edit', compact('admin', 'roles'));
     }
 
     public function update(Admin $admin, AdminRequest $request)
     {
+        $request['active'] = request('activation') ?? 0;
+        unset($request['activation']);
         $admin->update($request->except('role_id'));
         $admin->roles()->sync(request('role_id'));
 

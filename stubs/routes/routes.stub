@@ -18,4 +18,9 @@ Route::group(['namespace' => '{{singularClass}}'], function() {
     Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('{{singularSlug}}.password.request');
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('{{singularSlug}}.password.reset');
 
+    // Must verify email
+    Route::get('email/resend','Auth\VerificationController@resend')->name('{{singularSlug}}.verification.resend');
+    Route::get('email/verify','Auth\VerificationController@show')->name('{{singularSlug}}.verification.notice');
+    Route::get('email/verify/{id}','Auth\VerificationController@verify')->name('{{singularSlug}}.verification.verify');
+
 });

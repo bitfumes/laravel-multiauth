@@ -112,6 +112,7 @@ class MakeMultiAuthCommand extends Command
             'Auth/LoginController',
             'Auth/RegisterController',
             'Auth/ResetPasswordController',
+            'Auth/VerificationController',
             'HomeController',
         ];
 
@@ -313,18 +314,22 @@ class MakeMultiAuthCommand extends Command
 
     protected function publishNotification()
     {
-        $stub = file_get_contents($this->stub_path . '/Notifications/ResetPassword.stub');
+        $stub1 = file_get_contents($this->stub_path . '/Notifications/ResetPassword.stub');
+        $stub2 = file_get_contents($this->stub_path . '/Notifications/VerifyEmail.stub');
 
-        $notification      = strtr($stub, $this->parseName());
-        $name              = $this->parseName()['{{singularClass}}'];
-        $notification_path = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
+        $notification1       = strtr($stub1, $this->parseName());
+        $notification2       = strtr($stub2, $this->parseName());
+        $name                = $this->parseName()['{{singularClass}}'];
+        $notification_path1  = app_path("/Notifications/{$name}/{$name}ResetPassword.php");
+        $notification_path2  = app_path("/Notifications/{$name}/{$name}VerifyEmail.php");
 
-        $dir = dirname($notification_path);
+        $dir = dirname($notification_path1);
         if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
-        file_put_contents($notification_path, $notification);
+        file_put_contents($notification_path1, $notification1);
+        file_put_contents($notification_path2, $notification2);
         $this->info("Step 11. Notification file for password reset is published at App\Notification\\{$this->name} directory \n");
 
         return $this;

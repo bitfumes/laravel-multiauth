@@ -22,6 +22,7 @@
                                             {{ $role->name }}
                                         </span> @endforeach
                             </span>
+                            {{ $admin->active? 'Active' : 'Inactive' }}
                             <div class="float-right">
                                 <a href="#" class="btn btn-sm btn-secondary mr-3" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $admin->id }}').submit();">Delete</a>
                                 <form id="delete-form-{{ $admin->id }}" action="{{ route('admin.delete',[$admin->id]) }}" method="POST" style="display: none;">

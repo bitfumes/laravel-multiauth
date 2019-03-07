@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Bitfumes\Multiauth\Providers\AuthServiceProvider;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,7 @@ class MultiauthServiceProvider extends ServiceProvider
             $this->loadFactories();
             $this->loadMiddleware();
             $this->registerExceptionHandler();
+            app()->register(AuthServiceProvider::class);
         }
     }
 

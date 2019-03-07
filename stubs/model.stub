@@ -3,6 +3,7 @@
 namespace {{namespace}};
 
 use {{namespace}}\Notifications\{{singularClass}}\{{singularClass}}ResetPassword;
+use {{namespace}}\Notifications\{{singularClass}}\{{singularClass}}VerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -29,6 +30,15 @@ class {{singularClass}} extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
      * Send the password reset notification.
      *
      * @param  string  $token
@@ -37,6 +47,16 @@ class {{singularClass}} extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new {{singularClass}}ResetPassword($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new {{singularClass}}VerifyEmail);
     }
 
 }

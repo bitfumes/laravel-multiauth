@@ -222,6 +222,7 @@ class RollbackMultiAuthCommand extends Command
         $name              = $this->parseName()['{{singularClass}}'];
         $notification_path = app_path("/Notifications/{$name}");
         unlink("{$notification_path}/{$name}ResetPassword.php");
+        unlink("{$notification_path}/{$name}VerifyEmail.php");
         rmdir($notification_path);
         $this->error("Step 11. Notification file for password reset is published at App\Notification\{$this->name}  directory \n");
 
