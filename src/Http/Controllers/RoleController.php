@@ -2,13 +2,13 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Http\Request;
+use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Bitfumes\Multiauth\Model\Admin;
+use Symfony\Component\HttpFoundation\Response;
 use Bitfumes\Multiauth\Http\Resources\RoleResource;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RoleController extends Controller
 {

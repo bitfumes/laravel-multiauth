@@ -2,13 +2,13 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use Bitfumes\Multiauth\Http\Requests\AdminRequest;
+use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminController extends Controller
 {
@@ -33,12 +33,12 @@ class AdminController extends Controller
     {
         request()->validate([
             'email'    => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         $credentials           = request(['email', 'password']);
         $credentials['active'] = true;
 
-        if (!$token = auth('admin')->attempt($credentials)) {
+        if (! $token = auth('admin')->attempt($credentials)) {
             return response()->json(['error' => 'These credentials does not match our record'], 401);
         }
 
@@ -118,7 +118,7 @@ class AdminController extends Controller
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth('admin')->factory()->getTTL() * 60,
-            'user'         => auth('admin')->user()
+            'user'         => auth('admin')->user(),
         ]);
     }
 }

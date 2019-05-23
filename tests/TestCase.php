@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Tests;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\MultiauthServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tymon\JWTAuth\Providers\LaravelServiceProvider;

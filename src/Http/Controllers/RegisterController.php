@@ -2,12 +2,12 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Http\Requests\AdminRequest;
-use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Model\Admin;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class RegisterController extends Controller
 {
@@ -59,7 +59,7 @@ class RegisterController extends Controller
     {
         $data = $request->validate([
             'oldPassword' => 'required',
-            'password'    => 'required|confirmed'
+            'password'    => 'required|confirmed',
         ]);
         auth()->user()->update(['password' => bcrypt($data['password'])]);
         return redirect(route('admin.home'))->with('message', 'Your password is changed successfully');
@@ -83,7 +83,7 @@ class RegisterController extends Controller
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth('admin')->factory()->getTTL() * 60,
-            'user'         => auth('admin')->user()
+            'user'         => auth('admin')->user(),
         ]);
     }
 }
