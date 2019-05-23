@@ -31,7 +31,7 @@ class MultiauthServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->canHaveAdminBackend()) {
-            if (app()->environment == 'testing') {
+            if (app()->environment() == 'testing') {
                 $this->loadFactories();
             }
             $this->loadMiddleware();
