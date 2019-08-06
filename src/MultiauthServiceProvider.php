@@ -83,7 +83,7 @@ class MultiauthServiceProvider extends ServiceProvider
         if (file_exists($routeDir)) {
             $appRouteDir = scandir($routeDir);
             if (!$this->app->routesAreCached()) {
-                require in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
+                $path = in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
             }
         }
 
