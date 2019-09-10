@@ -18,7 +18,7 @@ class RegistrationTest extends TestCase
             'email'                => 'sarthak@bitfumes.com',
             'password'             => '123456',
             'password_confirmation'=> '123456',
-            'role_id'              => 1
+            'role_id'              => 1,
         ])
         ->assertSuccessful()->json();
         $this->assertEquals($res['data']['email'], 'sarthak@bitfumes.com');
@@ -35,7 +35,7 @@ class RegistrationTest extends TestCase
             'email'                => 'sarthak@bitfumes.com',
             'password'             => '123456',
             'password_confirmation'=> '123456',
-            'role_id'              => 1
+            'role_id'              => 1,
         ])->assertStatus(403);
         $this->assertDatabaseMissing('admins', ['email'=>'sarthak@bitfumes.com']);
     }
@@ -46,7 +46,7 @@ class RegistrationTest extends TestCase
         $admin = $this->createAdmin();
         $res   = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
-            'password' => 'secret'
+            'password' => 'secret',
         ])->assertSuccessful();
         $this->assertNotNull($res->original['access_token']);
     }
@@ -79,7 +79,7 @@ class RegistrationTest extends TestCase
         $this->patchJson(route('admin.update', $admin->id), [
             'email'  => 'sarthak@bitfumes.com',
             'name'   => 'Sarthak',
-            'role_id'=> 1
+            'role_id'=> 1,
         ])->assertStatus(202);
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@bitfumes.com']);
     }
@@ -93,7 +93,7 @@ class RegistrationTest extends TestCase
         $this->patchJson(route('admin.update', $admin->id), [
             'email'  => 'sarthak@bitfumes.com',
             'name'   => 'Sarthak',
-            'role_id'=> 1
+            'role_id'=> 1,
         ])->assertStatus(403);
         $this->assertDatabaseMissing('admins', ['email' => 'sarthak@bitfumes.com']);
     }
@@ -104,7 +104,7 @@ class RegistrationTest extends TestCase
         $admin = $this->logInAdmin();
         $res   = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
-            'password' => 'secret'
+            'password' => 'secret',
         ])->assertSuccessful();
         $token    = $res->original['access_token'];
 

@@ -50,7 +50,7 @@ class RegisterController extends Controller
             try {
                 $admin->notify(new RegistrationNotification($password));
             } catch (\Exception $e) {
-                request()->session()->flash('message', 'Email not sent properly, Please check your mail configurations');
+                session()->flash('message', 'Email not sent properly, Please check your mail configurations');
             }
         }
     }
