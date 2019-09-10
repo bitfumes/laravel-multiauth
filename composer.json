@@ -1,44 +1,46 @@
 {
-    "name": "bitfumes/laravel-multiauth",
-    "description": "Laravel Multiauth package",
-    "type": "library",
-    "license": "MIT",
-    "keywords": [
-        "laravel multiauth",
-        "multiauth",
-        "bitfumes",
-        "admin auth",
-        "multi auth"
-    ],
-    "authors": [{
-        "name": "s-sarthak",
-        "email": "sarthak@bitfumes.com"
-    }],
-    "minimum-stability": "dev",
-    "require": {},
-    "require-dev": {
-        "phpunit/phpunit": "^7.4@dev",
-        "mockery/mockery": "^1.0@dev",
-        "orchestra/testbench": "^3.8@dev",
-        "orchestra/database": "^3.8@dev",
-        "illuminate/support": "5.8.*",
-        "fzaninotto/faker": "^1.9@dev"
-    },
-    "autoload": {
-        "psr-4": {
-            "Bitfumes\\Multiauth\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Bitfumes\\Multiauth\\Tests\\":"tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Bitfumes\\Multiauth\\MultiauthServiceProvider"
-            ]
-        }
+  "name": "bitfumes/laravel-multiauth",
+  "description": "Laravel Multiauth package",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel multiauth",
+    "multiauth",
+    "bitfumes",
+    "admin auth",
+    "multi auth"
+  ],
+  "authors": [
+    {
+      "name": "s-sarthak",
+      "email": "sarthak@bitfumes.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^8.0",
+    "mockery/mockery": "^1.0@dev",
+    "orchestra/testbench": "^4.0",
+    "orchestra/database": "^4.0",
+    "illuminate/support": "^5.8|^6.0",
+    "fzaninotto/faker": "^1.9@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bitfumes\\Multiauth\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bitfumes\\Multiauth\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Bitfumes\\Multiauth\\MultiauthServiceProvider"
+      ]
+    }
+  }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Bitfumes\Multiauth\Model\Admin;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
