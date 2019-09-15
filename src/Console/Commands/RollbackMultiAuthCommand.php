@@ -2,6 +2,7 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 
@@ -166,7 +167,7 @@ class RollbackMultiAuthCommand extends Command
         $migration_path = database_path('migrations');
         $files          = glob("{$migration_path}/*.php");
         foreach ($files as $file) {
-            if (str_contains($file, "create_{$guard}_table")) {
+            if (Str::contains($file, "create_{$guard}_table")) {
                 unlink($file);
             }
         }
@@ -244,14 +245,14 @@ class RollbackMultiAuthCommand extends Command
         }
 
         return [
-            '{{pluralCamel}}'   => str_plural(camel_case($name)),
-            '{{pluralSlug}}'    => str_plural(str_slug($name)),
-            '{{pluralSnake}}'   => str_plural(snake_case($name)),
-            '{{pluralClass}}'   => str_plural(studly_case($name)),
-            '{{singularCamel}}' => str_singular(camel_case($name)),
-            '{{singularSlug}}'  => str_singular(str_slug($name)),
-            '{{singularSnake}}' => str_singular(snake_case($name)),
-            '{{singularClass}}' => str_singular(studly_case($name)),
+            '{{pluralCamel}}'   => Str::plural(camel_case($name)),
+            '{{pluralSlug}}'    => Str::plural(Str::slug($name)),
+            '{{pluralSnake}}'   => Str::plural(snake_case($name)),
+            '{{pluralClass}}'   => Str::plural(studly_case($name)),
+            '{{singularCamel}}' => Str::singular(camel_case($name)),
+            '{{singularSlug}}'  => Str::singular(Str::slug($name)),
+            '{{singularSnake}}' => Str::singular(snake_case($name)),
+            '{{singularClass}}' => Str::singular(studly_case($name)),
             '{{namespace}}'     => $this->getNamespace(),
         ];
     }

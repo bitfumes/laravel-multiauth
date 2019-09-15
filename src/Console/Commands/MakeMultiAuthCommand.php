@@ -2,6 +2,7 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 
@@ -96,7 +97,7 @@ class MakeMultiAuthCommand extends Command
     protected function checkGuard()
     {
         $providers = array_keys(config('auth.providers'));
-        $name      = str_plural($this->name);
+        $name      = Str::plural($this->name);
 
         return in_array($name, $providers);
     }
@@ -350,14 +351,14 @@ class MakeMultiAuthCommand extends Command
         }
 
         return [
-            '{{pluralCamel}}'   => str_plural(camel_case($name)),
-            '{{pluralSlug}}'    => str_plural(str_slug($name)),
-            '{{pluralSnake}}'   => str_plural(snake_case($name)),
-            '{{pluralClass}}'   => str_plural(studly_case($name)),
-            '{{singularCamel}}' => str_singular(camel_case($name)),
-            '{{singularSlug}}'  => str_singular(str_slug($name)),
-            '{{singularSnake}}' => str_singular(snake_case($name)),
-            '{{singularClass}}' => str_singular(studly_case($name)),
+            '{{pluralCamel}}'   => Str::plural(camel_case($name)),
+            '{{pluralSlug}}'    => Str::plural(Str::slug($name)),
+            '{{pluralSnake}}'   => Str::plural(snake_case($name)),
+            '{{pluralClass}}'   => Str::plural(studly_case($name)),
+            '{{singularCamel}}' => Str::singular(camel_case($name)),
+            '{{singularSlug}}'  => Str::singular(Str::slug($name)),
+            '{{singularSnake}}' => Str::singular(snake_case($name)),
+            '{{singularClass}}' => Str::singular(studly_case($name)),
             '{{namespace}}'     => $this->getNamespace(),
         ];
     }
