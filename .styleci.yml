@@ -3,6 +3,8 @@ preset: laravel
 disabled:
   - concat_without_spaces
   - unalign_equals
+  - alpha_ordered_imports
 
 enabled:
   - align_equals_minimal
+  - length_ordered_imports

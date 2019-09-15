@@ -245,14 +245,14 @@ class RollbackMultiAuthCommand extends Command
         }
 
         return [
-            '{{pluralCamel}}'   => Str::plural(camel_case($name)),
+            '{{pluralCamel}}'   => Str::plural(Str::camel($name)),
             '{{pluralSlug}}'    => Str::plural(Str::slug($name)),
-            '{{pluralSnake}}'   => Str::plural(snake_case($name)),
-            '{{pluralClass}}'   => Str::plural(studly_case($name)),
-            '{{singularCamel}}' => Str::singular(camel_case($name)),
+            '{{pluralSnake}}'   => Str::plural(Str::snake($name)),
+            '{{pluralClass}}'   => Str::plural(Str::studly($name)),
+            '{{singularCamel}}' => Str::singular(Str::camel($name)),
             '{{singularSlug}}'  => Str::singular(Str::slug($name)),
-            '{{singularSnake}}' => Str::singular(snake_case($name)),
-            '{{singularClass}}' => Str::singular(studly_case($name)),
+            '{{singularSnake}}' => Str::singular(Str::snake($name)),
+            '{{singularClass}}' => Str::singular(Str::studly($name)),
             '{{namespace}}'     => $this->getNamespace(),
         ];
     }
