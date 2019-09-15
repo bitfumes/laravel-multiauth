@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Tests\Unit;
 
-use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class RegistrationTest extends TestCase
 {

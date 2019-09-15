@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
-use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Console\Command;
+use Bitfumes\Multiauth\Model\Role;
+use Bitfumes\Multiauth\Model\Admin;
 
 class SeedCmd extends Command
 {
