@@ -2,14 +2,14 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Http\Requests\AdminRequest;
-use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Http\Request;
 use Bitfumes\Multiauth\Model\Role;
-use Bitfumes\Multiauth\Notifications\RegistrationNotification;
+use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Bitfumes\Multiauth\Http\Requests\AdminRequest;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class RegisterController extends Controller
 {

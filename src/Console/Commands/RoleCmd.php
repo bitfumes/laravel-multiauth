@@ -2,8 +2,8 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Console\Command;
+use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Database\QueryException;
 
 class RoleCmd extends Command

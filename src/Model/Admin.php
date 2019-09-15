@@ -2,9 +2,9 @@
 
 namespace Bitfumes\Multiauth\Model;
 
-use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class Admin extends Authenticatable
 {

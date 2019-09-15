@@ -2,18 +2,18 @@
 
 namespace Bitfumes\Multiauth;
 
-use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
-use Bitfumes\Multiauth\Console\Commands\RoleCmd;
-use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
-use Bitfumes\Multiauth\Console\Commands\SeedCmd;
-use Bitfumes\Multiauth\Exception\MultiAuthHandler;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
-use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
-use Bitfumes\Multiauth\Providers\AuthServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
+use Bitfumes\Multiauth\Console\Commands\RoleCmd;
+use Bitfumes\Multiauth\Console\Commands\SeedCmd;
+use Bitfumes\Multiauth\Exception\MultiAuthHandler;
+use Bitfumes\Multiauth\Providers\AuthServiceProvider;
+use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
+use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
