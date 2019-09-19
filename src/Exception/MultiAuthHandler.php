@@ -2,6 +2,7 @@
 
 namespace Bitfumes\Multiauth\Exception;
 
+use Illuminate\Support\Arr;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as AppHandler;
 
@@ -13,7 +14,7 @@ class MultiAuthHandler extends AppHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        $guard = array_get($exception->guards(), 0);
+        $guard = Arr::get($exception->guards(), 0);
 
         switch ($guard) {
             case 'admin':
