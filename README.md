@@ -1,7 +1,7 @@
 # Laravel Multi Auth
 
-- **Laravel**: 5.6/5.7
-- **Author**: Bitfumes
+- **Laravel**: 5.6/5.7/5.8/6.0
+- **Author**: Sarthaksavvy
 - **Author Homepage**: https://bitfumes.com
 
 [![Build Status](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bitfumes/laravel-multiauth/build-status/master)
@@ -42,6 +42,14 @@ Publish Migrations
 
 ```bash
 php artisan vendor:publish --tag="multiauth:migrations"
+```
+
+_For laravel 6 only_
+With Laravel 6, the Views part is now exclueded into a package.
+To have your UI or bootstrap theme on your project for this package, install official laravel-ui package
+
+```bash
+composer require laravel/ui --dev
 ```
 
 Run [the Migration](https://github.com/bitfumes/laravel-multiauth/database/migrations/create_permission_tables.php) to have tables in your database.
