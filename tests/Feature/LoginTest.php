@@ -16,7 +16,7 @@ class LoginTest extends TestCase
         $this->withExceptionHandling();
         $res = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
-            'password' => 'secret'
+            'password' => 'secret',
         ])->assertSuccessful()->json();
         $this->assertNotNull($res['access_token']);
     }
@@ -37,12 +37,12 @@ class LoginTest extends TestCase
         $admin = $this->createAdmin(['active'=>false]);
         $res   = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
-            'password' => 'secret'
+            'password' => 'secret',
         ])->assertStatus(401)->json();
         $admin->update(['active'=>true]);
         $res   = $this->postJson(route('admin.login'), [
             'email'    => $admin->email,
-            'password' => 'secret'
+            'password' => 'secret',
         ])->assertStatus(200)->json();
     }
 }

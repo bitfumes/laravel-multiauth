@@ -18,7 +18,7 @@ class MultiauthServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->canHaveAdminBackend()) {
-            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+            // $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
             $this->registerRoutes();
             $this->publisheThings();
             $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');
@@ -43,7 +43,7 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadFactories()
     {
         $appFactories = scandir(database_path('/factories'));
-        $factoryPath  = ! in_array('AdminFactory.php', $appFactories) ? __DIR__ . '/factories' : database_path('/factories');
+        $factoryPath  = !in_array('AdminFactory.php', $appFactories) ? __DIR__ . '/factories' : database_path('/factories');
 
         $this->app->make(Factory::class)->load($factoryPath);
     }
@@ -80,7 +80,7 @@ class MultiauthServiceProvider extends ServiceProvider
         $routeDir = base_path('routes');
         if (file_exists($routeDir)) {
             $appRouteDir = scandir($routeDir);
-            if (! $this->app->routesAreCached()) {
+            if (!$this->app->routesAreCached()) {
                 require in_array("{$prefix}.php", $appRouteDir) ? base_path("routes/{$prefix}.php") : $path;
             }
         }
