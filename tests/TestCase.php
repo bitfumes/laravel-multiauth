@@ -16,6 +16,7 @@ class TestCase extends BaseTestCase
         $this->withoutExceptionHandling();
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
         $this->withFactories(__DIR__ . '/../src/factories');
         app()->register(LaravelServiceProvider::class);
     }

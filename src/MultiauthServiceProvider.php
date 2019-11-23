@@ -18,7 +18,6 @@ class MultiauthServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->canHaveAdminBackend()) {
-            // $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
             $this->registerRoutes();
             $this->publisheThings();
             $this->mergeAuthFileFrom(__DIR__ . '/../config/auth.php', 'auth');

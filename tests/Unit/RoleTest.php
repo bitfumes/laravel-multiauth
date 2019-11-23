@@ -4,8 +4,8 @@ namespace Bitfumes\Multiauth\Tests\Unit;
 
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Bitfumes\Multiauth\Http\Resources\RoleResource;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class RoleTest extends TestCase
 {

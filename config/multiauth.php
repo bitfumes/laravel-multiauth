@@ -62,6 +62,19 @@ return [
     */
     'resources' => [
         'admin'          => Bitfumes\Multiauth\Http\Resources\AdminResource::class,
-        'role'           => Bitfumes\Multiauth\Http\Resources\RoleResource::class
-    ]
+        'role'           => Bitfumes\Multiauth\Http\Resources\RoleResource::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    | Add the model you want to use.
+    |
+    */
+    'models' => [
+        'admin'          => Bitfumes\Multiauth\Model\Admin::class,
+        'role'           => Bitfumes\Multiauth\Model\Role::class,
+    ],
 ];
