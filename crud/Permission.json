@@ -1,0 +1,24 @@
+{
+  "type": "api",
+  "fields": [
+    {
+      "name": "title",
+      "length": 200,
+      "type": "string",
+      "unique": true,
+      "index": true
+    }
+  ],
+  "relationships": [
+    {
+      "name": "role",
+      "type": "belongsTo",
+      "model": "Role"
+    },
+    {
+      "name": "admin",
+      "type": "belongsTo",
+      "model": "Admin"
+    }
+  ]
+}

@@ -28,6 +28,12 @@ in as a user and an admin, without conflicts!
 | 5.6, 5.7, 5.8, 6.0 | Master   | composer require bitfumes/laravel-multiauth             |
 | JWT Api version    | jwt-auth | composer require bitfumes/laravel-multiauth:dev-jwtauth |
 
+## ChangeLog
+
+1. Permissions for role added.
+2. New Permission command is added.
+3. Factory Location changed.
+
 ## Installation
 
 Install via composer.

@@ -13,4 +13,10 @@ class AdminPolicy
     {
         return in_array('super', $admin->roles->pluck('name')->toArray());
     }
+
+    public function update(Admin $admin, $permission)
+    {
+        dd($permission);
+        return 'hello';
+    }
 }

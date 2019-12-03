@@ -11,38 +11,55 @@
                         @csrf @method('patch')
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">Name</label>
-                            <input type="text" value="{{ $admin->name }}" name="name" class="form-control col-md-6" id="role">
+                            <input type="text" value="{{ $admin->name }}" name="name" class="form-control col-md-6"
+                                id="role">
                         </div>
 
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">Email</label>
-                            <input type="text" value="{{ $admin->email }}" name="email" class="form-control col-md-6" id="role">
+                            <input type="text" value="{{ $admin->email }}" name="email" class="form-control col-md-6"
+                                id="role">
                         </div>
 
                         <div class="form-group row">
                             <label for="role_id" class="col-md-4 col-form-label text-md-right">Assign Role</label>
 
-                            <select name="role_id[]" id="role_id" class="form-control col-md-6 {{ $errors->has('role_id') ? ' is-invalid' : '' }}" multiple>
+                            <select name="role_id[]" id="role_id"
+                                class="form-control col-md-6 {{ $errors->has('role_id') ? ' is-invalid' : '' }}"
+                                multiple>
                                 <option selected disabled>Select Role</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}" 
-                                        @if (in_array($role->id,$admin->roles->pluck('id')->toArray())) 
-                                            selected 
-                                        @endif >{{ $role->name }}
-                                    </option>
+                                <option value="{{ $role->id }}" @if (in_array($role->
+                                    id,$admin->roles->pluck('id')->toArray()))
+                                    selected
+                                    @endif >{{ $role->name }}
+                                </option>
                                 @endforeach
-                            </select> 
+                            </select>
 
                             @if ($errors->has('role_id'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('role_id') }}</strong>
-                                </span> 
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('role_id') }}</strong>
+                            </span>
                             @endif
                         </div>
 
                         <div class="form-group row">
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">Any Direct
+                                Permission</label>
+
+                            <select name="permissions[]" cols="5" multiple class="form-control col-md-6">
+                                <option disabled selected>Select Permissions</option>
+                                @foreach($permissions as $permission)
+                                <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="active" class="col-md-4 col-form-label text-md-right">Active</label>
-                            <input type="checkbox" value="1" {{ $admin->active ? 'checked':'' }} name="activation" class="form-control col-md-6" id="active">
+                            <input type="checkbox" value="1" {{ $admin->active ? 'checked':'' }} name="activation"
+                            class="form-control col-md-6" id="active">
                         </div>
 
                         <div class="form-group row mb-0">

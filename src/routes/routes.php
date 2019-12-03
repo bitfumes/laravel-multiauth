@@ -39,3 +39,5 @@
     Route::fallback(function () {
         return abort(404);
     });
+
+Route::apiResource('permission', 'PermissionController');

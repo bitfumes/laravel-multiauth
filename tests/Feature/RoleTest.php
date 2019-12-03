@@ -77,7 +77,7 @@ class RoleTest extends TestCase
      */
     public function a_super_admin_can_only_delete_a_role()
     {
-        $role = factory(Role::class)->create(['name' => 'editor']);
+        $role = $this->create_role(['name' => 'editor']);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
         $this->delete(route('admin.role.delete', $role->id))->assertStatus(302);
         $this->assertDatabaseMissing('roles', ['name' => 'editor']);

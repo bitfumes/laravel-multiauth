@@ -7,6 +7,7 @@ use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Auth\Events\Registered;
+use Bitfumes\Multiauth\Model\Permission;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
@@ -107,9 +108,9 @@ class RegisterController extends Controller
 
     public function edit(Admin $admin)
     {
-        $roles = Role::all();
-
-        return view('multiauth::admin.edit', compact('admin', 'roles'));
+        $roles       = Role::all();
+        $permissions = Permission::all();
+        return view('multiauth::admin.edit', compact('admin', 'roles', 'permissions'));
     }
 
     public function update(Admin $admin, AdminRequest $request)

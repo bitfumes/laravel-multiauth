@@ -1,4 +1,4 @@
-@extends('multiauth::layouts.app') 
+@extends('multiauth::layouts.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -12,6 +12,14 @@
                         <div class="form-group">
                             <label for="role">Role Name</label>
                             <input type="text" value="{{ $role->name }}" name="name" class="form-control" id="role">
+                        </div>
+                        <div class="form-group">
+                            <select name="permissions[]" cols="5" multiple class="form-control">
+                                <option disabled selected>Select Permissions</option>
+                                @foreach($permissions as $permission)
+                                <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm">Change</button>
                         <a href="{{ route('admin.roles') }}" class="btn btn-danger btn-sm float-right">Back</a>
