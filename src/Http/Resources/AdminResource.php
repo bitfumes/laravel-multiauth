@@ -16,11 +16,12 @@ class AdminResource extends JsonResource
     {
         $roleResource = config('multiauth.resources.role');
         return [
-            'name'   => $this->name,
-            'id'     => $this->id,
-            'email'  => $this->email,
-            'active' => $this->active,
-            'roles'  => $roleResource::collection($this->roles)
+            'name'        => $this->name,
+            'id'          => $this->id,
+            'email'       => $this->email,
+            'active'      => $this->active,
+            'roles'       => $roleResource::collection($this->roles),
+            'permissions' => $this->allPermissions(),
         ];
     }
 }

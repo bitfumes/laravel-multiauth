@@ -9,6 +9,7 @@ use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
 use Bitfumes\Multiauth\Providers\AuthServiceProvider;
+use Bitfumes\Multiauth\Console\Commands\PermissionSeed;
 use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
 use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
@@ -127,7 +128,7 @@ class MultiauthServiceProvider extends ServiceProvider
             __DIR__ . '/database/migrations/' => database_path('migrations'),
         ], 'multiauth:migrations');
         $this->publishes([
-            __DIR__ . '/factories' => database_path('factories'),
+            __DIR__ . '/database/factories' => database_path('factories'),
         ], 'multiauth:factories');
         $this->publishes([
             __DIR__ . '/../config/multiauth.php' => config_path('multiauth.php'),
@@ -153,6 +154,7 @@ class MultiauthServiceProvider extends ServiceProvider
             $this->commands([
                 MakeMultiAuthCommand::class,
                 RollbackMultiAuthCommand::class,
+                PermissionSeed::class,
             ]);
         }
     }

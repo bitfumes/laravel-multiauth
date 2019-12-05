@@ -28,6 +28,19 @@ in as a user and an admin, without conflicts!
 | 5.6, 5.7, 5.8, 6.0 | Master   | composer require bitfumes/laravel-multiauth             |
 | JWT Api version    | jwt-auth | composer require bitfumes/laravel-multiauth:dev-jwtauth |
 
+## ChangeLog
+
+1. Activation route changed
+2. Removed admin policy and added dynamic gate to AuthServiceProvider
+3. Moved model to configuration file
+4. Permission table added
+5. Permission seed command added
+6. while seeding super admin, permission is added to role
+7. All permission related function is inside hasPermission trait
+8. All factories moved to database/factories
+9. Post method to get method for admin.all and admin.me routes
+10. All permissions with admin details for every admin
+
 ## Installation
 
 Install via composer.

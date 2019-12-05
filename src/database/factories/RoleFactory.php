@@ -1,9 +1,8 @@
 <?php
 
-use Bitfumes\Multiauth\Model\Role;
-
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Role::class, function (Faker\Generator $faker) {
+$roleModel = config('multiauth.models.role');
+$factory->define($roleModel, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
     ];

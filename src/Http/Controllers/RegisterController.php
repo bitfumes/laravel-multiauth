@@ -27,7 +27,7 @@ class RegisterController extends Controller
      */
     protected function register(AdminRequest $data)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('CreateAdmin', Admin::class);
         $admin            = new Admin();
         $data['password'] = bcrypt($data['password']);
         $fields           = $this->tableFields();

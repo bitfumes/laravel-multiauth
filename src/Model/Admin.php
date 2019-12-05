@@ -4,12 +4,13 @@ namespace Bitfumes\Multiauth\Model;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Bitfumes\Multiauth\Traits\hasPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class Admin extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, hasPermissions;
 
     protected $casts = ['active' => 'boolean'];
 
@@ -35,7 +36,8 @@ class Admin extends Authenticatable implements JWTSubject
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        $roleModel = config('multiauth.models.role');
+        return $this->belongsToMany($roleModel);
     }
 
     /**

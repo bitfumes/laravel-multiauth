@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Str;
-use Bitfumes\Multiauth\Model\Admin;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Admin::class, function (Faker\Generator $faker) {
+$adminModel = config('multiauth.models.admin');
+$factory->define($adminModel, function (Faker\Generator $faker) {
     return [
         'name'           => $faker->name,
         'email'          => $faker->unique()->safeEmail,

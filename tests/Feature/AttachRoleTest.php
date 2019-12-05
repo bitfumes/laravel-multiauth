@@ -26,7 +26,7 @@ class AttachRoleTest extends TestCase
     {
         $admin = $this->createAdmin();
         $this->post(route('admin.attach.roles', [
-            'admin' => $admin->id, 'role' => $this->editorRole->id
+            'admin' => $admin->id, 'role' => $this->editorRole->id,
         ]))->assertStatus(201);
         $this->assertEquals($admin->roles()->pluck('name')[0], 'editor');
         $this->assertDatabaseHas('admin_role', ['role_id'=> $this->editorRole->id]);

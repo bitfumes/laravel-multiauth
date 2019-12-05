@@ -21,13 +21,13 @@ class RoleController extends Controller
 
     public function index()
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('ReadRole', Admin::class);
         return RoleResource::collection(Role::all());
     }
 
     public function store(Request $request)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('CreateRole', Admin::class);
         $request->validate(['name' => 'required']);
         Role::create($request->all());
         return response('created', Response::HTTP_CREATED);
@@ -35,7 +35,7 @@ class RoleController extends Controller
 
     public function update(Role $role, Request $request)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateRole', Admin::class);
         $request->validate(['name' => 'required']);
         $role->update($request->all());
         return response('updated', Response::HTTP_ACCEPTED);
@@ -43,7 +43,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('DeleteRole', Admin::class);
         $role->delete();
         return response('deleted', Response::HTTP_NO_CONTENT);
     }

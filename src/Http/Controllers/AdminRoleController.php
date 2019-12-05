@@ -19,14 +19,14 @@ class AdminRoleController extends Controller
 
     public function attach(Admin $admin, Role $role)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateAdmin', Admin::class);
         $admin->roles()->attach($role->id);
         return response('success', Response::HTTP_CREATED);
     }
 
     public function detach(Admin $admin, Role $role)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateAdmin', Admin::class);
         $admin->roles()->detach($role->id);
         return response('success', Response::HTTP_ACCEPTED);
     }

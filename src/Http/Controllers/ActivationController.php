@@ -11,16 +11,21 @@ class ActivationController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct()
+    {
+        $this->adminModel = config('multiauth.models.admin');
+    }
+
     public function activate(Admin $admin)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateAdmin', $this->adminModel);
         $admin->update(['active' => true]);
         return response('activated', Response::HTTP_ACCEPTED);
     }
 
     public function deactivate(Admin $admin)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateAdmin', $this->adminModel);
         $admin->update(['active' => false]);
         return response('deactivated', Response::HTTP_ACCEPTED);
     }

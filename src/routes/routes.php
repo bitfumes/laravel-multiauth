@@ -15,8 +15,8 @@
     Route::patch('/{admin}', 'AdminController@update')->name('admin.update');
 
     // // Admin Lists
-    Route::post('/all', 'AdminController@all')->name('admin.all');
-    Route::post('/me', 'AdminController@me')->name('admin.me');
+    Route::get('/all', 'AdminController@all')->name('admin.all');
+    Route::get('/me', 'AdminController@me')->name('admin.me');
 
     // // Admin Roles
     Route::post('/{admin}/role/{role}', 'AdminRoleController@attach')->name('admin.attach.roles');
@@ -29,5 +29,7 @@
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');
 
     // active status
-    Route::post('/{admin}/activation', 'ActivationController@activate')->name('admin.activation');
-    Route::delete('/{admin}/activation', 'ActivationController@deactivate');
+    Route::post('activation/{admin}', 'ActivationController@activate')->name('admin.activation');
+    Route::delete('activation/{admin}', 'ActivationController@deactivate');
+
+    Route::apiResource('permission', 'PermissionController');

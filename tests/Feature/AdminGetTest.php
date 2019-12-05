@@ -11,7 +11,7 @@ class AdminGetTest extends TestCase
     {
         $this->loginSuperAdmin();
         $this->createAdmin();
-        $res = $this->postJson(route('admin.all'))->assertSuccessful()->json();
+        $res = $this->getJson(route('admin.all'))->assertSuccessful()->json();
         $this->assertEquals(2, count($res['data']));
     }
 
@@ -21,7 +21,7 @@ class AdminGetTest extends TestCase
         $this->logInAdmin();
         $this->withExceptionHandling();
         $this->createAdmin();
-        $this->postJson(route('admin.all'))->assertStatus(403);
+        $this->getJson(route('admin.all'))->assertStatus(403);
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class AdminGetTest extends TestCase
     {
         $admin = $this->logInAdmin();
         $this->withExceptionHandling();
-        $res   = $this->postJson(route('admin.me'))->assertStatus(202)->json();
+        $res   = $this->getJson(route('admin.me'))->assertStatus(202)->json();
         $this->assertEquals($admin->name, $res['name']);
     }
 }

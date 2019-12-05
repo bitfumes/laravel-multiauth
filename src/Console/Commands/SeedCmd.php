@@ -2,8 +2,6 @@
 
 namespace Bitfumes\Multiauth\Console\Commands;
 
-use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Console\Command;
 
 class SeedCmd extends Command
@@ -31,6 +29,9 @@ class SeedCmd extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->roleModel       = config('multiauth.models.role');
+        $this->adminModel      = config('multiauth.models.admin');
+        $this->permissionModel = config('multiauth.models.permission');
     }
 
     /**
@@ -40,8 +41,9 @@ class SeedCmd extends Command
      */
     public function handle()
     {
-        $rolename = $this->option('role');
-        $role     = Role::whereName($rolename)->first();
+        $rolename  = $this->option('role');
+
+        $role      = $this->roleModel::whereName($rolename)->first();
         if (!$rolename) {
             $this->error("please provide role as --role='roleName'");
 
@@ -56,13 +58,27 @@ class SeedCmd extends Command
     protected function createSuperAdmin($role, $rolename)
     {
         $prefix = config('multiauth.prefix');
-        $admin  = factory(Admin::class)
-            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super '.ucfirst($prefix)]);
+        $admin  = factory($this->adminModel)
+            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super ' . ucfirst($prefix)]);
         if (!$role) {
-            $role = factory(Role::class)->create(['name' => $rolename]);
+            $role                = factory($this->roleModel)->create(['name' => $rolename]);
+            $this->createAndLinkPermissionsTo($role);
         }
         $admin->roles()->attach($role);
 
         return $admin;
+    }
+
+    protected function createAndLinkPermissionsTo($role)
+    {
+        $models        = ['Admin', 'Role'];
+        $tasks         = ['Create', 'Read', 'Update', 'Delete'];
+        foreach ($tasks as $task) {
+            foreach ($models as $model) {
+                $name       = "{$task}{$model}";
+                $permission = factory($this->permissionModel)->create(['name' => $name]);
+                $role->addPermission([$permission->id]);
+            }
+        }
     }
 }

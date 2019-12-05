@@ -38,7 +38,7 @@ class AdminController extends Controller
         $credentials           = request(['email', 'password']);
         $credentials['active'] = true;
 
-        if (! $token = auth('admin')->attempt($credentials)) {
+        if (!$token = auth('admin')->attempt($credentials)) {
             return response()->json(['error' => 'These credentials does not match our record'], 401);
         }
 
@@ -59,7 +59,7 @@ class AdminController extends Controller
     public function all()
     {
         $resource = config('multiauth.resources.admin');
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('ReadAdmin', Admin::class);
         return $resource::collection(Admin::all());
     }
 
@@ -82,7 +82,7 @@ class AdminController extends Controller
 
     public function update(Admin $admin, AdminRequest $request)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('UpdateAdmin', Admin::class);
         $admin->update($request->except('role_id'));
         $admin->roles()->sync(request('role_id'));
         return response('updated', Response::HTTP_ACCEPTED);
@@ -90,7 +90,7 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
-        $this->authorize('isSuperAdmin', Admin::class);
+        $this->authorize('DeleteAdmin', Admin::class);
         $admin->delete();
         return response('success', Response::HTTP_ACCEPTED);
     }

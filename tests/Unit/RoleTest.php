@@ -4,6 +4,7 @@ namespace Bitfumes\Multiauth\Tests\Unit;
 
 use Bitfumes\Multiauth\Model\Role;
 use Bitfumes\Multiauth\Tests\TestCase;
+use Bitfumes\Multiauth\Model\Permission;
 use Bitfumes\Multiauth\Http\Resources\RoleResource;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -16,6 +17,53 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create();
         $this->assertInstanceOf(BelongsToMany::class, $role->admins());
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_permission_conected_to_any_role()
+    {
+        $role       = factory(Role::class)->create();
+        $permission = $this->create_permission();
+        $role->permissions()->attach($role->id);
+        $this->assertInstanceOf(Permission::class, $role->permissions[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_add_permission_to_any_role()
+    {
+        $role       = factory(Role::class)->create();
+        $permission = $this->create_permission();
+        $role->addPermission($permission->pluck('id'));
+        $this->assertInstanceOf(Permission::class, $role->permissions[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_remove_permission_to_role()
+    {
+        $role       = factory(Role::class)->create();
+        $permission = $this->create_permission([], 3);
+        $role->addPermission($permission->pluck('id'));
+        $this->assertInstanceOf(Permission::class, $role->permissions[0]);
+        $role->removePermission($permission->pluck('id'));
+        $this->assertEquals($role->fresh()->permissions->count(), 0);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_check_if_role_has_permission()
+    {
+        $role       = factory(Role::class)->create();
+        $permission = $this->create_permission([], 3);
+        $role->addPermission($permission->pluck('id'));
+        $this->assertTrue($role->hasPermission($permission[0]->name));
+        $this->assertTrue($role->hasPermission($permission[0]->id));
     }
 
     /**

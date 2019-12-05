@@ -76,5 +76,6 @@ return [
     'models' => [
         'admin'          => Bitfumes\Multiauth\Model\Admin::class,
         'role'           => Bitfumes\Multiauth\Model\Role::class,
+        'permission'     => Bitfumes\Multiauth\Model\Permission::class,
     ],
 ];
