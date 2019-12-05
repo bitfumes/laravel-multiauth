@@ -13,6 +13,7 @@ class ActivationController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth:admin');
         $this->adminModel = config('multiauth.models.admin');
     }
 
