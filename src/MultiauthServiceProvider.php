@@ -5,6 +5,7 @@ namespace Bitfumes\Multiauth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Bitfumes\Multiauth\Console\Commands\Install;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
@@ -155,6 +156,7 @@ class MultiauthServiceProvider extends ServiceProvider
                 MakeMultiAuthCommand::class,
                 RollbackMultiAuthCommand::class,
                 PermissionSeed::class,
+                Install::class,
             ]);
         }
     }

@@ -41,15 +41,19 @@ class SeedCmd extends Command
      */
     public function handle()
     {
-        $rolename  = $this->option('role');
+        if ($this->superAdminExists()) {
+            $this->error('admin with email "super@admin.com" already exists');
+            return ;
+        }
 
-        $role      = $this->roleModel::whereName($rolename)->first();
+        $rolename  = $this->option('role');
         if (!$rolename) {
             $this->error("please provide role as --role='roleName'");
-
             return;
         }
-        $admin = $this->createSuperAdmin($role, $rolename);
+
+        $role      = $this->roleModel::whereName($rolename)->first();
+        $admin     = $this->createSuperAdmin($role, $rolename);
 
         $this->info("You have created an admin name '{$admin->name}' with role of '{$admin->roles->first()->name}' ");
         $this->info("Now log-in with {$admin->email} email and password as 'secret'");
@@ -80,5 +84,10 @@ class SeedCmd extends Command
                 $role->addPermission([$permission->id]);
             }
         }
+    }
+
+    public function superAdminExists()
+    {
+        return $this->adminModel::where('email', 'super@admin.com')->exists();
     }
 }
