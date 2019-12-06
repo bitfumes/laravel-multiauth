@@ -83,8 +83,9 @@ class AdminController extends Controller
     {
         $adminResource = config('multiauth.resources.admin');
         $this->authorize('UpdateAdmin', $this->adminModel);
-        $admin->update($request->except('role_id'));
-        $admin->roles()->sync(request('role_id'));
+        $admin->update($request->except('role_ids', 'permission_ids'));
+        $admin->roles()->sync(request('role_ids'));
+        $admin->directPermissions()->sync(request('permission_ids'));
         return response(new $adminResource($admin), Response::HTTP_ACCEPTED);
     }
 

@@ -27,10 +27,10 @@ class AdminRequest extends FormRequest
     {
         $admin_id = request('admin.id');
         $rules    = [
-            'name'     => 'required|max:255',
-            'email'    => "required|email|max:255|unique:admins,email,{$admin_id}",
-            'password' => 'required|min:6|confirmed',
-            'role_id'  => 'required',
+            'name'      => 'required|max:255',
+            'email'     => "required|email|max:255|unique:admins,email,{$admin_id}",
+            'password'  => 'required|min:6|confirmed',
+            'role_ids'  => 'required',
         ];
         $rules = $this->mergeClientRules($rules);
         $rules = $this->checkForUpdate($rules);

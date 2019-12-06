@@ -38,7 +38,8 @@ class RegisterController extends Controller
         }
 
         $admin->save();
-        $admin->roles()->sync(request('role_id'));
+        $admin->roles()->sync(request('role_ids'));
+        $admin->addDirectPermission(request('permission_ids'));
         $this->sendConfirmationNotification($admin, request('password'));
         $resource = config('multiauth.resources.admin');
         return new $resource($admin);

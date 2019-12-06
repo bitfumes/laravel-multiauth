@@ -45,6 +45,8 @@ in as a user and an admin, without conflicts!
 13. Install command - include publishing migration, publishing factories, running all migration and seeding initial super admin with role and permissions.
 14. Role permissions are added to role resource
 15. While creating role, permissions also stored
+16. adminFormRequest is now having role_ids instead of role_id
+17. while store or update admin, directPermissions can also be synced
 
 ## Installation
 

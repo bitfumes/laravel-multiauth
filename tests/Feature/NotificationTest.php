@@ -2,12 +2,12 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Model\Role;
-use Bitfumes\Multiauth\Notifications\RegistrationNotification;
+use Bitfumes\Multiauth\Model\Admin;
 use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
 class AdminTest extends TestCase
 {
@@ -34,11 +34,11 @@ class AdminTest extends TestCase
         $role = factory(Role::class)->create(['name' => 'editor']);
 
         return $this->postJson(route('admin.register'), [
-            'name'                  => 'sarthak',
-            'email'                 => 'sarthak@gmail.com',
-            'password'              => 'secret',
-            'password_confirmation' => 'secret',
-            'role_id'               => $role->id,
+            'name'                   => 'sarthak',
+            'email'                  => 'sarthak@gmail.com',
+            'password'               => 'secret',
+            'password_confirmation'  => 'secret',
+            'role_ids'               => $role->id,
         ]);
     }
 }

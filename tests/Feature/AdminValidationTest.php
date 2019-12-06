@@ -70,7 +70,7 @@ class AdminValidationTest extends TestCase
             'password'              => 'secret',
             'password_confirmation' => 'secret',
         ]);
-        $response->assertSessionHasErrors('role_id');
+        $response->assertSessionHasErrors('role_ids');
     }
 
     /**
@@ -81,6 +81,6 @@ class AdminValidationTest extends TestCase
         $this->loginSuperAdmin();
         $admin    = $this->createAdmin();
         $response = $this->patch(route('admin.update', $admin->id), []);
-        $response->assertSessionHasErrors(['role_id', 'email', 'name']);
+        $response->assertSessionHasErrors(['role_ids', 'email', 'name']);
     }
 }

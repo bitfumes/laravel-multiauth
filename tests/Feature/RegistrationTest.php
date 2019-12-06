@@ -14,11 +14,11 @@ class RegistrationTest extends TestCase
     {
         $this->loginSuperAdmin();
         $res = $this->postJson(route('admin.register'), [
-            'name'                 => 'Sarthak',
-            'email'                => 'sarthak@bitfumes.com',
-            'password'             => '123456',
-            'password_confirmation'=> '123456',
-            'role_id'              => 1,
+            'name'                  => 'Sarthak',
+            'email'                 => 'sarthak@bitfumes.com',
+            'password'              => '123456',
+            'password_confirmation' => '123456',
+            'role_ids'              => 1,
         ])
         ->assertSuccessful()->json();
         $this->assertEquals($res['data']['email'], 'sarthak@bitfumes.com');
@@ -31,11 +31,11 @@ class RegistrationTest extends TestCase
         $this->logInAdmin();
         $this->withExceptionHandling();
         $res = $this->postJson(route('admin.register'), [
-            'name'                 => 'Sarthak',
-            'email'                => 'sarthak@bitfumes.com',
-            'password'             => '123456',
-            'password_confirmation'=> '123456',
-            'role_id'              => 1,
+            'name'                  => 'Sarthak',
+            'email'                 => 'sarthak@bitfumes.com',
+            'password'              => '123456',
+            'password_confirmation' => '123456',
+            'role_ids'              => 1,
         ])->assertStatus(403);
         $this->assertDatabaseMissing('admins', ['email'=>'sarthak@bitfumes.com']);
     }
@@ -77,9 +77,9 @@ class RegistrationTest extends TestCase
         $this->loginSuperAdmin();
         $admin = $this->createAdmin();
         $this->patchJson(route('admin.update', $admin->id), [
-            'email'  => 'sarthak@bitfumes.com',
-            'name'   => 'Sarthak',
-            'role_id'=> 1,
+            'email'   => 'sarthak@bitfumes.com',
+            'name'    => 'Sarthak',
+            'role_ids'=> 1,
         ])->assertStatus(202);
         $this->assertDatabaseHas('admins', ['email' => 'sarthak@bitfumes.com']);
     }
@@ -91,9 +91,9 @@ class RegistrationTest extends TestCase
         $admin = $this->createAdmin();
         $this->withExceptionHandling();
         $this->patchJson(route('admin.update', $admin->id), [
-            'email'  => 'sarthak@bitfumes.com',
-            'name'   => 'Sarthak',
-            'role_id'=> 1,
+            'email'   => 'sarthak@bitfumes.com',
+            'name'    => 'Sarthak',
+            'role_ids'=> 1,
         ])->assertStatus(403);
         $this->assertDatabaseMissing('admins', ['email' => 'sarthak@bitfumes.com']);
     }
