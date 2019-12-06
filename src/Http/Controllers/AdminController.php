@@ -5,7 +5,6 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Bitfumes\Multiauth\Http\Requests\AdminRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,6 +21,8 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin')->except(['login', 'register']);
+        $this->resource   = config('multiauth.resources.admin');
+        $this->adminModel = config('multiauth.models.admin');
     }
 
     /**
@@ -58,15 +59,13 @@ class AdminController extends Controller
 
     public function all()
     {
-        $resource = config('multiauth.resources.admin');
-        $this->authorize('ReadAdmin', Admin::class);
-        return $resource::collection(Admin::all());
+        $this->authorize('ReadAdmin', $this->adminModel);
+        return $this->resource::collection($this->adminModel::all());
     }
 
     public function me()
     {
-        $resource = config('multiauth.resources.admin');
-        $admin    = new $resource(auth('admin')->user());
+        $admin    = new $this->resource(auth('admin')->user());
         return response($admin, Response::HTTP_ACCEPTED);
     }
 
@@ -82,15 +81,16 @@ class AdminController extends Controller
 
     public function update(Admin $admin, AdminRequest $request)
     {
-        $this->authorize('UpdateAdmin', Admin::class);
+        $adminResource = config('multiauth.resources.admin');
+        $this->authorize('UpdateAdmin', $this->adminModel);
         $admin->update($request->except('role_id'));
         $admin->roles()->sync(request('role_id'));
-        return response('updated', Response::HTTP_ACCEPTED);
+        return response(new $adminResource($admin), Response::HTTP_ACCEPTED);
     }
 
     public function destroy(Admin $admin)
     {
-        $this->authorize('DeleteAdmin', Admin::class);
+        $this->authorize('DeleteAdmin', $this->adminModel);
         $admin->delete();
         return response('success', Response::HTTP_ACCEPTED);
     }
