@@ -19,9 +19,12 @@ class RoleTest extends TestCase
     /** @test */
     public function a_super_admin_can_fetch_all_roles()
     {
-        $role = factory(Role::class)->create(['name' => 'editor']);
-        $res  = $this->postJson(route('admin.role.index'))->assertSuccessful()->json();
+        $role       = factory(Role::class)->create(['name' => 'editor']);
+        $permission = $this->create_permission();
+        $role->addPermission($permission->id);
+        $res        = $this->getJson(route('admin.role.index'))->assertSuccessful()->json();
         $this->assertEquals(2, count($res['data']));
+        $this->assertEquals(1, count($res['data'][1]['permissions']));
     }
 
     /** @test */
@@ -30,7 +33,7 @@ class RoleTest extends TestCase
         $this->logInAdmin();
         $this->withExceptionHandling();
         $role = factory(Role::class)->create(['name' => 'editor']);
-        $this->postJson(route('admin.role.index'))->assertStatus(403);
+        $this->getJson(route('admin.role.index'))->assertStatus(403);
     }
 
     /**
