@@ -31,7 +31,7 @@ class RoleController extends Controller
         $request->validate(['name' => 'required']);
         $role = Role::create($request->all());
         $role->addPermission($request->permissions);
-        return response('created', Response::HTTP_CREATED);
+        return response(new RoleResource($role), Response::HTTP_CREATED);
     }
 
     public function update(Role $role, Request $request)
@@ -40,7 +40,7 @@ class RoleController extends Controller
         $request->validate(['name' => 'required']);
         $role->update($request->all());
         $role->syncPermissions($request->permissions);
-        return response('updated', Response::HTTP_ACCEPTED);
+        return response(new RoleResource($role), Response::HTTP_ACCEPTED);
     }
 
     public function destroy(Role $role)
