@@ -23,7 +23,7 @@
     Route::delete('/{admin}/role/{role}', 'AdminRoleController@detach');
 
     // // Roles
-    Route::post('/role', 'RoleController@index')->name('admin.role.index');
+    Route::get('/role', 'RoleController@index')->name('admin.role.index');
     Route::post('/role/store', 'RoleController@store')->name('admin.role.store');
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');

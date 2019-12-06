@@ -39,9 +39,10 @@ in as a user and an admin, without conflicts!
 7. All permission related function is inside hasPermission trait
 8. All factories moved to database/factories
 9. Post method to get method for admin.all and admin.me routes
-10. All permissions with admin details for every admin
-11. 'BigIncrement' and 'unsignedBigInteger' for schema of admin, admin_role and role table
-12. Install command - include publishing migration, publishing factories, running all migration and seeding initial super admin with role and permissions.
+10. Post method to get method for admin.role and admin.me routes
+11. All permissions with admin details for every admin
+12. 'BigIncrement' and 'unsignedBigInteger' for schema of admin, admin_role and role table
+13. Install command - include publishing migration, publishing factories, running all migration and seeding initial super admin with role and permissions.
 
 ## Installation
 
