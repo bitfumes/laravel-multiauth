@@ -43,6 +43,8 @@ in as a user and an admin, without conflicts!
 11. All permissions with admin details for every admin
 12. 'BigIncrement' and 'unsignedBigInteger' for schema of admin, admin_role and role table
 13. Install command - include publishing migration, publishing factories, running all migration and seeding initial super admin with role and permissions.
+14. Role permissions are added to role resource
+15. While creating role, permissions also stored
 
 ## Installation
 

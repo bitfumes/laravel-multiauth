@@ -29,7 +29,8 @@ class RoleController extends Controller
     {
         $this->authorize('CreateRole', Admin::class);
         $request->validate(['name' => 'required']);
-        Role::create($request->all());
+        $role = Role::create($request->all());
+        $role->addPermission($request->permissions);
         return response('created', Response::HTTP_CREATED);
     }
 
@@ -38,6 +39,7 @@ class RoleController extends Controller
         $this->authorize('UpdateRole', Admin::class);
         $request->validate(['name' => 'required']);
         $role->update($request->all());
+        $role->syncPermissions($request->permissions);
         return response('updated', Response::HTTP_ACCEPTED);
     }
 

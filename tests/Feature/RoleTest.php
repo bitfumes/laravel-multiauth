@@ -39,12 +39,13 @@ class RoleTest extends TestCase
     /**
      * @test
      */
-    public function a_super_admin_can_only_store_new_role()
+    public function a_super_admin_can_only_store_new_role_with_permissions()
     {
-        $role = ['name' => 'editor'];
-        $this->post(route('admin.role.store'), $role)
+        $permissions = $this->create_permission();
+        $this->post(route('admin.role.store'), ['name' => 'editor', 'permissions' => $permissions->pluck('id')])
             ->assertStatus(201);
-        $this->assertDatabaseHas('roles', $role);
+        $this->assertDatabaseHas('roles', ['name' => 'editor']);
+        $this->assertDatabaseHas('permission_role', ['permission_id' => $permissions->id]);
     }
 
     /**
@@ -65,21 +66,29 @@ class RoleTest extends TestCase
      */
     public function a_super_admin_can_only_update_a_role()
     {
-        $role = factory(Role::class)->create(['name' => 'editr']);
+        $role        = $this->create_role(['name' => 'editr']);
+        $permissions = $this->create_permission([], 2);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
-        $this->patchJson(route('admin.role.update', $role->id), ['name' => 'editor'])
-            ->assertStatus(202);
+        $this->patchJson(route('admin.role.update', $role->id), ['name' => 'editor', 'permissions'=>$permissions[1]->id])->assertStatus(202);
+
         $this->assertDatabaseHas('roles', ['name' => 'editor']);
+        $this->assertDatabaseHas('permission_role', ['permission_id' => $permissions[1]->id, 'role_id' => $role->id]);
+        $this->assertDatabaseMissing('permission_role', ['permission_id' => $permissions[0]->id]);
     }
 
     /**
      * @test
      */
-    public function a_super_admin_can_only_delete_a_role()
+    public function a_super_admin_can_only_delete_a_role_and_permission_deleted_along_with_role()
     {
-        $role = factory(Role::class)->create(['name' => 'editor']);
+        \DB::statement('PRAGMA foreign_keys=on');
+        $role        = factory(Role::class)->create(['name' => 'editor']);
+        $permissions = $this->create_permission();
+        $role->addPermission($permissions->id);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
         $this->delete(route('admin.role.delete', $role->id))->assertStatus(204);
+        $permissions->delete();
         $this->assertDatabaseMissing('roles', ['name' => 'editor']);
+        $this->assertDatabaseMissing('permission_role', ['role_id' =>$role->id, 'permission_id' => $permissions->id]);
     }
 }
