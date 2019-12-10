@@ -62,6 +62,6 @@ class PermissionTest extends TestCase
         $permission = $this->create_permission();
         $admin->addDirectPermission($permission->id);
         $res        = $this->getJson(route('admin.all'))->json();
-        $this->assertEquals($permission->name, $res['data'][0]['permissions'][''][0]['name']);
+        $this->assertEquals($permission->name, $res['data'][0]['permissions'][0]['name']);
     }
 }

@@ -21,7 +21,7 @@ class RoleResource extends JsonResource
             'admins_attached'=> $this->admins->count(),
             'permissions'    => $this->permissions->map(function ($permission) {
                 return $permission->only('id', 'name', 'parent');
-            })->groupBy('parent'),
+            }),
         ];
     }
 }

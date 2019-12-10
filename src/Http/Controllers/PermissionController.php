@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return response(['data' => Permission::all()->groupBy('parent')], 200);
+        return response(['data' => Permission::all()], 200);
     }
 
     /**

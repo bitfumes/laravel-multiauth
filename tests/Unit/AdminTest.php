@@ -110,7 +110,7 @@ class AdminTest extends TestCase
         $permission2 = $this->create_permission(['parent' => 'publisher']);
         $admin->addDirectPermission($permission->id);
         $admin->addDirectPermission($permission2->id);
-        $this->assertEquals(3, count($admin->allPermissions()));
+        $this->assertEquals(5, count($admin->allPermissions()));
     }
 
     /**

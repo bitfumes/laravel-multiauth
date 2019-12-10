@@ -65,10 +65,10 @@ trait hasPermissions
     {
         $byRole = $this->permissionsByRole()->map(function ($role) {
             return $role->only(['id', 'name', 'parent']);
-        })->groupBy('parent')->toArray();
+        })->toArray();
         $direct = $this->directPermissions->map(function ($role) {
             return $role->only(['id', 'name', 'parent']);
-        })->groupBy('parent')->toArray();
+        })->toArray();
         return array_merge($direct, $byRole);
     }
 }
