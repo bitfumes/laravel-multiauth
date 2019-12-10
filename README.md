@@ -47,6 +47,7 @@ in as a user and an admin, without conflicts!
 15. While creating role, permissions also stored
 16. adminFormRequest is now having role_ids instead of role_id
 17. while store or update admin, directPermissions can also be synced
+18. All permissions are group by
 
 ## Installation
 

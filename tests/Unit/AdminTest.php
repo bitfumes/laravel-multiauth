@@ -97,6 +97,25 @@ class AdminTest extends TestCase
     /**
      * @test
      */
+    public function an_admin_can_get_all_permission()
+    {
+        $admin               = $this->createAdmin();
+        $role                = $this->create_role();
+        $permission          = $this->create_permission(['parent'=>'admin'], 3);
+
+        $role->permissions()->attach($permission->pluck('id'));
+        $admin->roles()->attach($role->id);
+
+        $permission  = $this->create_permission(['parent' => 'editor']);
+        $permission2 = $this->create_permission(['parent' => 'publisher']);
+        $admin->addDirectPermission($permission->id);
+        $admin->addDirectPermission($permission2->id);
+        $this->assertEquals(3, count($admin->allPermissions()));
+    }
+
+    /**
+     * @test
+     */
     public function it_can_bcrypt_the_password()
     {
         $admin = $this->createAdmin();

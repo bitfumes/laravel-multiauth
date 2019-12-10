@@ -80,7 +80,7 @@ class TestCase extends BaseTestCase
         foreach ($tasks as $task) {
             foreach ($models as $model) {
                 $name       = "{$task}{$model}";
-                $permission = factory(Permission::class)->create(['name' => $name]);
+                $permission = factory(Permission::class)->create(['name' => $name, 'parent'=>$model]);
                 $role->addPermission([$permission->id]);
             }
         }

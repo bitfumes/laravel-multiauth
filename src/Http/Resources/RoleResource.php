@@ -20,8 +20,8 @@ class RoleResource extends JsonResource
             'created_at'     => $this->created_at->diffForHumans(),
             'admins_attached'=> $this->admins->count(),
             'permissions'    => $this->permissions->map(function ($permission) {
-                return $permission->only('id', 'name');
-            }),
+                return $permission->only('id', 'name', 'parent');
+            })->groupBy('parent'),
         ];
     }
 }

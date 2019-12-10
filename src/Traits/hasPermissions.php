@@ -64,11 +64,11 @@ trait hasPermissions
     public function allPermissions()
     {
         $byRole = $this->permissionsByRole()->map(function ($role) {
-            return $role->only(['id', 'name']);
-        })->toArray();
+            return $role->only(['id', 'name', 'parent']);
+        })->groupBy('parent')->toArray();
         $direct = $this->directPermissions->map(function ($role) {
-            return $role->only(['id', 'name']);
-        })->toArray();
+            return $role->only(['id', 'name', 'parent']);
+        })->groupBy('parent')->toArray();
         return array_merge($direct, $byRole);
     }
 }

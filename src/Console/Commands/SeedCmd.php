@@ -80,7 +80,7 @@ class SeedCmd extends Command
         foreach ($tasks as $task) {
             foreach ($models as $model) {
                 $name       = "{$task}{$model}";
-                $permission = factory($this->permissionModel)->create(['name' => $name]);
+                $permission = factory($this->permissionModel)->create(['name' => $name, 'parent'=>$model]);
                 $role->addPermission([$permission->id]);
             }
         }
