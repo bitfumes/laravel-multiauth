@@ -9,11 +9,14 @@ use Bitfumes\Multiauth\Console\Commands\Install;
 use Bitfumes\Multiauth\Console\Commands\RoleCmd;
 use Bitfumes\Multiauth\Console\Commands\SeedCmd;
 use Bitfumes\Multiauth\Exception\MultiAuthHandler;
+use Bitfumes\Multiauth\Http\Middleware\AdminPermitTo;
 use Bitfumes\Multiauth\Providers\AuthServiceProvider;
-use Bitfumes\Multiauth\Console\Commands\PermissionSeed;
+use Bitfumes\Multiauth\Console\Commands\PermissionCommand;
+use Bitfumes\Multiauth\Http\Middleware\AdminPermitToParent;
 use Bitfumes\Multiauth\Console\Commands\MakeMultiAuthCommand;
 use Bitfumes\Multiauth\Console\Commands\RollbackMultiAuthCommand;
 use Bitfumes\Multiauth\Http\Middleware\redirectIfAuthenticatedAdmin;
+use Bitfumes\Multiauth\Http\Middleware\redirectIfNotWithRoleOfAdmin;
 
 class MultiauthServiceProvider extends ServiceProvider
 {
@@ -92,6 +95,9 @@ class MultiauthServiceProvider extends ServiceProvider
     protected function loadMiddleware()
     {
         app('router')->aliasMiddleware('admin', redirectIfAuthenticatedAdmin::class);
+        app('router')->aliasMiddleware('role', redirectIfNotWithRoleOfAdmin::class);
+        app('router')->aliasMiddleware('permitTo', AdminPermitTo::class);
+        app('router')->aliasMiddleware('permitToParent', AdminPermitToParent::class);
     }
 
     protected function registerExceptionHandler()
@@ -155,7 +161,7 @@ class MultiauthServiceProvider extends ServiceProvider
             $this->commands([
                 MakeMultiAuthCommand::class,
                 RollbackMultiAuthCommand::class,
-                PermissionSeed::class,
+                PermissionCommand::class,
                 Install::class,
             ]);
         }

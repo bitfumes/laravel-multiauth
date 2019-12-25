@@ -62,10 +62,14 @@ class SeedCmd extends Command
     protected function createSuperAdmin($role, $rolename)
     {
         $prefix = config('multiauth.prefix');
-        $admin  = factory($this->adminModel)
-            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super ' . ucfirst($prefix)]);
+        $admin  = $this->adminModel::create([
+            'email'    => "super@{$prefix}.com",
+            'name'     => 'Super ' . ucfirst($prefix),
+            'password' => bcrypt('secret123'),
+            'active'   => true,
+        ]);
         if (!$role) {
-            $role                = factory($this->roleModel)->create(['name' => $rolename]);
+            $role = $this->roleModel::create(['name' => $rolename]);
             $this->createAndLinkPermissionsTo($role);
         }
         $admin->roles()->attach($role);
@@ -80,7 +84,7 @@ class SeedCmd extends Command
         foreach ($tasks as $task) {
             foreach ($models as $model) {
                 $name       = "{$task}{$model}";
-                $permission = factory($this->permissionModel)->create(['name' => $name, 'parent'=>$model]);
+                $permission = $this->permissionModel::create(['name' => $name, 'parent'=>$model]);
                 $role->addPermission([$permission->id]);
             }
         }

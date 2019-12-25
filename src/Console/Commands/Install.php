@@ -47,11 +47,12 @@ class Install extends Command
 
     protected function publishAssets()
     {
-        $this->warn('1. Publishing Migrations');
-        Artisan::call('vendor:publish --tag=multiauth:migrations');
+        $this->warn('1. Publishing Configurations');
+        Artisan::call('vendor:publish --tag=multiauth:config');
         $this->info(Artisan::output());
-        $this->warn('2. Publishing Factories');
-        Artisan::call('vendor:publish --tag=multiauth:factories');
+
+        $this->warn('2. Publishing Migrations');
+        Artisan::call('vendor:publish --tag=multiauth:migrations');
         $this->info(Artisan::output());
     }
 

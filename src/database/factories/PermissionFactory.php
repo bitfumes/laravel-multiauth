@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Generator as Faker;
+use Bitfumes\Multiauth\Model\Permission;
 
-$permissionModel = config('multiauth.models.permission');
-$factory->define($permissionModel, function (Faker $faker) {
+$factory->define(Permission::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
     ];

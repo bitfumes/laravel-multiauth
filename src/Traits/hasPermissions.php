@@ -1,6 +1,6 @@
 <?php
 
-namespace Bitfumes\Multiauth\traits;
+namespace Bitfumes\Multiauth\Traits;
 
 use Illuminate\Support\Collection;
 use Bitfumes\Multiauth\Model\Permission;
