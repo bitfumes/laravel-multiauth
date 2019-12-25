@@ -9,17 +9,22 @@ module.exports = {
   searchPlaceholder: "Search...",
   themeConfig: {
     repo: "bitfumes/laravel-multiauth",
-    nav: [
-      {
-        text: "Changelog",
-        link: "/changelog"
-      }
-    ],
+    // nav: [
+    //   {
+    //     text: "Changelog",
+    //     link: "/changelog"
+    //   }
+    // ],
     sidebar: [
       {
         title: "Get Started", // required
         collapsable: false,
-        children: ["/installation", "publish", "version-guidance"]
+        children: [
+          "/installation",
+          "publish",
+          "version-guidance",
+          ["tutorials", "Tutorials"]
+        ]
       },
       {
         title: "Settings",
@@ -28,7 +33,7 @@ module.exports = {
       },
       {
         title: "Role & Permissions",
-        collapsable: false,
+        collapsable: true,
         children: ["roles", "permissions"]
       },
       {

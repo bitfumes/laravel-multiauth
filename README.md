@@ -12,8 +12,7 @@
   <p align="center">
 
   <p align="center">
-    <strong>For Web version documentation, visit <a href="https://bitfumes.github.io/laravel-multiauth/">Here</a></strong>.
-    <strong>For API version documentation, visit <a href="https://bitfumes.github.io/laravel-multiauth/">Here</a></strong>.
+    <strong>For Complete Documentation, visit <a href="https://bitfumes.github.io/laravel-multiauth/">Here</a></strong>
   </p>
 
 This package is just create admin side (multi auth), which is totaly isolated from your normal auth ( which we create using php artisan make:auth )
