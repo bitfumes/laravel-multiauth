@@ -2,21 +2,15 @@ module.exports = {
   markdown: {
     lineNumbers: true
   },
-  title: "Bitfumes Multiauth",
+  base: "/laravel-multiauth/",
+  dest: "public",
+  title: "Laravel Multiauth",
   description: "Create Admin Authentication in just 5 minutes.",
   sidebar: true,
   searchPlaceholder: "Search...",
   themeConfig: {
     repo: "bitfumes/laravel-multiauth",
     nav: [
-      {
-        text: "Branch",
-        ariaLabel: "Api Branch",
-        items: [
-          { text: "API", link: "/jwt-auth/installation" },
-          { text: "Web", link: "/" }
-        ]
-      },
       {
         text: "Changelog",
         link: "/changelog"
