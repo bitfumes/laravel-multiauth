@@ -3,7 +3,7 @@
 namespace Bitfumes\Multiauth\Model;
 
 use Illuminate\Notifications\Notifiable;
-use Bitfumes\Multiauth\traits\hasPermissions;
+use Bitfumes\Multiauth\Traits\hasPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
