@@ -3,8 +3,6 @@
 namespace Bitfumes\Multiauth\Console\Commands;
 
 use Illuminate\Console\Command;
-use Bitfumes\Multiauth\Model\Role;
-use Bitfumes\Multiauth\Model\Admin;
 
 class SeedCmd extends Command
 {
@@ -31,6 +29,9 @@ class SeedCmd extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->roleModel            = config('multiauth.models.role');
+        $this->adminModel           = config('multiauth.models.admin');
+        $this->permissionModel      = config('multiauth.models.permission');
     }
 
     /**
@@ -40,14 +41,19 @@ class SeedCmd extends Command
      */
     public function handle()
     {
+        if ($this->superAdminExists()) {
+            $this->error('admin with email "super@admin.com" already exists');
+            return ;
+        }
+
         $rolename = $this->option('role');
-        $role     = Role::whereName($rolename)->first();
         if (!$rolename) {
             $this->error("please provide role as --role='roleName'");
-
             return;
         }
-        $admin = $this->createSuperAdmin($role, $rolename);
+
+        $role      = $this->roleModel::whereName($rolename)->first();
+        $admin     = $this->createSuperAdmin($role, $rolename);
 
         $this->info("You have created an admin name '{$admin->name}' with role of '{$admin->roles->first()->name}' ");
         $this->info("Now log-in with {$admin->email} email and password as 'secret123'");
@@ -56,13 +62,36 @@ class SeedCmd extends Command
     protected function createSuperAdmin($role, $rolename)
     {
         $prefix = config('multiauth.prefix');
-        $admin  = factory(Admin::class)
-            ->create(['email' => "super@{$prefix}.com", 'name' => 'Super ' . ucfirst($prefix)]);
+        $admin  = $this->adminModel::create([
+            'email'    => "super@{$prefix}.com",
+            'name'     => 'Super ' . ucfirst($prefix),
+            'password' => bcrypt('secret123'),
+            'active'   => true,
+        ]);
         if (!$role) {
-            $role = factory(Role::class)->create(['name' => $rolename]);
+            $role = $this->roleModel::create(['name' => $rolename]);
+            $this->createAndLinkPermissionsTo($role);
         }
         $admin->roles()->attach($role);
 
         return $admin;
+    }
+
+    protected function createAndLinkPermissionsTo($role)
+    {
+        $models        = ['Admin', 'Role'];
+        $tasks         = ['Create', 'Read', 'Update', 'Delete'];
+        foreach ($tasks as $task) {
+            foreach ($models as $model) {
+                $name       = "{$task}{$model}";
+                $permission = $this->permissionModel::create(['name' => $name, 'parent'=>$model]);
+                $role->addPermission([$permission->id]);
+            }
+        }
+    }
+
+    public function superAdminExists()
+    {
+        return $this->adminModel::where('email', 'super@admin.com')->exists();
     }
 }

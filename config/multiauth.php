@@ -61,4 +61,18 @@ return [
     | Default : /admin/home
     */
     'redirect_after_login' => '/admin/home',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    | Add the model you want to use.
+    |
+    */
+    'models' => [
+        'admin'          => Bitfumes\Multiauth\Model\Admin::class,
+        'role'           => Bitfumes\Multiauth\Model\Role::class,
+        'permission'     => Bitfumes\Multiauth\Model\Permission::class,
+    ],
 ];

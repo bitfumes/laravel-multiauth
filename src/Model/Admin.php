@@ -3,12 +3,13 @@
 namespace Bitfumes\Multiauth\Model;
 
 use Illuminate\Notifications\Notifiable;
+use Bitfumes\Multiauth\traits\hasPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, hasPermissions;
 
     protected $casts = ['active' => 'boolean'];
 

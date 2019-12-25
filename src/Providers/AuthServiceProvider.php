@@ -2,8 +2,7 @@
 
 namespace Bitfumes\Multiauth\Providers;
 
-use Bitfumes\Multiauth\Model\Admin;
-use Bitfumes\Multiauth\Policies\AdminPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -14,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Admin::class => AdminPolicy::class,
+        //
     ];
 
     /**
@@ -25,7 +24,16 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        Gate::before(function ($admin, $ability) {
+            if ($this->isSuperAdmin($admin)) {
+                return true;
+            }
+            return $admin->hasPermission($ability);
+        });
+    }
 
-        //
+    protected function isSuperAdmin($admin)
+    {
+        return in_array('super', $admin->roles->pluck('name')->toArray());
     }
 }

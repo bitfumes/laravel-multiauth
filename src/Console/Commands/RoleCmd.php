@@ -3,7 +3,6 @@
 namespace Bitfumes\Multiauth\Console\Commands;
 
 use Illuminate\Console\Command;
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Database\QueryException;
 
 class RoleCmd extends Command
@@ -40,10 +39,12 @@ class RoleCmd extends Command
      */
     public function handle()
     {
-        $role = $this->argument('name');
+        $role      = $this->argument('name');
+        $roleModel = config('multiauth.models.role');
 
         try {
-            factory(Role::class)->create(['name' => $role]);
+            factory($roleModel)->create(['name' => $role]);
+            $this->info("Role with the name of $role is created");
         } catch (QueryException $e) {
             $this->error("Role name '{$role}' is already exist, choose another name");
         }

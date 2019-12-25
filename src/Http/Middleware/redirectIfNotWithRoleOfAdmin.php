@@ -23,12 +23,16 @@ class redirectIfNotWithRoleOfAdmin
             return redirect(route('admin.login'));
         }
 
-        $roles = auth('admin')->user()->/* @scrutinizer ignore-call */roles()->pluck('name');
+        $roles = auth('admin')->user()->roles()->pluck('name');
         if (in_array('super', $roles->toArray())) {
             return $next($request);
         }
 
-        if (!in_array(strtolower($role), $roles->toArray())) {
+        $given_role = explode(';', $role);
+
+        $match = count(array_intersect($given_role, $roles->toArray()));
+
+        if (!$match) {
             return redirect(route('admin.home'));
         }
 

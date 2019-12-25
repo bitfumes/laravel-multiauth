@@ -47,7 +47,7 @@ class ResetPasswordTest extends TestCase
         $this->post(route('admin.password.email'), ['email' => $admin->email]);
         Notification::assertSentTo([$admin], AdminResetPasswordNotification::class, function ($notification) use ($admin) {
             $token = $notification->token;
-            $this->assertTrue(Hash::check('secret123', $admin->password));
+            $this->assertTrue(Hash::check('secret', $admin->password));
             $res = $this->post(route('admin.password.request'), [
                 'email'                 => $admin->email,
                 'password'              => 'newpassword',

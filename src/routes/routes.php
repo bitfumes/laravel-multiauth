@@ -23,6 +23,7 @@
 
     // Admin Lists
     Route::get('/show', 'AdminController@show')->name('admin.show');
+    Route::get('/me', 'AdminController@me')->name('admin.me');
 
     // Admin Roles
     Route::post('/{admin}/role/{role}', 'AdminRoleController@attach')->name('admin.attach.roles');
@@ -35,6 +36,11 @@
     Route::delete('/role/{role}', 'RoleController@destroy')->name('admin.role.delete');
     Route::get('/role/{role}/edit', 'RoleController@edit')->name('admin.role.edit');
     Route::patch('/role/{role}', 'RoleController@update')->name('admin.role.update');
+
+    // active status
+    Route::post('activation/{admin}', 'ActivationController@activate')->name('admin.activation');
+    Route::delete('activation/{admin}', 'ActivationController@deactivate');
+    Route::resource('permission', 'PermissionController');
 
     Route::fallback(function () {
         return abort(404);

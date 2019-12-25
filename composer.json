@@ -8,7 +8,10 @@
     "multiauth",
     "bitfumes",
     "admin auth",
-    "multi auth"
+    "multi auth",
+    "laravel permissions",
+    "laravel roles permissions",
+    "laravel acl"
   ],
   "authors": [
     {

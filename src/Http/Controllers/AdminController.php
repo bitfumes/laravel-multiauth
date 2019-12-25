@@ -5,9 +5,12 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Bitfumes\Multiauth\Model\Admin;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Create a new controller instance.
      *
@@ -17,6 +20,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('role:super', ['only'=>'show']);
+        $this->adminModel = config('multiauth.models.admin');
     }
 
     public function index()

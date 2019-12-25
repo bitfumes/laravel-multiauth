@@ -20,7 +20,7 @@ class AdminActiveTest extends TestCase
     public function active_admin_can_able_to_login()
     {
         $admin = $this->createAdmin(['active'=>1]);
-        $this->post(route('admin.login'), ['email' => $admin->email, 'password' => 'secret123'])
+        $this->post(route('admin.login'), ['email' => $admin->email, 'password' => 'secret'])
         ->assertRedirect(route('admin.home'));
     }
 }

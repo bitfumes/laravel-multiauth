@@ -24,6 +24,35 @@ class Role extends Model
         return $this->belongsToMany(Admin::class);
     }
 
+    public function permissions()
+    {
+        $permissionModel = config('multiauth.models.permission');
+        return $this->belongsToMany($permissionModel);
+    }
+
+    public function addPermission($permission_ids)
+    {
+        $this->permissions()->attach($permission_ids);
+    }
+
+    public function removePermission($permission_ids)
+    {
+        $this->permissions()->detach($permission_ids);
+    }
+
+    public function syncPermissions($permission_ids)
+    {
+        $this->permissions()->sync($permission_ids);
+    }
+
+    public function hasPermission($permission)
+    {
+        if (is_numeric($permission)) {
+            return $this->permissions->contains('id', $permission);
+        }
+        return $this->permissions->contains('name', $permission);
+    }
+
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = strtolower($name);
