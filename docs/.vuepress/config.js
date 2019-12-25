@@ -3,7 +3,6 @@ module.exports = {
     lineNumbers: true
   },
   base: "/laravel-multiauth/",
-  dest: "public",
   title: "Laravel Multiauth",
   description: "Create Admin Authentication in just 5 minutes.",
   sidebar: true,
