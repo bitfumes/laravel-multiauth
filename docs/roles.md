@@ -9,9 +9,9 @@ php artisan multiauth:role rolename
 ```
 
 2. Using Interface
-   Just go to `https://example.com/admin/role`
+   Just go to `https://example.com/admin/roles`
 
-Now you can click on `Add Role` button to create new role.
+Now you can click on `New Role` button to create new role.
 
 ::: tip To Edit/Delete
 Edit or Delete Role can also be done with same interface
