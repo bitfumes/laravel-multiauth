@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Settings | Laravel Multiauth</title>
+    <meta name="description" content="Create Admin Authentication in just 5 minutes.">
+    <meta name="generator" content="VuePress 1.3.0">
+    
+    
+    <link rel="preload" href="/laravel-multiauth/assets/css/0.styles.1f82cfd2.css" as="style"><link rel="preload" href="/laravel-multiauth/assets/js/app.740d9aa4.js" as="script"><link rel="preload" href="/laravel-multiauth/assets/js/2.29906e46.js" as="script"><link rel="preload" href="/laravel-multiauth/assets/js/21.c25c245b.js" as="script"><link rel="prefetch" href="/laravel-multiauth/assets/js/10.e1b9f09c.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/11.4343eada.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/12.e2c8ca93.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/13.e61b3f12.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/14.9fd675a7.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/15.1542497d.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/16.9f25b766.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/17.fcfb3c00.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/18.b82f7c94.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/19.ccdeab69.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/20.c183acda.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/22.393ee796.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/23.dc9a65d5.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/24.8bf73769.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/25.dfbb039e.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/3.d8245d42.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/4.c63d11f5.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/5.f5df8550.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/6.48b1f333.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/7.3bb0c977.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/8.ddb87e45.js"><link rel="prefetch" href="/laravel-multiauth/assets/js/9.83d4c589.js">
+    <link rel="stylesheet" href="/laravel-multiauth/assets/css/0.styles.1f82cfd2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/laravel-multiauth/" class="home-link router-link-active"><!----> <span class="site-name">Laravel Multiauth</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"> <a href="https://github.com/bitfumes/laravel-multiauth" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"> <a href="https://github.com/bitfumes/laravel-multiauth" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Get Started</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/laravel-multiauth/installation.html" class="sidebar-link">Installation</a></li><li><a href="/laravel-multiauth/publish.html" class="sidebar-link">Publishing things</a></li><li><a href="/laravel-multiauth/version-guidance.html" class="sidebar-link">Version Guidance</a></li><li><a href="/laravel-multiauth/tutorials.html" class="sidebar-link">Tutorials</a></li></ul></section></li><li><a href="/laravel-multiauth/settings.html" class="active sidebar-link">Settings</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#admin-status" class="sidebar-link">Admin Status</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#turn-off-admin-login" class="sidebar-link">Turn Off Admin Login</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#form-validations" class="sidebar-link">Form Validations</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#prefix-for-admin" class="sidebar-link">Prefix for admin</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#registration-notification-email" class="sidebar-link">Registration Notification Email</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#redirect-after-login" class="sidebar-link">Redirect After Login</a></li><li class="sidebar-sub-header"><a href="/laravel-multiauth/settings.html#models" class="sidebar-link">Models</a></li></ul></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Role &amp; Permissions</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Access Level</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/laravel-multiauth/admin-policy.html" class="sidebar-link">Admin Policy</a></li><li><a href="/laravel-multiauth/middleware.html" class="sidebar-link">Middelware</a></li><li><a href="/laravel-multiauth/blade.html" class="sidebar-link">Blade Syntax</a></li></ul></section></li><li><a href="/laravel-multiauth/another-auth.html" class="sidebar-link">Another Auth</a></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>JWT Api Version</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/laravel-multiauth/jwt-auth/installation.html" class="sidebar-link">Installation</a></li><li><a href="/laravel-multiauth/jwt-auth/auth.html" class="sidebar-link">Authentication Endpoints</a></li><li><a href="/laravel-multiauth/jwt-auth/admins.html" class="sidebar-link">Admins Endpoints</a></li><li><a href="/laravel-multiauth/jwt-auth/roles.html" class="sidebar-link">Roles Endpoints</a></li><li><a href="/laravel-multiauth/jwt-auth/admin-role.html" class="sidebar-link">Admin Role Connection</a></li><li><a href="/laravel-multiauth/jwt-auth/permissions.html" class="sidebar-link">Permission Endpoints</a></li></ul></section></li><li><a href="/laravel-multiauth/support.html" class="sidebar-link">Support the development</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="settings"><a href="#settings" class="header-anchor">#</a> Settings</h1> <h2 id="admin-status"><a href="#admin-status" class="header-anchor">#</a> Admin Status</h2> <p>Sometime a super admin want to deactivate an admin.</p> <p>By default new admin is deactivate, so that you can activate him when you want.</p> <p>To activate admin, just go to the procedure of editing admin.</p> <h2 id="turn-off-admin-login"><a href="#turn-off-admin-login" class="header-anchor">#</a> Turn Off Admin Login</h2> <p>If you don't want admin authentication and just need to create multiple authentication like /student or /teacher, then you can turn off admin authentication.</p> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><br></div><pre class="language-php"><code><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">return</span> <span class="token punctuation">[</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Turn Off Admin Login
+    |--------------------------------------------------------------------------
+    |
+    | After creating another multiauth apart from admin, and you don't want to have admin
+    | backend then you can simply turn if off by makeing admin_active as false here.
+    |
+ */</span>
+    <span class="token single-quoted-string string">'admin_active'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean constant">true</span><span class="token punctuation">,</span>
+</span></code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h2 id="form-validations"><a href="#form-validations" class="header-anchor">#</a> Form Validations</h2> <p>By default admin registration have validations but if you publish migration and adds any field, then you can provide validation rule for that field here.</p> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><br><br><br></div><pre class="language-php"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Validations
+    |--------------------------------------------------------------------------
+    |
+    | Apply your own validations for new columns of Admin registration.
+    |
+ */</span>
+    <span class="token single-quoted-string string">'admin'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+        <span class="token single-quoted-string string">'validations'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+            <span class="token comment">// Write rules here</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h2 id="prefix-for-admin"><a href="#prefix-for-admin" class="header-anchor">#</a> Prefix for admin</h2> <ul><li>If you don't want to call admin side as <code>admin</code> then you can change it to whatever you want, for example you want your admin side to be as <code>master</code>.</li> <li>After changing here, your admin route will also changed from <code>/admin</code> to <code>/master</code></li></ul> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><br><br><br></div><pre class="language-php"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Prefix
+    |--------------------------------------------------------------------------
+    |
+    | Use prefix to before the routes of multiauth package.
+    | This way you can keep your admin page secure.
+    | Default : admin
+    */</span>
+    <span class="token single-quoted-string string">'prefix'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'admin'</span><span class="token punctuation">,</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h2 id="registration-notification-email"><a href="#registration-notification-email" class="header-anchor">#</a> Registration Notification Email</h2> <p>When super admin register any other admin, then an email will send to welcome new admin with password. You can turn it on or off.</p> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><br><br></div><pre class="language-php"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Registration Notification Email
+    |--------------------------------------------------------------------------
+    |
+    | While registering new admin by superadmin, you can send an email to
+    | the new registered admin with the password you have selected
+    | If you make it 'true' then it will send email otherwise
+    | It will not going to send any email to the admin
+    | Default : false
+    */</span>
+    <span class="token single-quoted-string string">'registration_notification_email'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean constant">false</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><h2 id="redirect-after-login"><a href="#redirect-after-login" class="header-anchor">#</a> Redirect After Login</h2> <p>By default after login, admin will redirect to admin home page, you can define your own path for redirection after login.</p> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><br><br></div><pre class="language-php"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Redirect After Login
+    |--------------------------------------------------------------------------
+    |
+    | It will redirect to a path defined here after login.
+    | You can change it to where ever you want to
+    | redirect the admin after login.
+    | Default : /admin/home
+    */</span>
+    <span class="token single-quoted-string string">'redirect_after_login'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'/admin/home'</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h2 id="models"><a href="#models" class="header-anchor">#</a> Models</h2> <p>You can set your own model and define here to use by package.</p> <div class="language-php line-numbers-mode"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><br><br><br><br></div><pre class="language-php"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">/*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    | Add the model you want to use.
+    |
+    */</span>
+    <span class="token single-quoted-string string">'models'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+        <span class="token single-quoted-string string">'admin'</span>          <span class="token operator">=</span><span class="token operator">&gt;</span> Bitfumes\<span class="token package">Multiauth<span class="token punctuation">\</span>Model<span class="token punctuation">\</span>Admin</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+        <span class="token single-quoted-string string">'role'</span>           <span class="token operator">=</span><span class="token operator">&gt;</span> Bitfumes\<span class="token package">Multiauth<span class="token punctuation">\</span>Model<span class="token punctuation">\</span>Role</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+        <span class="token single-quoted-string string">'permission'</span>     <span class="token operator">=</span><span class="token operator">&gt;</span> Bitfumes\<span class="token package">Multiauth<span class="token punctuation">\</span>Model<span class="token punctuation">\</span>Permission</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+
+</code></pre><div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/bitfumes/laravel-multiauth/edit/master/docs/settings.md" target="_blank" rel="noopener noreferrer">Help us improve this page!</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/laravel-multiauth/tutorials.html" class="prev">
+        Tutorials
+      </a></span> <span class="next"><a href="/laravel-multiauth/roles.html">
+        Role
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/laravel-multiauth/assets/js/app.740d9aa4.js" defer></script><script src="/laravel-multiauth/assets/js/2.29906e46.js" defer></script><script src="/laravel-multiauth/assets/js/21.c25c245b.js" defer></script>
+  </body>
+</html>

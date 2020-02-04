@@ -3,7 +3,7 @@
 Install via `composer`.
 
 ```bash{1}
-composer require bitfumes/laravel-multiauth:dev-jwtauth
+composer require bitfumes/laravel-multiauth:dev-jwtauth-permission
 ```
 
 ### Setup Admin Authentication
