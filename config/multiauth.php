@@ -78,4 +78,14 @@ return [
         'role'           => Bitfumes\Multiauth\Model\Role::class,
         'permission'     => Bitfumes\Multiauth\Model\Permission::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Admin Password
+    |--------------------------------------------------------------------------
+    |
+    | Define your admin side url
+    |
+    */
+    'password_reset_url' => 'http://localhost:8000/reset-password',
 ];

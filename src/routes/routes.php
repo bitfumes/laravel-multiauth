@@ -8,7 +8,6 @@
     Route::POST('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::POST('/password/reset', 'ResetPasswordController@reset')->name('admin.password.request');
     Route::POST('/password/change', 'AdminController@changePassword')->name('admin.password.change');
-    Route::GET('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');
 
     // // Register Admins
     Route::post('/register', 'RegisterController@register')->name('admin.register');
