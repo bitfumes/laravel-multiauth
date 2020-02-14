@@ -5,6 +5,7 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Password;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -56,5 +57,20 @@ class ForgotPasswordController extends Controller
     protected function validateEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
+    }
+
+    /**
+    * Get the response for a successful password reset link.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  string  $response
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+    */
+    protected function sendResetLinkResponse(Request $request, $response)
+    {
+        if ($request->wantsJson()) {
+            return response('Email Sent Successfully', Response::HTTP_ACCEPTED);
+        }
+        return back()->with('status', trans($response));
     }
 }
