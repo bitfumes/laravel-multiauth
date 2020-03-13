@@ -2,11 +2,11 @@
 
 namespace Bitfumes\Multiauth\Tests\Feature;
 
-use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
-use Bitfumes\Multiauth\Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Hash;
+use Bitfumes\Multiauth\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Bitfumes\Multiauth\Notifications\AdminResetPasswordNotification;
 
 class ResetPasswordTest extends TestCase
 {
@@ -53,7 +53,7 @@ class ResetPasswordTest extends TestCase
         $this->post(route('admin.password.change'), [
             'oldPassword'              => 'secret',
             'password'                 => '123456',
-            'password_confirmation'    => '123456'
+            'password_confirmation'    => '123456',
         ])->assertStatus(202);
         $this->assertTrue(Hash::check('123456', $admin->fresh()->password));
     }
