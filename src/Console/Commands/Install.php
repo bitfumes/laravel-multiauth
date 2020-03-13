@@ -43,6 +43,8 @@ class Install extends Command
         $this->runMigration();
 
         $this->seedSuperAdmin();
+
+        $this->publishAndCompileUI();
     }
 
     protected function publishAssets()
@@ -68,5 +70,14 @@ class Install extends Command
         $this->warn('4. Seeding New Super Admin');
         Artisan::call('multiauth:seed --role=super');
         $this->info(Artisan::output());
+    }
+
+    protected function publishAndCompileUI()
+    {
+        $this->warn('5. Publishing UI bootstrap copmonent');
+        Artisan::call('ui bootstrap');
+        $this->info(Artisan::output());
+        $this->warn('Running npm, please wait...');
+        $this->info(shell_exec('npm install && npm run dev'));
     }
 }

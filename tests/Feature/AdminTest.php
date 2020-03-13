@@ -140,7 +140,7 @@ class AdminTest extends TestCase
     /** @test */
     public function on_registration_admin_get_an_confirmation_email()
     {
-        // $app['config']->set('multiauth.registration_notification_email', true); set on base testcase
+        app()['config']->set('multiauth.registration_notification_email', true);
         Notification::fake();
         $this->createNewAdminWithRole();
         $admin = Admin::find(2);

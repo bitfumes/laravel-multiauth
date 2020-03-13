@@ -24,7 +24,7 @@ class TestCase extends BaseTestCase
     {
         $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
         $app['config']->set('database.default', 'testing');
-        $app['config']->set('multiauth.registration_notification_email', true);
+        $app['config']->set('multiauth.registration_notification_email', false);
         $app['config']->set('database.connections.testing', [
             'driver'   => 'sqlite',
             'database' => ':memory:',
