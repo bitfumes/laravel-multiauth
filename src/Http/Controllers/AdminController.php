@@ -119,7 +119,7 @@ class AdminController extends Controller
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth('admin')->factory()->getTTL() * 60,
-            'user'         => auth('admin')->user(),
+            'user'         => new $this->resource(auth('admin')->user()),
         ]);
     }
 }
