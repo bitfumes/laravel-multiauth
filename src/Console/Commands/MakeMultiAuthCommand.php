@@ -51,16 +51,16 @@ class MakeMultiAuthCommand extends Command
             return;
         }
         $this->addGuard()
-             ->publishControllers()
-             ->publishRoutes()
-             ->registerRoutes()
-             ->loadViews()
-             ->publishFactory()
-             ->publishMigration()
-             ->publishModel()
-             ->publishMiddleware()
-             ->registerMiddleware()
-             ->publishNotification();
+            ->publishControllers()
+            ->publishRoutes()
+            ->registerRoutes()
+            ->loadViews()
+            ->publishFactory()
+            ->publishMigration()
+            ->publishModel()
+            ->publishMiddleware()
+            ->registerMiddleware()
+            ->publishNotification();
     }
 
     protected function addGuard()
@@ -210,6 +210,7 @@ class MakeMultiAuthCommand extends Command
             'layouts/app.blade',
             'auth/login.blade',
             'auth/register.blade',
+            'auth/verify.blade',
             'auth/passwords/email.blade',
             'auth/passwords/reset.blade',
         ];
@@ -285,6 +286,15 @@ class MakeMultiAuthCommand extends Command
         $middleware = strtr($stub, $this->parseName());
 
         file_put_contents($middleware_path . '/RedirectIfNot' . $this->parseName()['{{singularClass}}'] . '.php', $middleware);
+
+        // ...
+
+        $stub = file_get_contents($this->stub_path . '/Middleware/EnsureEmailIsVerified.stub');
+
+        $middleware = strtr($stub, $this->parseName());
+
+        file_put_contents($middleware_path . '/EnsureEmailIsVerifiedOf' . $this->parseName()['{{singularClass}}'] . '.php', $middleware);
+
         $this->info("Step 9. Middlewares related to {$this->name} is added App\Http\Middleware directory \n");
 
         return $this;

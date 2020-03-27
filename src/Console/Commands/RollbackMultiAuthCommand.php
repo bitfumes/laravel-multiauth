@@ -56,16 +56,16 @@ class RollbackMultiAuthCommand extends Command
             return;
         }
         $this->unPublishGuard()
-             ->rollbackControllers()
-             ->rollbackRoutes()
-             ->unRegisterRoutes()
-             ->rollbackViews()
-             ->removeFactory()
-             ->removeMigration()
-             ->removeModel()
-             ->removeMiddleware()
-             ->unRegisterMiddleware()
-             ->removeNotification();
+            ->rollbackControllers()
+            ->rollbackRoutes()
+            ->unRegisterRoutes()
+            ->rollbackViews()
+            ->removeFactory()
+            ->removeMigration()
+            ->removeModel()
+            ->removeMiddleware()
+            ->unRegisterMiddleware()
+            ->removeNotification();
     }
 
     protected function unPublishGuard()
@@ -191,6 +191,7 @@ class RollbackMultiAuthCommand extends Command
         $path  = app_path('Http/Middleware');
         unlink("{$path}/RedirectIf{$guard}.php");
         unlink("{$path}/RedirectIfNot{$guard}.php");
+        unlink("{$path}/EnsureEmailIsVerifiedOf{$guard}.php");
         $this->error("Step 9. Middlewares related to {$this->name} is removed from App\Http\Middleware directory \n");
 
         return $this;
