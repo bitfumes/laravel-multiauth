@@ -4,8 +4,6 @@
 
 **Apart from Admin section, you can make a another auth**
 
-This is fully compatible with laravel `MustVerifyEmail` trait, so that you can make user to must verify email. [click here](https://laravel.com/docs/5.8/verification) more details
-
 ```bash{1}
 php artisan multiauth:make {guard}
 ```
@@ -14,6 +12,19 @@ here `{guard}` means the name of your auth. For example, if you want to create a
 
 After you run this command you will get steps in which files has been added/changed.
 ![For Make](https://user-images.githubusercontent.com/41295276/44602450-4a4e2580-a7fd-11e8-858b-cac65c496908.png)
+
+## Email Verified
+
+This is fully compatible with laravel `MustVerifyEmail` trait, so that you can make user to must verify email. [click here](https://laravel.com/docs/5.8/verification) more details.
+
+If you need to have some route behind verified middleware, then you can use `{guard}.verified`
+for example, if you have created a student guard then to protect student home page with email verified route you can add middleware like this inside routes/student.php file
+
+```php{2}
+...
+Route::get('/', 'HomeController@index')->name('student.dashboard')->middleware('student.verified');
+...
+```
 
 ## Rollback
 
