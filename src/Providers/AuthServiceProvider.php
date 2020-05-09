@@ -2,6 +2,7 @@
 
 namespace Bitfumes\Multiauth\Providers;
 
+use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,10 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Gate::before(function ($admin, $ability) {
-            if ($this->isSuperAdmin($admin)) {
-                return true;
+            if ($admin instanceof Admin) {
+                if ($this->isSuperAdmin($admin)) {
+                    return true;
+                }
+                return $admin->hasPermission($ability);
             }
-            return $admin->hasPermission($ability);
         });
     }
 

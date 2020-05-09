@@ -14,7 +14,7 @@ class AdminTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setup():void
+    public function setup(): void
     {
         parent::setUp();
         $this->loginSuperAdmin();
@@ -39,8 +39,8 @@ class AdminTest extends TestCase
     public function a_super_admin_can_see_admin_register_page()
     {
         $this->get(route('admin.register'))
-                ->assertStatus(200)
-                ->assertSee('Register New Admin');
+            ->assertStatus(200)
+            ->assertSee('Register New Admin');
     }
 
     /**
@@ -50,8 +50,8 @@ class AdminTest extends TestCase
     {
         $this->logInAdmin();
         $this->get(route('admin.register'))
-                ->assertStatus(302)
-                ->assertRedirect(route('admin.home'));
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.home'));
     }
 
     /**
@@ -95,8 +95,8 @@ class AdminTest extends TestCase
         $this->logInAdmin();
         $newadmin = $this->createAdmin();
         $this->get(route('admin.show'))
-        ->assertDontSee($newadmin->name)
-        ->assertRedirect(route('admin.home'));
+            ->assertDontSee($newadmin->name)
+            ->assertRedirect(route('admin.home'));
     }
 
     /**
