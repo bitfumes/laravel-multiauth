@@ -1,13 +1,13 @@
-language: php
-php:
-  - 7.3
-install:
-  - composer install
-script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-
 jobs:
   include:
+    - stage: test
+      language: php
+      php:
+        - 7.3
+      install:
+        - composer install
+      script:
+        - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
     - stage: docs
       language: node_js
       node_js:
@@ -25,4 +25,3 @@ deploy:
   keep_history: true
   on:
     branch: master
-
