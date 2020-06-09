@@ -1,23 +1,22 @@
 language: php
-
 php:
   - 7.3
-
-before_script:
+install:
   - composer install
-  - composer dump-autoload
-
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
+jobs:
+  include:
+    - stage: docs
+      language: node_js
+      node_js:
+        - lts/*
+      install:
+        - yarn install # npm ci
+      script:
+        - yarn docs:build # npm run docs:build
 
-language: node_js
-node_js:
-  - lts/*
-install:
-  - yarn install # npm ci
-script:
-  - yarn docs:build # npm run docs:build
 deploy:
   provider: pages
   skip_cleanup: true
