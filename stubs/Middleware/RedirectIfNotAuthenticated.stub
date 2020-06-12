@@ -16,7 +16,7 @@ class RedirectIfNot{{singularClass}} extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return '/{{singularSlug}}/login';
+            return route('{{singularSlug}}.login');
         }
     }
 
