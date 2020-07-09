@@ -61,9 +61,16 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        $request['active'] = 1;
+        $extraCredentials = config('multiauth.credentials', [
+            'active' => 1,
+        ]);
 
-        return $request->only($this->username(), 'password', 'active');
+        $request->merge($extraCredentials);
+
+        return $request->only(array_merge(
+            [$this->username(), 'password'],
+            array_keys($extraCredentials),
+        ));
     }
 
     /**

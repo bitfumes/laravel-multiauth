@@ -132,6 +132,30 @@ You can set your own model and define here to use by package.
         'role'           => Bitfumes\Multiauth\Model\Role::class,
         'permission'     => Bitfumes\Multiauth\Model\Permission::class,
     ],
+
+...
+```
+
+## Credentials
+
+You can set your own credentials to be passed to the authenticator with the username and password.
+
+By default we check that the `active` column of the `admins` table is true.
+
+```php{11,12,13}
+...
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Credentials
+    |--------------------------------------------------------------------------
+    |
+    | When attempting a login the following additional credentials are
+    | provided to the authenticator to check in the admins table.
+    |
+    */
+    'credentials' => [
+        'active' => 1,
+    ],
 ];
 
 

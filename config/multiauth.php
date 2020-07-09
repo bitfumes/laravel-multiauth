@@ -75,4 +75,17 @@ return [
         'role'           => Bitfumes\Multiauth\Model\Role::class,
         'permission'     => Bitfumes\Multiauth\Model\Permission::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Credentials
+    |--------------------------------------------------------------------------
+    |
+    | When attempting a login the following additional credentials are
+    | provided to the authenticator to check in the admins table.
+    |
+    */
+    'credentials' => [
+        'active' => 1,
+    ],
 ];
