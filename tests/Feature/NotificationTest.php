@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Bitfumes\Multiauth\Notifications\RegistrationNotification;
 
-class AdminTest extends TestCase
+class NotificationTest extends TestCase
 {
     use DatabaseMigrations;
 
