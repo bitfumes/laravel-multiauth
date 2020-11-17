@@ -180,8 +180,8 @@ class MakeMultiAuthCommand extends Command
             return;
         }
 
-        preg_match('/\s+\/\*\*\n\s+\*\s(\w+\s)+"web"\s(\w+\s)+\w+.\n/', $provider, $match);
-        $provider = str_replace($match[0], $map . $match[0], $provider);
+        $toReplace = '$this->routes(function () {';
+        $provider  = str_replace($toReplace, $toReplace . $map, $provider);
         /********** Function Call **********/
 
         $map_call = file_get_contents($this->stub_path . '/routes/map_call.stub');
