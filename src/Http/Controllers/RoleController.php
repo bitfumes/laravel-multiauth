@@ -3,9 +3,7 @@
 namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Permission;
 
 class RoleController extends Controller
 {
@@ -13,37 +11,42 @@ class RoleController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('role:super');
+        $this->roleModel        = config('multiauth.models.role');
+        $this->adminModel       = config('multiauth.models.admin');
+        $this->permissionModel  = config('multiauth.models.permission');
     }
 
     public function index()
     {
-        $roles = Role::all();
+        $roles = $this->roleModel::all();
         return view('multiauth::roles.index', compact('roles'));
     }
 
     public function create()
     {
-        $permissions = Permission::all()->groupBy('parent');
+        $permissions = $this->permissionModel::all()->groupBy('parent');
         return view('multiauth::roles.create', compact('permissions'));
     }
 
-    public function edit(Role $role)
+    public function edit($roleId)
     {
+        $role        = $this->roleModel::findOrFail($roleId);
         $role        = $role->load('permissions');
-        $permissions = Permission::all()->groupBy('parent');
+        $permissions = $this->permissionModel::all()->groupBy('parent');
         return view('multiauth::roles.edit', compact('role', 'permissions'));
     }
 
     public function store(Request $request)
     {
         $request->validate(['name' => 'required']);
-        $role = Role::create($request->all());
+        $role = $this->roleModel::create($request->all());
         $role->addPermission($request->permissions);
         return redirect(route('admin.roles'))->with('message', 'New Role is stored successfully successfully');
     }
 
-    public function update(Role $role, Request $request)
+    public function update($roleId, Request $request)
     {
+        $role = $this->roleModel::findOrFail($roleId);
         $request->validate(['name' => 'required']);
 
         $role->update($request->all());
@@ -52,8 +55,9 @@ class RoleController extends Controller
         return redirect(route('admin.roles'))->with('message', 'You have updated Role successfully');
     }
 
-    public function destroy(Role $role)
+    public function destroy($roleId)
     {
+        $role = $this->roleModel::findOrFail($roleId);
         $role->delete();
 
         return redirect()->back()->with('message', 'You have deleted Role successfully');

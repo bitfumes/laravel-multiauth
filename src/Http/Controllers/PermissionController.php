@@ -4,7 +4,6 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Permission;
 use Symfony\Component\HttpFoundation\Response;
 
 class PermissionController extends Controller
@@ -13,6 +12,7 @@ class PermissionController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('role:super');
+        $this->permissionModel = config('multiauth.models.permission');
     }
 
     /**
@@ -22,7 +22,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return response(['data' => Permission::all()], 200);
+        return response(['data' => $this->permissionModel::all()], 200);
     }
 
     /**
@@ -31,8 +31,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show($permissionId)
     {
+        $permission = $this->permissionModel::findOrFail($permissionId);
         return response(['data' => $permission], 200);
     }
 
@@ -44,7 +45,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $permission = Permission::create($request->all());
+        $permission = $this->permissionModel::create($request->all());
         return response(['data' => $permission], Response::HTTP_CREATED);
     }
 
@@ -55,8 +56,9 @@ class PermissionController extends Controller
      * @param  \Bitfumes\Multiauth\Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, $permissionId)
     {
+        $permission = $this->permissionModel::findOrFail($permissionId);
         $permission->update($request->all());
         return response(['data' => $permission], Response::HTTP_ACCEPTED);
     }
@@ -67,8 +69,9 @@ class PermissionController extends Controller
      * @param  \Bitfumes\Multiauth\Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy($permissionId)
     {
+        $permission = $this->permissionModel::findOrFail($permissionId);
         $permission->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }

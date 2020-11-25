@@ -4,7 +4,6 @@ namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminController extends Controller
@@ -30,7 +29,7 @@ class AdminController extends Controller
 
     public function show()
     {
-        $admins = Admin::where('id', '!=', auth()->id())->get();
+        $admins = $this->adminModel::where('id', '!=', auth()->id())->get();
 
         return view('multiauth::admin.show', compact('admins'));
     }

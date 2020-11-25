@@ -3,13 +3,13 @@
 namespace Bitfumes\Multiauth\Traits;
 
 use Illuminate\Support\Collection;
-use Bitfumes\Multiauth\Model\Permission;
 
 trait hasPermissions
 {
     public function directPermissions()
     {
-        return $this->belongsToMany(Permission::class);
+        $permission = config('multiauth.models.permission');
+        return $this->belongsToMany($permission);
     }
 
     public function permissionsByRole()

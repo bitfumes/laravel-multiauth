@@ -15,7 +15,8 @@ class Admin extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        $role = config('multiauth.models.role');
+        return $this->belongsToMany($role);
     }
 
     /**

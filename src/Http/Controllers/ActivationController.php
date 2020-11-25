@@ -3,7 +3,6 @@
 namespace Bitfumes\Multiauth\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ActivationController extends Controller
@@ -16,15 +15,17 @@ class ActivationController extends Controller
         $this->adminModel = config('multiauth.models.admin');
     }
 
-    public function activate(Admin $admin)
+    public function activate($adminId)
     {
+        $admin = $this->adminModel::findOrFail($adminId);
         $this->authorize('UpdateAdmin', $this->adminModel);
         $admin->update(['active' => true]);
         return redirect()->back();
     }
 
-    public function deactivate(Admin $admin)
+    public function deactivate($adminId)
     {
+        $admin = $this->adminModel::findOrFail($adminId);
         $this->authorize('UpdateAdmin', $this->adminModel);
         $admin->update(['active' => false]);
         return redirect()->back();

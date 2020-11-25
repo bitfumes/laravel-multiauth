@@ -21,7 +21,8 @@ class Role extends Model
 
     public function admins()
     {
-        return $this->belongsToMany(Admin::class);
+        $adminModel = config('multiauth.models.admin');
+        return $this->belongsToMany($adminModel);
     }
 
     public function permissions()

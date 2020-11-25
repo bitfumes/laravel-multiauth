@@ -2,26 +2,30 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Admin;
 
 class AdminRoleController extends Controller
 {
     public function __construct()
     {
         $this->middleware('role:super');
+        $this->adminModel = config('multiauth.models.admin');
+        $this->roleModel  = config('multiauth.models.role');
     }
 
-    public function attach(Admin $admin, Role $role)
+    public function attach($adminId, $roleId)
     {
+        $role   = $this->roleModel::findOrFail($roleId);
+        $admin  = $this->adminModel::findOrFail($adminId);
         $admin->roles()->attach($role->id);
 
         return redirect()->back();
     }
 
-    public function detach(Admin $admin, Role $role)
+    public function detach($adminId, $roleId)
     {
+        $role   = $this->roleModel::findOrFail($roleId);
+        $admin  = $this->adminModel::findOrFail($adminId);
         $admin->roles()->detach($role->id);
 
         return redirect()->back();

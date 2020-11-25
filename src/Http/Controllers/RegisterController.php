@@ -2,10 +2,8 @@
 
 namespace Bitfumes\Multiauth\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Bitfumes\Multiauth\Model\Role;
 use Illuminate\Routing\Controller;
-use Bitfumes\Multiauth\Model\Admin;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Bitfumes\Multiauth\Http\Requests\AdminRequest;
@@ -47,12 +45,13 @@ class RegisterController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('role:super');
+        $this->adminModel = config('multiauth.models.admin');
+        $this->roleModel  = config('multiauth.models.role');
     }
 
     public function showRegistrationForm()
     {
-        $roles = Role::all();
-
+        $roles = $this->roleModel::all();
         return view('multiauth::admin.register', compact('roles'));
     }
 
@@ -72,7 +71,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $admin = new Admin();
+        $admin = new $this->adminModel();
 
         $fields           = $this->tableFields();
         $data['password'] = bcrypt($data['password']);
@@ -105,15 +104,17 @@ class RegisterController extends Controller
         return collect(\Schema::getColumnListing('admins'));
     }
 
-    public function edit(Admin $admin)
+    public function edit($adminId)
     {
+        $admin = $this->adminModel::findOrFail($adminId);
         $roles = Role::all();
 
         return view('multiauth::admin.edit', compact('admin', 'roles'));
     }
 
-    public function update(Admin $admin, AdminRequest $request)
+    public function update($adminId, AdminRequest $request)
     {
+        $admin             = $this->adminModel::findOrFail($adminId);
         $request['active'] = request('activation') ?? 0;
         unset($request['activation']);
         $admin->update($request->except('role_id'));
@@ -122,8 +123,9 @@ class RegisterController extends Controller
         return redirect(route('admin.show'))->with('message', "{$admin->name} details are successfully updated");
     }
 
-    public function destroy(Admin $admin)
+    public function destroy($adminId)
     {
+        $admin  = $this->adminModel::findOrFail($adminId);
         $prefix = config('multiauth.prefix');
         $admin->delete();
 
