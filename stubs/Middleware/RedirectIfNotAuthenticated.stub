@@ -2,27 +2,22 @@
 
 namespace {{namespace}}\Http\Middleware;
 
-use Closure;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class RedirectIfNot{{singularClass}}
+class RedirectIfNot{{singularClass}} extends Middleware
 {
 
     /**
-     * Handle an incoming request.
+     * Get the path the user should be redirected to when they are not authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
+     * @return string|null
      */
-    public function handle($request, Closure $next, $guard = '{{singularSnake}}')
+    protected function redirectTo($request)
     {
-        if (!Auth::guard($guard)->check()) {
-            return redirect('{{singularSlug}}/login');
+        if (! $request->expectsJson()) {
+            return route('{{singularSlug}}.login');
         }
-
-        return $next($request);
     }
 
 }
