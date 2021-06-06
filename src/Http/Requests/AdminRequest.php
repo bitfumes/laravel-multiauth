@@ -26,7 +26,7 @@ class AdminRequest extends FormRequest
     public function rules()
     {
         $email_rule = 'required|email|max:255|unique:admins,email';
-        $admin_id   = request('admin.id');
+        $admin_id   = request('admin');
         if (!is_null($admin_id)) {
             $email_rule .= ",{$admin_id}";
         }
