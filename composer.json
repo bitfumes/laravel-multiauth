@@ -22,7 +22,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "tymon/jwt-auth": "1.0.1",
+    "tymon/jwt-auth": "1.0.2",
     "laravel/ui": "^3.0",
     "laravel/legacy-factories": "^1.0@dev"
   },
