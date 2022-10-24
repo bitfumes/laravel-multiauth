@@ -3,6 +3,7 @@
 namespace Bitfumes\Multiauth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
 {
@@ -25,15 +26,10 @@ class AdminRequest extends FormRequest
      */
     public function rules()
     {
-        $email_rule = 'required|email|max:255|unique:admins,email';
-        $admin_id   = request('admin.id');
-        if (!is_null($admin_id)) {
-            $email_rule .= ",{$admin_id}";
-        }
 
         $rules    = [
             'name'     => 'required|max:255',
-            'email'    => $email_rule,
+            'email'    => 'required|'.Rule::unique('admins','email')->ignore(request('admin.id')),
             'password' => 'required|min:8|confirmed',
             'role_id'  => 'required',
         ];
